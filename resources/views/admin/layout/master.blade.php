@@ -25,6 +25,7 @@
     
     @include('admin.layout.scripts')
     <!-- end js include path -->
+    @yield('script')
 </body>
 
 </html>
