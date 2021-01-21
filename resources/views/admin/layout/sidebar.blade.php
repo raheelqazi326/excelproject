@@ -13,25 +13,27 @@
                        <div class="pull-left info">
                            <p> {{Auth::user()->first_name}} {{Auth::user()->last_name}} </p>
 
-                           <a href="#"><i class="fa fa-circle user-online"></i><span class="txtOnline"> Online</span></a>
+                           <!-- <a href="#"><i class="fa fa-circle user-online"></i><span class="txtOnline"> Online</span></a> -->
                        </div>
                    </div>
                </li>
-               <li class="nav-item">
-                <a href="{{route('sheet.list')}}" class="nav-link nav-toggle"> <i class="material-icons">Spread Sheet</i>
-                    <span class="title"></span></span>
+              <li class="nav-item">
+                <a href="{{route('sheet.list')}}" class="nav-link nav-toggle"> 
+                  <i class="fa fa-file-excel-o"></i>
+                    <span class="title">Spread Sheet</span>
                 </a>
-            </li>
+              </li>
                <li class="nav-item">
-                   <a href="{{route('user.list')}}" class="nav-link nav-toggle"> <i class="material-icons">Users</i>
-                       <span class="title"></span></span>
+                   <a href="{{route('user.list')}}" class="nav-link nav-toggle"> 
+                    <i class="fa fa-users"></i>
+                       <span class="title">Users</span>
                    </a>
                </li>
 
                <li class="nav-item">
-                <a href="{{route('auth.logout')}}" class="nav-link nav-toggle"> <i class="material-icons">Log Out</i>
-
-                    <span class="title"></span></span>
+                <a href="{{route('auth.logout')}}" class="nav-link nav-toggle"> 
+                  <i class="fa fa-sign-out"></i>
+                    <span class="title">Log Out</span></span>
                 </a>
             </li>
 
