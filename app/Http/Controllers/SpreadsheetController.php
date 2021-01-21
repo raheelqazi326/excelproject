@@ -4,11 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Spreadsheet;
+use DataTables;
 
 class SpreadsheetController extends Controller
 {
-    public function index(){
+    public function index(){   
         return view('admin.sheet.index');
+    }
+
+    public function datatableSpreadsheet(){
+        return DataTables::of(Spreadsheet::whereDate('created_at', date('Y-m-d', time())))->toJson();
     }
 
     public function uploadSpreadsheet(Request $request){

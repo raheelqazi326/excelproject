@@ -1,5 +1,11 @@
 @extends('admin.layout.master')
-
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('datatable/Main/css/jquery.dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('datatable/Main/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('datatable/Main/css/buttons.dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('datatable/Main/css/select.dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('datatable/Main/css/editor.dataTables.min.css') }}">
+@endpush
 @section('content')
 <div class="page-content-wrapper">
     <div class="page-content">
@@ -23,7 +29,7 @@
                     <div class="col-md-12">
                         <div class="float-right">
                             <button class="btn btn-primary excel-import p-3">
-                                Import
+                                Import SpreadSheet
                             </button>
                             <input type="file" id="excel_import" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" style="display:none">
                         </div>
@@ -40,33 +46,33 @@
                             </div>
                             <div class="card-body ">
                                 <div class="table-responsive">
-                                    <table class="table table-striped custom-table table-hover">
+                                    <table id="spreadsheet-table" class="table table-striped custom-table table-responsive table-hover">
                                         <thead>
                                             <tr>
                                                 <th>Request ID</th>
                                                 <th>Date</th>
                                                 <th>Start</th>
                                                 <th>End</th>
-                                                <th>Name</th>
-                                                <th>Progress</th>
+                                                <th>Ward</th>
+                                                <th>Request Grade</th>
+                                                <th>Cadidate</th>
+                                                <th>National Insurance</th>
+                                                <th>Comment From Colette</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>
-                                                    <a href="#">VectorLab</a>
-                                                </td>
+                                                <td>Lorem Ipsum dorolo imit</td>
+                                                <td>Lorem Ipsum dorolo imit</td>
+                                                <td>Lorem Ipsum dorolo imit</td>
+                                                <td>Lorem Ipsum dorolo imit</td>
+                                                <td>Lorem Ipsum dorolo imit</td>
                                                 <td>Lorem Ipsum dorolo imit</td>
                                                 <td>Lorem Ipsum dorolo imit</td>
                                                 <td>Lorem Ipsum dorolo imit</td>
                                                 <td>693030.00$</td>
-                                                <td>
-                                                    <div class="progress progress-striped progress-xs">
-                                                        <div style="width: 80%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="80" role="progressbar" class="progress-bar progress-bar-success"></div>
-                                                    </div>
-                                                </td>
                                                 <td>
                                                     <span class="label label-info label-mini">Due</span>
                                                 </td>
@@ -98,7 +104,74 @@
 @push('scripts')
     <script src="{{ asset('assets/js/pages/excel-import/jszip.js') }}"></script>
     <script src="{{ asset('assets/js/pages/excel-import/xlsx.js') }}"></script>
+    {{-- DataTable Scripts --}}
+    <script src="{{ asset('datatable/Main/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('datatable/Main/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('datatable/Main/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('datatable/Main/js/dataTables.select.min.js') }}"></script>
+    <script src="{{ asset('datatable/Main/js/dataTables.editor.min.js') }}"></script>
+    {{-- DataTable Scripts --}}
     <script>
+        $(document).ready(function(){
+            var editor; // use a global for the submit and return data rendering in the examples
+            $(document).ready(function(){
+                editor = new $.fn.dataTable.Editor({
+                    ajax: "../php/staff.php",
+                    table: "#example",
+                    fields: [{
+                            label: "First name:",
+                            name: "first_name"
+                        },
+                        {
+                            label: "Last name:",
+                            name: "last_name"
+                        },
+                        {
+                            label: "Position:",
+                            name: "position"
+                        },
+                        {
+                            label: "Office:",
+                            name: "office"
+                        },
+                        {
+                            label: "Extension:",
+                            name: "extn"
+                        },
+                        {
+                            label: "Start date:",
+                            name: "start_date",
+                            type: "datetime"
+                        },
+                        {
+                            label: "Salary:",
+                            name: "salary"
+                    }]
+                });
+            
+                $("#spreadsheet-table").DataTable({
+                    dom: "Bfrtip",
+                    ajax: "../php/staff.php",
+                    columns: [
+                        { data: null, render: function ( data, type, row ) {
+                            // Combine the first and last names into a single table field
+                            return data.first_name+' '+data.last_name;
+                        } },
+                        { data: "position" },
+                        { data: "office" },
+                        { data: "extn" },
+                        { data: "start_date" },
+                        { data: "salary", render: $.fn.dataTable.render.number( ',', '.', 0, '$' ) }
+                    ],
+                    select: true,
+                    buttons: [
+                        { extend: "create", editor: editor },
+                        { extend: "edit",   editor: editor },
+                        { extend: "remove", editor: editor }
+                    ]
+                });
+            });
+        });
         $(".excel-import").click(function(){
             $(this).siblings("input#excel_import").click();
         })

@@ -1,5 +1,11 @@
-@include('admin.layout.head')
+<!DOCTYPE html>
+<html lang="en">
+<!-- BEGIN HEAD -->
 
+<head>
+	@include('admin.layout.head')
+	@stack('styles')
+</head>
 
 <!-- END HEAD -->
 <body class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md header-white white-sidebar-color logo-indigo">
