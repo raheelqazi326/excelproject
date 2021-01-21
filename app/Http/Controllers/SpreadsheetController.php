@@ -4,12 +4,43 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Spreadsheet;
+use DataTables;
 
 class SpreadsheetController extends Controller
 {
-    //
-    public function index(){
+    public function index(){   
         return view('admin.sheet.index');
+    }
+
+    public function datatableSpreadsheet(){
+        // dd($request->all());
+        return DataTables::of(Spreadsheet::whereDate('created_at', date('Y-m-d', time())))->toJson();
+    }
+    
+    public function editSpreadsheet(Request $request){
+        // $data = $request->data;
+        // $i = (array_keys($data))[0];
+        // $errors = [];
+        // foreach($data[$i] as $key => $value){
+        //     $errors[] = [
+        //         "name" => $key,
+        //         "status" => "invalid field"
+        //     ];
+        // }
+        // return response()->json([
+        //     "data" => [],
+        //     "fieldErrors" => $errors
+        // ]);
+        foreach($request->data as $key => $data){
+            $spreadsheet = Spreadsheet::find($key);
+            if(!empty($spreadsheet)){
+                foreach ($data as $key => $value) {
+                    $spreadsheet->$key = $value;
+                }
+                $spreadsheet->save();
+            }
+        }
+        return DataTables::of(Spreadsheet::find(array_keys($request->data)))->toJson();
     }
 
     public function uploadSpreadsheet(Request $request){

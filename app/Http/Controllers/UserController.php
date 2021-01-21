@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Status;
+use App\Models\Role;
+use App\Models\User;
+use Hash;
 class UserController extends Controller
 {
     /**
@@ -13,7 +16,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.user.index');
+        $users = User::where('role_id','3')->get();
+        return view('admin.user.index',compact('users'));
     }
 
     /**
@@ -23,7 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -34,7 +38,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $adduser = new User;
+        $adduser->first_name =$request->first_name;
+        $adduser->last_name =$request->last_name;
+        $adduser->username  =$request->user_name;
+        $adduser->email   =$request->email;
+        $adduser->password   =Hash::make($request->password);
+        $adduser->role_id ='3';
+        $adduser->status ='active';
+        $adduser->save();
+        return 1;
+
     }
 
     /**

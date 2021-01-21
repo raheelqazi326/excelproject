@@ -2,24 +2,13 @@
     <div class="page-header-inner ">
         <!-- logo start -->
         <div class="page-logo">
-            <a href="index-2.html">
-            <span class="logo-icon material-icons fa-rotate-45">school</span>
-            <span class="logo-default" >Smart</span> </a>
+            <span class="logo-default" >lOGO</span> 
         </div>
         <!-- logo end -->
         <ul class="nav navbar-nav navbar-left in">
             <li><a href="#" class="menu-toggler sidebar-toggler"><i class="icon-menu"></i></a></li>
         </ul>
-         <form class="search-form-opened" action="#" method="GET">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search..." name="query">
-                <span class="input-group-btn">
-                  <a href="javascript:;" class="btn submit">
-                     <i class="icon-magnifier"></i>
-                   </a>
-                </span>
-            </div>
-        </form>
+
         <!-- start mobile menu -->
         <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
             <span></span>
@@ -40,7 +29,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-default">
                         <li>
-                            <a href="login.html">
+                            <a href="{{route('auth.logout')}}">
                                 <i class="icon-logout"></i> Log Out </a>
                         </li>
                     </ul>
