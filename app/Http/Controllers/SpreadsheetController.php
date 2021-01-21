@@ -16,7 +16,10 @@ class SpreadsheetController extends Controller
         $rows = $request->rows;
         foreach($rows as $row){        
             $spreadsheet = Spreadsheet::where('request_id', $row['Request Id'])->first();
-            if(empty($spreadsheet)){
+            if(!empty($spreadsheet) && $spreadsheet->status == 3){ 
+                continue;
+            }
+            else{
                 $spreadsheet = new Spreadsheet;
                 $spreadsheet->request_id = $row['Request Id'];
             }
