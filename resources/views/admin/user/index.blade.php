@@ -465,25 +465,25 @@
         </div>
         <div class="modal-body">
             <form id="userAdd">
-           
+           <input type="hidden" id="user_id" value="">
             <div class="form-group">
                 <label for="recipient-name" class="col-form-label">First Name:</label>
-                <input type="text" class="form-control" id="first_name" name="first_name">
+                <input type="text" class="form-control first_name" id="first_name" name="first_name" value="">
             </div>
 
               <div class="form-group">
                 <label for="recipient-name" class="col-form-label">Last Name:</label>
-                <input type="text" class="form-control" id="last_name" name="last_name">
+                <input type="text" class="form-control last_name" id="last_name" name="last_name">
               </div>
 
               <div class="form-group">
                 <label for="recipient-name" class="col-form-label"> Username:</label>
-                <input type="text" class="form-control" id="user_name" name="user_name">
+                <input type="text" class="form-control user_name" id="user_name" name="user_name">
               </div>
 
               <div class="form-group">
                 <label for="recipient-name" class="col-form-label"> Eamil:</label>
-                <input type="text" class="form-control" id="email" name="email">
+                <input type="text" class="form-control email" id="email" name="email">
               </div>
 
               <div class="form-group">
@@ -527,13 +527,18 @@
 
         $(document).on('click','#editUser',function(){
             let id = $(this).data('id');
-            alert(id);
             $.ajax({
                     url:'/user/show/'+id,
                     type: 'get',
                     success:function(data){
                         console.log(data);
-                        $('#editUsermodal').modal('toggle');
+                        $('#user_id').val(data.id);
+                        $('.first_name').val(data.first_name);
+                        $('.last_name').val(data.last_name);
+                        $('.user_name').val(data.user_name);
+                        $('.email').val(data.email);
+
+                        $('#editUsermodal').modal('show');
                     }
                 });
 
