@@ -12,9 +12,19 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/login', 'AuthController@index')->name('login');
+Route::post('/auth/login', 'AuthController@login')->name('auth.login');
 
+/////////////////////////////////////// SHEET ROUTE //////////////////////////////////////////////
 Route::get('/sheet/list', 'SpreadsheetController@index')->name('sheet.list');
 Route::post('/upload-spreadsheet', 'SpreadsheetController@uploadSpreadsheet')->name('sheet.upload');
+
+/////////////////////////////////////// USER ROUTE //////////////////////////////////////////////
+Route::post('/user/sotore', 'UserController@store')->name('user.store');
+Route::get('/user/list', 'UserController@index')->name('user.list');
+Route::get('/user/create', 'UserController@create')->name('user.create');
+
+
 Route::get('/', function () {
     return view('welcome');
 });
