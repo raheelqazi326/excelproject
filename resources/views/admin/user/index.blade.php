@@ -51,7 +51,7 @@
                                             @endif
                                             </td>
                                             <td >
-                                                <button id="editUser" class="btn btn-primary btn-xs">
+                                                <button id="editUser" data-id="{{$user->id}}" class="btn btn-primary btn-xs">
                                                     <i class="fa fa-pencil"></i>
                                                 </button>
                                                 <button class="btn btn-danger btn-xs">
@@ -526,8 +526,17 @@
         });
 
         $(document).on('click','#editUser',function(){
-            alert('working');
-            $('#editUsermodal').modal('toggle');
+            let id = $(this).data('id');
+            alert(id);
+            $.ajax({
+                    url:'/user/show/'+id,
+                    type: 'get',
+                    success:function(data){
+                        console.log(data);
+                        $('#editUsermodal').modal('toggle');
+                    }
+                });
+
 
 
         });

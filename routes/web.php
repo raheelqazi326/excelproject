@@ -26,6 +26,7 @@ Route::group(['middleware'=>'auth'], function () {
     Route::post('/user/store', 'App\Http\Controllers\UserController@store')->name('user.store');
     Route::get('/user/list', 'App\Http\Controllers\UserController@index')->name('user.list');
     Route::get('/user/create', 'App\Http\Controllers\UserController@create')->name('user.create');
+    Route::get('/user/show/{id}', 'App\Http\Controllers\UserController@show')->name('/user/show/{id}');
 
 });
 
