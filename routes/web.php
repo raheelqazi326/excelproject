@@ -24,7 +24,6 @@ Route::group(['middleware'=>'auth'], function () {
     Route::get('/sheet/datatable', 'SpreadsheetController@datatableSpreadsheet')->name('sheet.datatable');
     
     /////////////////////////////////////// USER ROUTE //////////////////////////////////////////////
-<<<<<<< HEAD
     Route::post('/user/store', 'App\Http\Controllers\UserController@store')->name('user.store');
     Route::get('/user/list', 'App\Http\Controllers\UserController@index')->name('user.list');
     Route::get('/user/create', 'App\Http\Controllers\UserController@create')->name('user.create');
@@ -35,7 +34,6 @@ Route::group(['middleware'=>'auth'], function () {
     Route::post('/user/sotore', 'UserController@store')->name('user.store');
     Route::get('/user/list', 'UserController@index')->name('user.list');
     Route::get('/user/create', 'UserController@create')->name('user.create');
->>>>>>> 4c2873bb22b7026cc3a88493fe58f6b32e7a8ecf
 
 });
 // Route::get('/', function () {
