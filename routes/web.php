@@ -14,16 +14,20 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/login', 'App\Http\Controllers\AuthController@index')->name('login');
 Route::post('/auth/login', 'App\Http\Controllers\AuthController@login')->name('auth.login');
+Route::post('/auth/logout', 'App\Http\Controllers\AuthController@logout')->name('auth.logout');
 
-/////////////////////////////////////// SHEET ROUTE //////////////////////////////////////////////
-Route::get('/sheet/list', 'App\Http\Controllers\SpreadsheetController@index')->name('sheet.list');
+Route::group(['middleware'=>'auth'], function () {
+
+    /////////////////////////////////////// SHEET ROUTE //////////////////////////////////////////////
+    Route::get('/sheet/list', 'App\Http\Controllers\SpreadsheetController@index')->name('sheet.list');
 
 
-/////////////////////////////////////// USER ROUTE //////////////////////////////////////////////
-Route::post('/user/sotore', 'App\Http\Controllers\UserController@store')->name('user.store');
-Route::get('/user/list', 'App\Http\Controllers\UserController@index')->name('user.list');
-Route::get('/user/create', 'App\Http\Controllers\UserController@create')->name('user.create');
+    /////////////////////////////////////// USER ROUTE //////////////////////////////////////////////
+    Route::post('/user/sotore', 'App\Http\Controllers\UserController@store')->name('user.store');
+    Route::get('/user/list', 'App\Http\Controllers\UserController@index')->name('user.list');
+    Route::get('/user/create', 'App\Http\Controllers\UserController@create')->name('user.create');
 
+});
 
 Route::get('/', function () {
     return view('welcome');
