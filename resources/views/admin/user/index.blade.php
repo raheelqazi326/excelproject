@@ -450,6 +450,57 @@
     </div>
   </div>
 
+
+
+  {{-- EDIT USER MODAL--}}
+
+<div class="modal fade" id="editUsermodal" tabindex="-1" role="dialog" aria-labelledby="editUsermodalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editUsermodalLabel">Add User</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form id="userAdd">
+           
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">First Name:</label>
+                <input type="text" class="form-control" id="first_name" name="first_name">
+            </div>
+
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Last Name:</label>
+                <input type="text" class="form-control" id="last_name" name="last_name">
+              </div>
+
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label"> Username:</label>
+                <input type="text" class="form-control" id="user_name" name="user_name">
+              </div>
+
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label"> Eamil:</label>
+                <input type="text" class="form-control" id="email" name="email">
+              </div>
+
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label"> Password:</label>
+                <input type="text" class="form-control" id="password" name="password">
+              </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Save changes</button>
+        </form>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
 @endsection
 @section('script')
 
@@ -472,6 +523,13 @@
                           
                     }
                 });
+        });
+
+        $(document).on('click','#editUser',function(){
+            alert('working');
+            $('#editUsermodal').modal('toggle');
+
+
         });
     });
 </script>
