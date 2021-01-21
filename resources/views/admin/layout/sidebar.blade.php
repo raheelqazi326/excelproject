@@ -17,18 +17,23 @@
                        </div>
                    </div>
                </li>
-           
                <li class="nav-item">
-                   <a href="#" class="nav-link nav-toggle"> <i class="material-icons">Menu</i>
-                       <span class="title">Here</span> <span class="arrow"></span>
+                <a href="{{route('sheet.list')}}" class="nav-link nav-toggle"> <i class="material-icons">Spread Sheet</i>
+                    <span class="title"></span></span>
+                </a>
+            </li>
+               <li class="nav-item">
+                   <a href="{{route('user.list')}}" class="nav-link nav-toggle"> <i class="material-icons">Users</i>
+                       <span class="title"></span></span>
                    </a>
-                   <ul class="sub-menu">
-                       <li class="nav-item">
-                           <a href="{{route('user.list')}}" class="nav-link "> <span class="title">Users</span>
-                           </a>
-                       </li>
-                   </ul>
                </li>
+
+               <li class="nav-item">
+                <a href="{{route('auth.logout')}}" class="nav-link nav-toggle"> <i class="material-icons">Log Out</i>
+
+                    <span class="title"></span></span>
+                </a>
+            </li>
 
            </ul>
        </div>
