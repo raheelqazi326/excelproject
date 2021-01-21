@@ -68,7 +68,8 @@
     <!-- start js include path -->
     
     @include('admin.layout.scripts')
-    <!-- end js include path -->
+	<!-- end js include path -->
+	@stack('scripts')
 </body>
 
 </html>

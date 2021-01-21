@@ -13,9 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/sheet/list', 'App\Http\Controllers\SpreadsheetController@index')->name('sheet.list');
-
-
+Route::get('/sheet/list', 'SpreadsheetController@index')->name('sheet.list');
+Route::post('/upload-spreadsheet', 'SpreadsheetController@uploadSpreadsheet')->name('sheet.upload');
 Route::get('/', function () {
     return view('welcome');
+});
+Route::get('/get-date/{date}', function ($date) {
+    return date('Y-m-d', $date);
 });

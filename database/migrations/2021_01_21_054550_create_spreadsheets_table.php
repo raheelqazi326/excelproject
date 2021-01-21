@@ -19,7 +19,7 @@ class CreateSpreadsheetsTable extends Migration
             $table->date('date');
             $table->time('start');
             $table->time('end');
-            $table->string('name', 255);
+            $table->string('ward', 255);
             $table->string('request_grade', 255);
             $table->string('candidate', 100)->nullable();
             $table->string('national_insurance', 100)->nullable();
