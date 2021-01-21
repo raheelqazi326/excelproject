@@ -14,13 +14,12 @@ class SpreadsheetController extends Controller
     public function uploadSpreadsheet(Request $request){
         $rows = $request->rows;
         foreach($rows as $row){        
-            return response()->json(['status' => true, 'message' => date('Y-m-d', $row['Date'])]);
             $spreadsheet = Spreadsheet::where('request_id', $row['Request Id'])->first();
             if(empty($spreadsheet)){
                 $spreadsheet = new Spreadsheet;
                 $spreadsheet->request_id = $row['Request Id'];
             }
-            $spreadsheet->date = date('Y-m-d', $row['Date']);
+            $spreadsheet->date = date('Y-m-d', strtotime($row['Date']));
             $spreadsheet->start = $row['Start'];
             $spreadsheet->end = $row['End'];
             $spreadsheet->ward = $row['Ward'];

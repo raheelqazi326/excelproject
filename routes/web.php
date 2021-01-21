@@ -18,6 +18,3 @@ Route::post('/upload-spreadsheet', 'SpreadsheetController@uploadSpreadsheet')->n
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/get-date/{date}', function ($date) {
-    return date('Y-m-d', $date);
-});
