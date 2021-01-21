@@ -38,7 +38,13 @@ class Users extends Seeder
         User::truncate();
         foreach($users as $user){
             $userModel = new User();
-            $userModel->name = $user;
+            $userModel->first_name = $user['first_name'];
+            $userModel->last_name = $user['last_name'];
+            $userModel->email = $user['email'];
+            $userModel->username = $user['username'];
+            $userModel->password = $user['password'];
+            $userModel->status = $user['status'];
+            $userModel->role_id = $user['role_id'];
             $userModel->save();
         }
     }
