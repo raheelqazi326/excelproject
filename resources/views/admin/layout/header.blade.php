@@ -27,7 +27,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-default">
                         <li>
-                            <a href="login.html">
+                            <a href="{{route('auth.logout')}}">
                                 <i class="icon-logout"></i> Log Out </a>
                         </li>
                     </ul>

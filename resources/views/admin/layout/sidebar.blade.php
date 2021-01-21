@@ -29,10 +29,8 @@
                </li>
 
                <li class="nav-item">
-                   <form action="{{route('auth.logout')}}" method="post">
-                       @csrf
-                    <button type="submit" class="nav-link nav-toggle" class="material-icons">Log Out</button>
-                   </form>
+                <a href="{{route('auth.logout')}}" class="nav-link nav-toggle"> <i class="material-icons">Log Out</i>
+
                     <span class="title"></span></span>
                 </a>
             </li>
