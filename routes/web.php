@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/sheet/list', 'App\Http\Controllers\SpreadsheetController@index')->name('sheet.list');
+
+
 Route::get('/', function () {
     return view('welcome');
 });

@@ -8,7 +8,7 @@ class SpreadsheetController extends Controller
 {
     //
     public function index(){
-
+        return view('admin.sheet.index');
     }
 
     public function uploadSpreadsheet(Request $request){
