@@ -40,6 +40,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+        'colette' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
 
         'api' => [
             'driver' => 'token',
