@@ -18,7 +18,7 @@ Route::post('/auth/login', 'AuthController@login')->name('auth.login');
 /////////////////////////////////////// SHEET ROUTE //////////////////////////////////////////////
 Route::get('/sheet/list', 'SpreadsheetController@index')->name('sheet.list');
 Route::post('/upload-spreadsheet', 'SpreadsheetController@uploadSpreadsheet')->name('sheet.upload');
-Route::get('/sheet/datatable', 'SpreadsheetController@datatableSpreadsheet');
+Route::get('/sheet/datatable', 'SpreadsheetController@datatableSpreadsheet')->name('sheet.datatable');
 
 /////////////////////////////////////// USER ROUTE //////////////////////////////////////////////
 Route::post('/user/sotore', 'UserController@store')->name('user.store');

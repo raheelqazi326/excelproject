@@ -62,6 +62,23 @@
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
+                                    </table>
+                                    {{-- <table id="spreadsheet-table" class="table table-striped custom-table table-responsive table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Request ID</th>
+                                                <th>Date</th>
+                                                <th>Start</th>
+                                                <th>End</th>
+                                                <th>Ward</th>
+                                                <th>Request Grade</th>
+                                                <th>Cadidate</th>
+                                                <th>National Insurance</th>
+                                                <th>Comment From Colette</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
                                         <tbody>
                                             <tr>
                                                 <td>Lorem Ipsum dorolo imit</td>
@@ -89,7 +106,7 @@
                                                 </td>
                                             </tr>
                                         </tbody>
-                                    </table>
+                                    </table> --}}
                                 </div>
                             </div>
                         </div>
@@ -116,58 +133,69 @@
             var editor; // use a global for the submit and return data rendering in the examples
             $(document).ready(function(){
                 editor = new $.fn.dataTable.Editor({
-                    ajax: "../php/staff.php",
-                    table: "#example",
-                    fields: [{
-                            label: "First name:",
-                            name: "first_name"
+                    ajax: "{{ route('sheet.edit') }}",
+                    table: "#spreadsheet-table",
+                    idSrc: "id",
+                    fields: [
+                        {
+                            label: "Candidate:",
+                            name: "candidate"
                         },
                         {
-                            label: "Last name:",
-                            name: "last_name"
-                        },
-                        {
-                            label: "Position:",
-                            name: "position"
-                        },
-                        {
-                            label: "Office:",
-                            name: "office"
-                        },
-                        {
-                            label: "Extension:",
-                            name: "extn"
-                        },
-                        {
-                            label: "Start date:",
-                            name: "start_date",
-                            type: "datetime"
-                        },
-                        {
-                            label: "Salary:",
-                            name: "salary"
+                            label: "National Insurance:",
+                            name: "national_insurance"
                     }]
                 });
-            
+                $("#spreadsheet-table").on( 'click', 'tbody td:not(:first-child)', function (e){
+                    try {
+                        editor.inline( this );
+                    } catch (error) {
+                        console.log(error);                    
+                    }
+                });
                 $("#spreadsheet-table").DataTable({
                     dom: "Bfrtip",
-                    ajax: "../php/staff.php",
+                    ajax: "{{ route('sheet.datatable') }}",
+                    order: [[ 1, 'asc' ]],
                     columns: [
-                        { data: null, render: function ( data, type, row ) {
-                            // Combine the first and last names into a single table field
-                            return data.first_name+' '+data.last_name;
-                        } },
-                        { data: "position" },
-                        { data: "office" },
-                        { data: "extn" },
-                        { data: "start_date" },
-                        { data: "salary", render: $.fn.dataTable.render.number( ',', '.', 0, '$' ) }
-                    ],
-                    select: true,
+                        {
+                            data: "request_id"
+                        },
+                        {
+                            data: "date"
+                        },
+                        {
+                            data: "start"
+                        },
+                        {
+                            data: "end"
+                        },
+                        {
+                            data: "ward"
+                        },
+                        {
+                            data: "request_grade"
+                        },
+                        {
+                            data: "candidate"
+                        },
+                        {
+                            data: "national_insurance"
+                        },
+                        {
+                            data: "comment_from_colette"
+                        },
+                        {
+                            data: "status_id"
+                    }],
+                    select: {
+                        style:    'os',
+                        selector: 'td:first-child'
+                    },
                     buttons: [
-                        { extend: "create", editor: editor },
-                        { extend: "edit",   editor: editor },
-                        { extend: "remove", editor: editor }
+                        // { extend: "create", editor: editor },
+                        // { extend: "edit",   editor: editor },
+                        // { extend: "remove", editor: editor }
                     ]
                 });
             });
