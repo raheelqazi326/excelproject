@@ -58,10 +58,12 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="float-right">
-                            <button class="btn btn-primary excel-import p-3">
-                                Import SpreadSheet
-                            </button>
-                            <input type="file" id="excel_import" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" style="display:none">
+                            @if (auth()->user()->role_id == 2)
+                                <button class="btn btn-primary excel-import p-3">
+                                    Import SpreadSheet
+                                </button>
+                                <input type="file" id="excel_import" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" style="display:none">
+                            @endif
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -69,7 +71,7 @@
                             <div class="card-head">
                                 <header>Spread Sheet</header>
                                 <div class="tools">
-                                    {{-- <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a> --}}
+                                    <a class="fa fa-repeat btn-color spreadsheet-refresh" href="javascript:;"></a>
                                     {{-- <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a> --}}
                                     {{-- <a class="t-close btn-color fa fa-times" href="javascript:;"></a> --}}
                                 </div>
@@ -135,6 +137,10 @@
             var is_colette = {{ auth()->user()->role_id == 2?1:0 }};
             var editor; // use a global for the submit and return data rendering in the examples
             $(document).ready(function(){
+                $(".spreadsheet-refresh").click(function(e){
+                    e.preventDefault();
+                    DataTable.ajax.reload();
+                });
                 let fields = [];
                 if(is_colette){
                     fields = [{
@@ -159,11 +165,19 @@
                     ];
                 }
                 editor = new $.fn.dataTable.Editor({
-                    ajax: "{{ route('sheet.edit') }}",
+                    ajax: {
+                        url:"{{ route('sheet.edit') }}",
+                        type: "POST",
+                        data:{
+                            'role_id':{{ auth()->user()->role_id }}
+                        }
+                    },
                     table: "#spreadsheet-table",
                     idSrc: "id",
                     fields: fields
                 });
+                $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+                console.log(editor);
                 $("#spreadsheet-table").on( 'click', 'tbody td', function (e){
                     try {
                         let i = $(this).index();
@@ -224,24 +238,33 @@
                             render: function ( data, type, row ) {
                                 // Combine the first and last names into a single table field
                                 let actionWrapper = $("<div/>");
-                                if(is_colette && data.status_id != 3 && data.status_id != 1 && data.status_id != 4){
+                                if(is_colette && data.status_id == 2){
                                     $("<span></span>").attr({
+                                        "data-toggle":"tooltip",
+                                        "title":"Approve Request",
                                         "class": "label label-success mr-1 mb-1 change-request-status",
                                         "data-id": data.id,
                                         "data-status": 3,
                                         "style": "cursor:pointer"
                                     }).append($('<i class="fa fa-check"></i>')).appendTo(actionWrapper);
                                     $("<span></span>").attr({
+                                        "data-toggle":"tooltip",
+                                        "title":"Reject Request",
                                         "class": "label label-danger change-request-status",
                                         "data-id": data.id,
                                         "data-status": 4,
                                         "style": "cursor:pointer"
                                     }).append($('<i class="fa fa-times"></i>')).appendTo(actionWrapper);
-                                    // $("<span></span>").attr({
-                                    //     "class": "label label-primary",
-                                    //     "data-id": data.id,
-                                    //     "data-status": 3
-                                    // }).append($('<i class="fa fa-pencil"></i>')).appendTo(actionWrapper);
+                                }
+                                else if(!is_colette && (data.status_id == 3 || data.status_id == 4)){
+                                    $("<span></span>").attr({
+                                        "data-toggle":"tooltip",
+                                        "title":"Cancel Request",
+                                        "class": "label label-info change-request-status",
+                                        "data-id": data.id,
+                                        "data-status": 1,
+                                        "style": "cursor:pointer"
+                                    }).append($('<i class="fa fa-times"></i>')).appendTo(actionWrapper);
                                 }
                                 return actionWrapper.html();
                             }

@@ -39,7 +39,7 @@ class SpreadsheetController extends Controller
         $rows = $request->data;
         $i = (array_keys($rows))[0];
         $errors = [];
-        $is_colette = auth()->user()->role_id == 2?1:0;
+        $is_colette = $request->role_id == 2?1:0;
         try {
             //code...
             foreach($rows as $key => $row){
@@ -61,16 +61,16 @@ class SpreadsheetController extends Controller
                             }
                         }
                         else{
-                            if(($key == "candidate" || $key == "national_insurance") || ($spreadsheet->status == 1 && $spreadsheet->status == 2)){
+                            if(($key == "candidate" || $key == "national_insurance") && ($spreadsheet->status_id == 1 && $spreadsheet->status_id == 2)){
                                 $spreadsheet->$key = $value;
                             }
                             else{
                                 return response()->json([
                                     "data" => [],
-                                    "fieldErrors" => [
+                                    "fieldErrors" => [[
                                         "name" => $key,
-                                        "status" => ($key == "candidate" || $key == "national_insurance")?"you can not update this column":"You can not updated when request is ".($spreadsheet->status == 3?"approved":"reject")
-                                    ]
+                                        "status" => !($key == "candidate" || $key == "national_insurance")?"you can not update this column":"You can not update when request is ".($spreadsheet->status_id == 3?"approved":"reject")
+                                    ]]
                                 ]);
                             }
                         }
