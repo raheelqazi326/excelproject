@@ -12,9 +12,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', 'App\Http\Controllers\AuthController@index')->name('login');
-Route::post('/auth/login', 'App\Http\Controllers\AuthController@login')->name('auth.login');
-Route::get('/auth/logout', 'App\Http\Controllers\AuthController@logout')->name('auth.logout');
+Route::get('/', 'AuthController@index')->name('login');
+Route::post('/auth/login', 'AuthController@login')->name('auth.login');
+Route::get('/auth/logout', 'AuthController@logout')->name('auth.logout');
 
 Route::group(['middleware'=>'auth'], function () {
 

@@ -14,23 +14,23 @@ class SpreadsheetController extends Controller
 
     public function datatableSpreadsheet(){
         // dd($request->all());
-        return DataTables::of(Spreadsheet::whereDate('created_at', date('Y-m-d', time())))->toJson();
+        return DataTables::of(Spreadsheet::with('status')->whereHas('status')->whereDate('created_at', date('Y-m-d', time())))->toJson();
     }
     
     public function editSpreadsheet(Request $request){
-        // $data = $request->data;
-        // $i = (array_keys($data))[0];
-        // $errors = [];
-        // foreach($data[$i] as $key => $value){
-        //     $errors[] = [
-        //         "name" => $key,
-        //         "status" => "invalid field"
-        //     ];
-        // }
-        // return response()->json([
-        //     "data" => [],
-        //     "fieldErrors" => $errors
-        // ]);
+        $data = $request->data;
+        $i = (array_keys($data))[0];
+        $errors = [];
+        foreach($data[$i] as $key => $value){
+            $errors[] = [
+                "name" => $key,
+                "status" => "invalid field"
+            ];
+        }
+        return response()->json([
+            "data" => [],
+            "fieldErrors" => $errors
+        ]);
         foreach($request->data as $key => $data){
             $spreadsheet = Spreadsheet::find($key);
             if(!empty($spreadsheet)){

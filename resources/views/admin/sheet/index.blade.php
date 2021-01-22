@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('datatable/Main/css/jquery.dataTables.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('datatable/Main/css/jquery.dataTables.min.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('datatable/Main/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('datatable/Main/css/buttons.dataTables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('datatable/Main/css/select.dataTables.min.css') }}">
@@ -45,7 +45,7 @@
                                 </div>
                             </div>
                             <div class="card-body ">
-                                <div class="table-responsive">
+                                <div class="">
                                     <table id="spreadsheet-table" class="table table-striped custom-table table-responsive table-hover">
                                         <thead>
                                             <tr>
@@ -62,6 +62,21 @@
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Request ID</th>
+                                                <th>Date</th>
+                                                <th>Start</th>
+                                                <th>End</th>
+                                                <th>Ward</th>
+                                                <th>Request Grade</th>
+                                                <th>Cadidate</th>
+                                                <th>National Insurance</th>
+                                                <th>Comment From Colette</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </tfoot>
                                     </table>
                                     {{-- <table id="spreadsheet-table" class="table table-striped custom-table table-responsive table-hover">
                                         <thead>
@@ -130,6 +145,7 @@
     {{-- DataTable Scripts --}}
     <script>
         $(document).ready(function(){
+            var is_colette = {{ auth()->user()->role_id == 2?1:0 }};
             var editor; // use a global for the submit and return data rendering in the examples
             $(document).ready(function(){
                 editor = new $.fn.dataTable.Editor({
@@ -144,31 +160,50 @@
                         {
                             label: "National Insurance:",
                             name: "national_insurance"
-                    }]
+                        },
+                        {
+                            label: "Comment From Colette:",
+                            name: "comment_from_colette"
+                        },
+                        {
+                            label: "Status:",
+                            name: "status"
+                        }
+                    ]
                 });
-                $("#spreadsheet-table").on( 'click', 'tbody td:not(:first-child)', function (e){
+                $("#spreadsheet-table").on( 'click', 'tbody td', function (e){
                     try {
-                        editor.inline( this );
+                        let i = $(this).index();
+                        // console.log(is_colette);
+                        if (!is_colette && (i == 6 || i == 7)){
+                            editor.inline( this );
+                        }
+                        if (is_colette && (i == 8 || i == 9)){
+                            editor.inline( this );
+                        }
                     } catch (error) {
                         console.log(error);                    
                     }
                 });
-                $("#spreadsheet-table").DataTable({
+                let table = $("#spreadsheet-table").DataTable({
                     dom: "Bfrtip",
                     ajax: "{{ route('sheet.datatable') }}",
-                    order: [[ 1, 'asc' ]],
+                    // order: [[ 1, 'asc' ]],
                     columns: [
                         {
                             data: "request_id"
                         },
                         {
-                            data: "date"
+                            data: "date",
+                            type: "date"
                         },
                         {
-                            data: "start"
+                            data: "start",
+                            type: "datetime"
                         },
                         {
-                            data: "end"
+                            data: "end",
+                            type: "datetime"
                         },
                         {
                             data: "ward"
@@ -186,16 +221,61 @@
                             data: "comment_from_colette"
                         },
                         {
-                            data: "status_id"
-                    }],
-                    select: {
-                        style:    'os',
-                        selector: 'td:first-child'
-                    },
+                            data: "status.name"
+                        },
+                        {
+                            data: null,
+                            defaultContent: '',
+                            orderable: false,
+                            render: function ( data, type, row ) {
+                                // Combine the first and last names into a single table field
+                                let actionWrapper = $("<div/>");
+                                $("<span></span>").attr({
+                                    "class": "label label-primary mr-1 mb-1",
+                                    "data-id": data.id,
+                                    "data-status": 3
+                                }).append($('<i class="fa fa-pencil"></i>')).appendTo(actionWrapper);
+                                $("<span></span>").attr({
+                                    "class": "label label-danger",
+                                    "data-id": data.id,
+                                    "data-status": 4
+                                }).append($('<i class="fa fa-times"></i>')).appendTo(actionWrapper);
+                                // $("<span></span>").attr({
+                                //     "class": "label label-primary",
+                                //     "data-id": data.id,
+                                //     "data-status": 3
+                                // }).append($('<i class="fa fa-pencil"></i>')).appendTo(actionWrapper);
+                                return actionWrapper.html();
+                            }
+                        }
+                    ],
+                    select: true,
                     buttons: [
                         // { extend: "create", editor: editor },
                         // { extend: "edit",   editor: editor },
                         // { extend: "remove", editor: editor }
+                        {
+                            extend: "selectedSingle",
+                            text: "Approve",
+                            action: function ( e, dt, node, config ) {
+                                // Immediately add `250` to the value of the salary and submit
+                                editor
+                                    .edit( table.row( { selected: true } ).index(), false )
+                                    .set( 'status', 3 )
+                                    .submit();
+                            }
+                        },
+                        {
+                            extend: "selectedSingle",
+                            text: "Reject",
+                            action: function ( e, dt, node, config ) {
+                                // Immediately add `250` to the value of the salary and submit
+                                editor
+                                    .edit( table.row( { selected: true } ).index(), false )
+                                    .set( 'status', 4 )
+                                    .submit();
+                            }
+                        },
                     ]
                 });
             });

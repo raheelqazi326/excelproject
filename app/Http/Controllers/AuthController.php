@@ -33,6 +33,6 @@ class AuthController extends Controller
         Auth::logout();
         session()->invalidate();
         session()->regenerateToken();
-        return redirect('/login');
+        return redirect()->route('login');
     }
 }
