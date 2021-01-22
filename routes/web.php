@@ -24,9 +24,11 @@ Route::group(['middleware'=>'auth'], function () {
     Route::get('/sheet/datatable', 'SpreadsheetController@datatableSpreadsheet')->name('sheet.datatable');
     
     /////////////////////////////////////// USER ROUTE //////////////////////////////////////////////
-    Route::post('/user/sotore', 'UserController@store')->name('user.store');
+    Route::post('/user/store', 'UserController@store')->name('user.store');
     Route::get('/user/list', 'UserController@index')->name('user.list');
     Route::get('/user/create', 'UserController@create')->name('user.create');
+    Route::get('/user/show/{id}', 'UserController@show')->name('/user/show/{id}');
+
 
 });
 // Route::get('/', function () {
