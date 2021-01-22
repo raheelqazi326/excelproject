@@ -11,3 +11,4 @@
 <script src="{{ asset('assets/js/theme-color.js')}}" ></script>
 <!-- Material -->
 <script src="{{ asset('assets/plugins/material/material.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

@@ -714,7 +714,7 @@ var App = function() {
 
         //main function to initiate the theme
         init: function() {
-			disableInspect();
+			// disableInspect();
             //Core handlers
             handleInit(); // initialize core variables
             handleTheme();

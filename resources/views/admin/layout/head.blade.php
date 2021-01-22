@@ -5,7 +5,12 @@
 <meta name="description" content="Responsive Admin Template" />
 <meta name="author" content="SmartUniversity" />
 <meta name="csrf-token" content="{{ csrf_token() }}" />
-<title>Smart University | Bootstrap Responsive Admin Template</title>
+<title>Spread Online Sheet</title>
+	<link rel="stylesheet" href="{{ asset('datatable/Main/css/jquery.dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('datatable/Main/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('datatable/Main/css/buttons.dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('datatable/Main/css/select.dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('datatable/Main/css/editor.dataTables.min.css') }}">
 <!-- google font -->
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" type="text/css" />
 <!-- icons -->
@@ -24,4 +29,4 @@
 <link href="{{ asset('assets/css/responsive.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets/css/theme/light/theme-color.css')}}" rel="stylesheet" type="text/css" />
 <!-- favicon -->
-<link rel="shortcut icon" href="http://radixtouch.in/templates/admin/smart/source/assets/img/favicon.ico" /> 
+<!-- <link rel="shortcut icon" href="http://radixtouch.in/templates/admin/smart/source/assets/img/favicon.ico" />  -->
