@@ -478,7 +478,7 @@
 
               <div class="form-group">
                 <label for="recipient-name" class="col-form-label"> Username:</label>
-                <input type="text" class="form-control user_name" id="user_name" name="user_name">
+                <input type="text" class="form-control user_name" value="" id="user_name" name="user_name">
               </div>
 
               <div class="form-group">
