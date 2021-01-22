@@ -22,6 +22,7 @@ Route::group(['middleware'=>'auth'], function () {
     Route::get('/sheet/list', 'SpreadsheetController@index')->name('sheet.list');
     Route::post('/upload-spreadsheet', 'SpreadsheetController@uploadSpreadsheet')->name('sheet.upload');
     Route::get('/sheet/datatable', 'SpreadsheetController@datatableSpreadsheet')->name('sheet.datatable');
+    Route::post('sheet/update-status', 'SpreadsheetController@updateRequestStatus')->name('sheet.update.status');
     
     /////////////////////////////////////// USER ROUTE //////////////////////////////////////////////
     Route::post('/user/store', 'UserController@store')->name('user.store');
@@ -33,9 +34,6 @@ Route::group(['middleware'=>'auth'], function () {
     Route::get('/user/delete/{id}', 'UserController@delete')->name('/user/delete/{id}');
     Route::post('/user/status', 'UserController@status')->name('/user/status');
     Route::post('/email/avail/{id}', 'UserController@emailavail')->name('/email/avail/{id}');
-
-
-    
 
 });
 // Route::get('/', function () {
