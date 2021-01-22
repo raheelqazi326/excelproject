@@ -22,13 +22,13 @@ Route::group(['middleware'=>'auth'], function () {
     Route::get('/sheet/list', 'SpreadsheetController@index')->name('sheet.list');
     Route::post('/upload-spreadsheet', 'SpreadsheetController@uploadSpreadsheet')->name('sheet.upload');
     Route::get('/sheet/datatable', 'SpreadsheetController@datatableSpreadsheet')->name('sheet.datatable');
+    Route::post('sheet/update-status', 'SpreadsheetController@updateRequestStatus')->name('sheet.update.status');
     
     /////////////////////////////////////// USER ROUTE //////////////////////////////////////////////
     Route::post('/user/store', 'UserController@store')->name('user.store');
     Route::get('/user/list', 'UserController@index')->name('user.list');
     Route::get('/user/create', 'UserController@create')->name('user.create');
     Route::get('/user/show/{id}', 'UserController@show')->name('/user/show/{id}');
-
 
 });
 // Route::get('/', function () {

@@ -6,11 +6,6 @@
 <meta name="author" content="SmartUniversity" />
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <title>Spread Online Sheet</title>
-	<link rel="stylesheet" href="{{ asset('datatable/Main/css/jquery.dataTables.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('datatable/Main/css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('datatable/Main/css/buttons.dataTables.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('datatable/Main/css/select.dataTables.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('datatable/Main/css/editor.dataTables.min.css') }}">
 <!-- google font -->
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" type="text/css" />
 <!-- icons -->

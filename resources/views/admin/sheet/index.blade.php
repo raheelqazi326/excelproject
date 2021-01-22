@@ -11,31 +11,38 @@
     {
         background: #eaeef3;
         font-size: 1.10vw !important;
-    max-width: 1047px;
-    min-width: 192px;
+        max-width: 1047px;
+        min-width: 192px;
+    }
+    .dt-buttons{
+        float:none !important;
     }
     .sorting:after, table.dataTable>thead .sorting_asc:after, table.dataTable>thead .sorting_desc:after, table.dataTable>thead .sorting_asc_disabled:after, table.dataTable>thead .sorting_desc_disabled:after 
     {
         opacity: 0 !important;
     }
-.sorting:before, table.dataTable>thead .sorting_asc:before, table.dataTable>thead .sorting_desc:before, table.dataTable>thead .sorting_asc_disabled:before, table.dataTable>thead .sorting_desc_disabled:before {
-    right: 1em;
-    content: "↑";
-    opacity: 0;
+    .sorting:before, table.dataTable>thead .sorting_asc:before, table.dataTable>thead .sorting_desc:before, table.dataTable>thead .sorting_asc_disabled:before, table.dataTable>thead .sorting_desc_disabled:before {
+        right: 1em;
+        content: "↑";
+        opacity: 0;
     }
     table.dataTable {
-    width: 100%;
-    margin: unset !important;
-    clear: both;
-    border-collapse: separate;
-    border-spacing: 0;
+        width: 100%;
+        margin: unset !important;
+        clear: both;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+    #spreadsheet-table tbody tr td:nth-child(10)
+    {
+        text-transform: capitalize
     }
 </style>
 @section('content')
 <div class="page-content-wrapper">
     <div class="page-content">
         <div class="page-bar">
-            <div class="page-title-breadcrumb">
+            {{-- <div class="page-title-breadcrumb">
                 <div class=" pull-left">
                     <div class="page-title">Spread Sheet</div>
                 </div>
@@ -44,7 +51,7 @@
                     </li>
                     <li class="active">Spread Sheet</li>
                 </ol>
-            </div>
+            </div> --}}
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -68,7 +75,7 @@
                                 </div>
                             </div>
                             <div class="card-body ">
-                                <div class="table-responsive">
+                                <div class="table-responsive1">
                                     <table id="spreadsheet-table" class="table custom-table table-hover table-bordered">
                                         <thead>
                                             <tr>
@@ -82,6 +89,7 @@
                                                 <th>National Insurance</th>
                                                 <th>Comment From Colette</th>
                                                 <th>Status</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
@@ -123,23 +131,13 @@
     {{-- DataTable Scripts --}}
     <script>
         $(document).ready(function(){
+            let DataTable;
             var is_colette = {{ auth()->user()->role_id == 2?1:0 }};
             var editor; // use a global for the submit and return data rendering in the examples
             $(document).ready(function(){
-                editor = new $.fn.dataTable.Editor({
-                    ajax: "{{ route('sheet.edit') }}",
-                    table: "#spreadsheet-table",
-                    idSrc: "id",
-                    fields: [
-                        {
-                            label: "Candidate:",
-                            name: "candidate"
-                        },
-                        {
-                            label: "National Insurance:",
-                            name: "national_insurance"
-                        },
-                        {
+                let fields = [];
+                if(is_colette){
+                    fields = [{
                             label: "Comment From Colette:",
                             name: "comment_from_colette"
                         },
@@ -147,7 +145,24 @@
                             label: "Status:",
                             name: "status"
                         }
-                    ]
+                    ];
+                }
+                else{
+                    fields = [{
+                            label: "Candidate:",
+                            name: "candidate"
+                        },
+                        {
+                            label: "National Insurance:",
+                            name: "national_insurance"
+                        }
+                    ];
+                }
+                editor = new $.fn.dataTable.Editor({
+                    ajax: "{{ route('sheet.edit') }}",
+                    table: "#spreadsheet-table",
+                    idSrc: "id",
+                    fields: fields
                 });
                 $("#spreadsheet-table").on( 'click', 'tbody td', function (e){
                     try {
@@ -156,15 +171,16 @@
                         if (!is_colette && (i == 6 || i == 7)){
                             editor.inline( this );
                         }
-                        if (is_colette && (i == 8 || i == 9)){
+                        else if (is_colette && (i == 8)){
                             editor.inline( this );
                         }
                     } catch (error) {
                         console.log(error);                    
                     }
                 });
-                let table = $("#spreadsheet-table").DataTable({
-                    dom: "Bfrtip",
+                let domTemplate = '<"row"<"col-3"l><"col-5 text-center"B><"col-4"f>><"table-responsive"rt><"row"<"col"i><"col"p>>';
+                DataTable = $("#spreadsheet-table").DataTable({
+                    dom: domTemplate,
                     ajax: "{{ route('sheet.datatable') }}",
                     // order: [[ 1, 'asc' ]],
                     columns: [
@@ -208,37 +224,42 @@
                             render: function ( data, type, row ) {
                                 // Combine the first and last names into a single table field
                                 let actionWrapper = $("<div/>");
-                                $("<span></span>").attr({
-                                    "class": "label label-primary mr-1 mb-1",
-                                    "data-id": data.id,
-                                    "data-status": 3
-                                }).append($('<i class="fa fa-pencil"></i>')).appendTo(actionWrapper);
-                                $("<span></span>").attr({
-                                    "class": "label label-danger",
-                                    "data-id": data.id,
-                                    "data-status": 4
-                                }).append($('<i class="fa fa-times"></i>')).appendTo(actionWrapper);
-                                // $("<span></span>").attr({
-                                //     "class": "label label-primary",
-                                //     "data-id": data.id,
-                                //     "data-status": 3
-                                // }).append($('<i class="fa fa-pencil"></i>')).appendTo(actionWrapper);
+                                if(is_colette && data.status_id != 3 && data.status_id != 1 && data.status_id != 4){
+                                    $("<span></span>").attr({
+                                        "class": "label label-success mr-1 mb-1 change-request-status",
+                                        "data-id": data.id,
+                                        "data-status": 3,
+                                        "style": "cursor:pointer"
+                                    }).append($('<i class="fa fa-check"></i>')).appendTo(actionWrapper);
+                                    $("<span></span>").attr({
+                                        "class": "label label-danger change-request-status",
+                                        "data-id": data.id,
+                                        "data-status": 4,
+                                        "style": "cursor:pointer"
+                                    }).append($('<i class="fa fa-times"></i>')).appendTo(actionWrapper);
+                                    // $("<span></span>").attr({
+                                    //     "class": "label label-primary",
+                                    //     "data-id": data.id,
+                                    //     "data-status": 3
+                                    // }).append($('<i class="fa fa-pencil"></i>')).appendTo(actionWrapper);
+                                }
                                 return actionWrapper.html();
                             }
                         }
                     ],
-                    select: true,
+                    select: false,
                     buttons: [
-                        // { extend: "create", editor: editor },
-                        // { extend: "edit",   editor: editor },
-                        // { extend: "remove", editor: editor }
+                        /*
+                        { extend: "create", editor: editor },
+                        { extend: "edit",   editor: editor },
+                        { extend: "remove", editor: editor }
                         {
                             extend: "selectedSingle",
                             text: "Approve",
                             action: function ( e, dt, node, config ) {
                                 // Immediately add `250` to the value of the salary and submit
                                 editor
-                                    .edit( table.row( { selected: true } ).index(), false )
+                                    .edit( DataTable.row( { selected: true } ).index(), false )
                                     .set( 'status', 3 )
                                     .submit();
                             }
@@ -249,20 +270,41 @@
                             action: function ( e, dt, node, config ) {
                                 // Immediately add `250` to the value of the salary and submit
                                 editor
-                                    .edit( table.row( { selected: true } ).index(), false )
+                                    .edit( DataTable.row( { selected: true } ).index(), false )
                                     .set( 'status', 4 )
                                     .submit();
                             }
                         },
+                        */
                     ]
                 });
+                $("#spreadsheet-table").on('click', "span.change-request-status", function(){
+                    console.log($(this))
+                    let ele = $(this);
+                    $.ajax({
+                        url: "{{ route('sheet.update.status') }}",
+                        type: "post",
+                        data: {
+                            _token: $('meta[name="csrf-token"]').attr("content"),
+                            id: ele.data('id'),
+                            status_id: ele.data('status')
+                        },
+                        success: function(result){
+                            console.log(result);
+                            DataTable.ajax.reload();
+                        },
+                        error: function(result){
+                            // console.log(error);
+                        }
+                    });
+                })
             });
         });
         $(".excel-import").click(function(){
             $(this).siblings("input#excel_import").click();
         })
         $(document).on('change', 'input#excel_import', function(){
-            var name=$(this).data("name");
+            var name = $(this).data("name");
             let file = $(this)[0].files[0];
             let client_id = $(this).data("id");
             var reader = new FileReader();
