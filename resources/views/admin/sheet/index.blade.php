@@ -6,20 +6,43 @@
     <link rel="stylesheet" href="{{ asset('datatable/Main/css/select.dataTables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('datatable/Main/css/editor.dataTables.min.css') }}">
 @endpush
+<style type="text/css">
+    th 
+    {
+        background: #eaeef3;
+        font-size: 1.10vw !important;
+    max-width: 1047px;
+    min-width: 192px;
+    }
+    .sorting:after, table.dataTable>thead .sorting_asc:after, table.dataTable>thead .sorting_desc:after, table.dataTable>thead .sorting_asc_disabled:after, table.dataTable>thead .sorting_desc_disabled:after 
+    {
+        opacity: 0 !important;
+    }
+.sorting:before, table.dataTable>thead .sorting_asc:before, table.dataTable>thead .sorting_desc:before, table.dataTable>thead .sorting_asc_disabled:before, table.dataTable>thead .sorting_desc_disabled:before {
+    right: 1em;
+    content: "↑";
+    opacity: 0;
+    }
+    table.dataTable {
+    width: 100%;
+    margin: unset !important;
+    clear: both;
+    border-collapse: separate;
+    border-spacing: 0;
+    }
+</style>
 @section('content')
 <div class="page-content-wrapper">
     <div class="page-content">
         <div class="page-bar">
             <div class="page-title-breadcrumb">
                 <div class=" pull-left">
-                    <div class="page-title">Basic Tables</div>
+                    <div class="page-title">Spread Sheet</div>
                 </div>
                 <ol class="breadcrumb page-breadcrumb pull-right">
                     <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="index-2.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
                     </li>
-                    <li><a class="parent-item" href="#">Data Tables</a>&nbsp;<i class="fa fa-angle-right"></i>
-                    </li>
-                    <li class="active">Basic Tables</li>
+                    <li class="active">Spread Sheet</li>
                 </ol>
             </div>
         </div>
@@ -37,7 +60,7 @@
                     <div class="col-md-12">
                         <div class="card card-topline-purple">
                             <div class="card-head">
-                                <header>Requests</header>
+                                <header>Spread Sheet</header>
                                 <div class="tools">
                                     {{-- <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a> --}}
                                     {{-- <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a> --}}
@@ -45,8 +68,8 @@
                                 </div>
                             </div>
                             <div class="card-body ">
-                                <div class="">
-                                    <table id="spreadsheet-table" class="table table-striped custom-table table-responsive table-hover">
+                                <div class="table-responsive">
+                                    <table id="spreadsheet-table" class="table custom-table table-hover table-bordered">
                                         <thead>
                                             <tr>
                                                 <th>Request ID</th>
@@ -59,7 +82,6 @@
                                                 <th>National Insurance</th>
                                                 <th>Comment From Colette</th>
                                                 <th>Status</th>
-                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
@@ -78,50 +100,6 @@
                                             </tr>
                                         </tfoot>
                                     </table>
-                                    {{-- <table id="spreadsheet-table" class="table table-striped custom-table table-responsive table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Request ID</th>
-                                                <th>Date</th>
-                                                <th>Start</th>
-                                                <th>End</th>
-                                                <th>Ward</th>
-                                                <th>Request Grade</th>
-                                                <th>Cadidate</th>
-                                                <th>National Insurance</th>
-                                                <th>Comment From Colette</th>
-                                                <th>Status</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Lorem Ipsum dorolo imit</td>
-                                                <td>Lorem Ipsum dorolo imit</td>
-                                                <td>Lorem Ipsum dorolo imit</td>
-                                                <td>Lorem Ipsum dorolo imit</td>
-                                                <td>Lorem Ipsum dorolo imit</td>
-                                                <td>Lorem Ipsum dorolo imit</td>
-                                                <td>Lorem Ipsum dorolo imit</td>
-                                                <td>Lorem Ipsum dorolo imit</td>
-                                                <td>693030.00$</td>
-                                                <td>
-                                                    <span class="label label-info label-mini">Due</span>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-success btn-xs">
-                                                        <i class="fa fa-check"></i>
-                                                    </button>
-                                                    <button class="btn btn-primary btn-xs">
-                                                        <i class="fa fa-pencil"></i>
-                                                    </button>
-                                                    <button class="btn btn-danger btn-xs">
-                                                        <i class="fa fa-trash-o "></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table> --}}
                                 </div>
                             </div>
                         </div>
