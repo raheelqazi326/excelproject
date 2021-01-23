@@ -17,6 +17,7 @@ Route::post('/auth/login', 'AuthController@login')->name('auth.login');
 Route::get('/auth/logout', 'AuthController@logout')->name('auth.logout');
 
 Route::group(['middleware'=>'auth'], function () {
+    Route::post('/auth/change/password', 'AuthController@password')->name('auth.password');
 
     /////////////////////////////////////// SHEET ROUTE //////////////////////////////////////////////
     Route::get('/sheet/list', 'SpreadsheetController@index')->name('sheet.list');
