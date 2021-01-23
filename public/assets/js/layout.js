@@ -392,6 +392,7 @@ var Layout = function () {
     var handleFullScreen = function () {
     	
     	function cancelFullScreen(el) {
+            // $('body').css('line-height','3.7');
             var requestMethod = el.cancelFullScreen||el.webkitCancelFullScreen||el.mozCancelFullScreen||el.exitFullscreen;
             if (requestMethod) { // cancel full screen.
                 requestMethod.call(el);
@@ -420,6 +421,7 @@ var Layout = function () {
         $(document).on('click','.fullscreen-btn',function(e) {
         	var elem = document.documentElement; // Make the body go full screen.
             var isInFullScreen = (document.fullScreenElement && document.fullScreenElement !== null) ||  (document.mozFullScreen || document.webkitIsFullScreen);
+            $('body').css('line-height','3.7');
 
             if (isInFullScreen) {
                 cancelFullScreen(document);

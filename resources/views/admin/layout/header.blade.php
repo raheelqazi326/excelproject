@@ -1,12 +1,33 @@
-<div class="page-header navbar navbar-fixed-top">
+<div class="page-header navbar">
     <div class="page-header-inner ">
         <!-- logo start -->
         <div class="page-logo">
-            <span class="logo-default" >lOGO</span> 
+            <!-- <h2>Spread Sheet</h2> -->
+            <img style="margin-top: -5px;width: 50%;height: 67px;" src="{{asset('assets/img/logo.png')}}" class="img-responsive" height="200" width="100">
         </div>
         <!-- logo end -->
         <ul class="nav navbar-nav navbar-left in">
-            <li><a href="#" class="menu-toggler sidebar-toggler"><i class="icon-menu"></i></a></li>
+            <!-- <li><a href="#" class="menu-toggler sidebar-toggler"><i class="icon-menu"></i></a></li>
+             -->
+             <!--  <li>
+                <a href="{{route('sheet.list')}}"> 
+                  <i class="fa fa-file-excel-o"></i>
+                    <span class="title">Spread Sheet</span>
+                </a>
+              </li>
+               <li >
+                   <a href="{{route('user.list')}}"> 
+                    <i class="fa fa-users"></i>
+                       <span class="title">Users</span>
+                   </a>
+               </li>
+
+               <li >
+                <a href="{{route('auth.logout')}}"> 
+                  <i class="fa fa-sign-out"></i>
+                    <span class="title">Log Out</span></span>
+                </a>
+            </li> -->
         </ul>
 
         <!-- start mobile menu -->
@@ -17,7 +38,23 @@
         <!-- start header menu -->
         <div class="top-menu">
             <ul class="nav navbar-nav pull-right">
-                <li><a href="javascript:;" class="fullscreen-btn"><i class="fa fa-arrows-alt"></i></a></li>
+
+                <li class="mt-1"><a href="javascript:;" class="fullscreen-btn"><i class="fa fa-arrows-alt"></i></a></li>
+                <li class="mt-1">
+                    <a class="fa fa-repeat btn-color spreadsheet-refresh" href="javascript:;"></a>
+                </li>
+                  <li class="nav-li">
+                <a href="{{route('sheet.list')}}"> 
+                  <i class="fa fa-file-excel-o"></i>
+                    <span class="title">Spread Sheet</span>
+                </a>
+              </li>
+               <li  class="nav-li">
+                   <a href="{{route('user.list')}}"> 
+                    <i class="fa fa-users"></i>
+                       <span class="title">Users</span>
+                   </a>
+               </li>
                  <!-- start manage user dropdown -->
                  <li class="dropdown dropdown-user">
                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">

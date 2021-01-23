@@ -11,8 +11,20 @@
     {
         background: #eaeef3;
         font-size: 1.10vw !important;
-        max-width: 1047px;
-        min-width: 192px;
+        /*max-width: 1047px;
+        min-width: 192px;*/
+    }
+    table#spreadsheet-table {
+        font-size: 13px;
+        line-height: 7.1px;
+        width: 120% !important;
+    }
+    .table td, .table th, .card .table td, .card .table th, .card .dataTable td, .card .dataTable th {
+        padding: 9px 5px !important;
+        vertical-align: middle;
+    }
+    table.dataTable>thead>tr>th:not(.sorting_disabled), table.dataTable>thead>tr>td:not(.sorting_disabled) {
+         padding-right: 15px;
     }
     .dt-buttons{
         float:none !important;
@@ -37,22 +49,71 @@
     {
         text-transform: capitalize
     }
+    .table-responsive {
+        margin-top: -7px;
+    }
+    div.dataTables_wrapper div.dataTables_filter input {
+        margin-left: .5em;
+        display: inline-block;
+        width: auto;
+        height: 27px;
+    }
+    .label {
+        padding: 4px 6px !important;
+    }
+    th {
+        background: #06830659;
+        font-size: 1.0vw !important;
+        border: 1px solid #06830673 !important;
+        color: black !important;
+    }
+    td
+    {
+        border: 0.1px solid #0683062b !important
+    }
+    table.dataTable>tbody>tr:hover>td {
+        background: #cff3cf47!important;
+    }
+    .label-info {
+        background-color: #e40e3f !important;
+    }
+    div.dataTables_wrapper div.dataTables_info,div.dataTables_wrapper div.dataTables_filter label,div.dataTables_wrapper div.dataTables_length label {
+        color: #088309;
+    }
+    div.dataTables_wrapper div.dataTables_filter input {
+        border: 1px solid #078307;
+    }
+    .page-link {
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #3b6738 !important;
+    background-color: #fff;
+    border: 1px solid #dee2e6 ;
+    }
+    .page-item.active .page-link {
+        z-index: 1;
+        color: #fff !important;
+        background-color: #3b6738 !important;
+        border-color: #3b6738 !important;
+    }
+    .navbar-nav>li>a {
+        padding: 20px 10px 20px 15px;
+        line-height: 20px;
+        color: #0b850b;
+    }
+    .page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #3b6738 !important;
+    border-color: #3b6738 !important;
+    }
 </style>
 @section('content')
 <div class="page-content-wrapper">
     <div class="page-content">
-        <div class="page-bar">
-            {{-- <div class="page-title-breadcrumb">
-                <div class=" pull-left">
-                    <div class="page-title">Spread Sheet</div>
-                </div>
-                <ol class="breadcrumb page-breadcrumb pull-right">
-                    <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="index-2.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
-                    </li>
-                    <li class="active">Spread Sheet</li>
-                </ol>
-            </div> --}}
-        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
@@ -67,16 +128,8 @@
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div class="card card-topline-purple">
-                            <div class="card-head">
-                                <header>Spread Sheet</header>
-                                <div class="tools">
-                                    <a class="fa fa-repeat btn-color spreadsheet-refresh" href="javascript:;"></a>
-                                    {{-- <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a> --}}
-                                    {{-- <a class="t-close btn-color fa fa-times" href="javascript:;"></a> --}}
-                                </div>
-                            </div>
-                            <div class="card-body ">
+                        <div class="">
+                            <div class="">
                                 <div class="table-responsive1">
                                     <table id="spreadsheet-table" class="table custom-table table-hover table-bordered">
                                         <thead>
@@ -174,7 +227,8 @@
                     },
                     table: "#spreadsheet-table",
                     idSrc: "id",
-                    fields: fields
+                    fields: fields,
+
                 });
                 $("body").tooltip({ selector: '[data-toggle=tooltip]' });
                 console.log(editor);
@@ -194,6 +248,7 @@
                 });
                 let domTemplate = '<"row"<"col-3"l><"col-5 text-center"B><"col-4"f>><"table-responsive"rt><"row"<"col"i><"col"p>>';
                 DataTable = $("#spreadsheet-table").DataTable({
+                    "iDisplayLength": 25,
                     dom: domTemplate,
                     ajax: "{{ route('sheet.datatable') }}",
                     // order: [[ 1, 'asc' ]],
