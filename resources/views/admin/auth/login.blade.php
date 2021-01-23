@@ -24,22 +24,20 @@
 <body>
     <div class="limiter">
 		<div class="container-login100 page-background">
-			<div class="wrap-login100">
-                @if($errors->any())
-                <div class="alert alert-danger" role="alert">
-                    {{ implode('', $errors->all(':message')) }}
-                  </div>
-                @endif
-
-               
+			<div class="wrap-login100">   
+				<span class="login100-form-logo">
+					<img alt="" src="{{ asset('assets/img/logo-2.png')}}">
+				</span>
+				<span class="login100-form-title p-b-34 p-t-27">
+					Log in
+				</span>
+				@if($errors->any())
+				<div class="alert alert-danger" role="alert">
+					{{ implode('', $errors->all(':message')) }}
+				  </div>
+				@endif            
                 <form class="login100-form validate-form" action="{{route('auth.login')}}" method="post">
                     @csrf
-					<span class="login100-form-logo">
-						<img alt="" src="{{ asset('assets/img/logo-2.png')}}">
-					</span>
-					<span class="login100-form-title p-b-34 p-t-27">
-						Log in
-					</span>
 					<div class="wrap-input100 validate-input" data-validate = "Enter Email">
 						<label class="text-light"><i class="fa fa-user"></i> Email</label>
 						<input class="input100" type="text" name="email" placeholder="Useremail">
