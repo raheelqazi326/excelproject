@@ -12,3 +12,20 @@
 <!-- Material -->
 <script src="{{ asset('assets/plugins/material/material.min.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+$("#headid li").click(function() {
+    let check = $(this).attr('id'); 
+    if (check == "userpassword") {
+        $('#Changepass').modal('toggle');
+    }
+});
+
+$(document).submit("#passwordform",function() {
+  alert('submit'); 
+  $userid = $('#userid').val();
+  $password = $('#password').val();
+  $conpassword = $('#conpassword').val();
+
+  
+});
+</script>

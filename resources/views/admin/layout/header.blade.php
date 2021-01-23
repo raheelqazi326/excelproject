@@ -26,7 +26,10 @@
                         </span>
                         <i class="fa fa-angle-down"></i>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-default">
+                    <ul class="dropdown-menu dropdown-menu-default" id="headid">
+                        <li id="userpassword">
+                            <i class="icon-password"></i> Change Password </a>
+                        </li>
                         <li>
                             <a href="{{route('auth.logout')}}">
                                 <i class="icon-logout"></i> Log Out </a>
