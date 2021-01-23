@@ -35,8 +35,8 @@ class SheetUpdate implements ShouldBroadcast
         return ['online-spreadsheet'];
     }
 
-    public function broadcastAs()
-    {
-        return 'sheet-update';
-    }
+    // public function broadcastAs()
+    // {
+    //     return 'sheet-update';
+    // }
 }

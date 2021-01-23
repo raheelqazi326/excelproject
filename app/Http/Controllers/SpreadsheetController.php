@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Spreadsheet;
+use App\Events\SheetUpdate;
 use DataTables;
 
 class SpreadsheetController extends Controller
@@ -42,10 +43,10 @@ class SpreadsheetController extends Controller
 
     public function sheetUploadNotification($total_requests){
         $data = [
-            "interests" => ["sheet upload"],
+            "interests" => ["sheet_upload"],
             "web" => [
                 "notification" => [
-                    "icon" => "http://localhost/assets/img/logo-2.png",
+                    "icon" => asset('notification-icon.png'),
                     "deep_link" => route('sheet.datatable'),
                     "title" => "Sheet Uploaded By Colette",
                     "body" => "{$total_requests} Requests Uploaded by Colette"
@@ -53,7 +54,7 @@ class SpreadsheetController extends Controller
             ]
         ];
         $this->sendPushNotification($data);
-        event(new App\Events\SheetUpdate('reload'));
+        event(new SheetUpdate('reload'));
     }
     
     public function updateRequestStatus(Request $request){
@@ -67,7 +68,7 @@ class SpreadsheetController extends Controller
                     "interests" => ["approved"],
                     "web" => [
                         "notification" => [
-                            "icon" => "http://localhost/assets/img/logo-2.png",
+                            "icon" => asset('notification-icon.png'),
                             "deep_link" => route('sheet.datatable'),
                             "title" => "Request Status Updated By Colette",
                             "body" => "Request ID #{$spreadsheet->request_id} Approved by Colette"
@@ -87,7 +88,7 @@ class SpreadsheetController extends Controller
                 $spreadsheet->status_id = $request->status_id;
                 $spreadsheet->save();
             }
-            event(new App\Events\SheetUpdate('reload'));
+            event(new SheetUpdate('reload'));
         }
     }
 
@@ -116,10 +117,10 @@ class SpreadsheetController extends Controller
                                 ]);
                             }
                             $data = [
-                                "interests" => ["comment from colette"],
+                                "interests" => ["comment_from_colette"],
                                 "web" => [
                                     "notification" => [
-                                        "icon" => "http://localhost/assets/img/logo-2.png",
+                                        "icon" => asset('notification-icon.png'),
                                         "deep_link" => route('sheet.datatable'),
                                         "title" => "Comment From Colette",
                                         "body" => "Request ID #{$spreadsheet->request_id}: {$value}"
@@ -146,10 +147,10 @@ class SpreadsheetController extends Controller
                     if($spreadsheet->status_id == 1 && !empty($spreadsheet->candidate) && !empty($spreadsheet->national_insurance)){
                         $spreadsheet->status_id = 2;
                         $data = [
-                            "interests" => ["waiting for approve"],
+                            "interests" => ["waiting_for_approve"],
                             "web" => [
                                 "notification" => [
-                                    "icon" => "http://localhost/assets/img/logo-2.png",
+                                    "icon" => asset('notification-icon.png'),
                                     "deep_link" => route('sheet.datatable'),
                                     "title" => "Candidate Added",
                                     "body" => "Request ID #{$spreadsheet->request_id} Waiting for approve"
@@ -163,7 +164,7 @@ class SpreadsheetController extends Controller
                         $spreadsheet->status_id = 1;
                     }
                     $spreadsheet->save();
-                    event(new App\Events\SheetUpdate('reload'));
+                    event(new SheetUpdate('reload'));
                 }
             }
             return DataTables::of(Spreadsheet::with('status')->whereHas('status')->find(array_keys($rows)))->toJson();

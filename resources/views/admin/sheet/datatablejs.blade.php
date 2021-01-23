@@ -1,36 +1,44 @@
 <script>
     $(document).ready(function(){
         let DataTable;
-        let interests = ["sheet upload", "approved", "rejected", "waiting for approve", "comment from colette"];
+        let interests = ["sheet_upload", "approved", "rejected", "waiting_for_approve", "comment_from_colette"];
         var editor; // use a global for the submit and return data rendering in the examples
         var is_colette = {{ auth()->user()->role_id == 2?1:0 }};
         var is_user = {{ auth()->user()->role_id == 3?1:0 }};
+        
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
         var pusher = new Pusher('c091dc9b8b47adbbc4ee', {
             cluster: 'ap2'
         });
         if(is_colette){
-            interests = ["waiting for approve"];
+            interests = ["waiting_for_approve"];
         }
         else if(is_user){
-            interests = ["sheet upload", "approved", "rejected", "comment from colette"];        
+            interests = ["sheet_upload", "approved", "rejected", "comment_from_colette"];        
         }
         var channel = pusher.subscribe('online-spreadsheet');
-        channel.bind('App\\Events\\SheetUpdate', function(data) {
-            // alert(JSON.stringify(data));
-            // console.log(data);
-            DataTable.ajax.reload();
-        });
         const beamsClient = new PusherPushNotifications.Client({
             instanceId: '9bbe1ce1-37b6-4263-b669-e8528a3a8630',
         });
 
         beamsClient.start()
-            .then(() => beamsClient.addDeviceInterest(interests))
+            .then(() => {
+                $.each(interests, (i, val) => {
+                    beamsClient.addDeviceInterest(val)
+                })
+            })
             .then(() => console.log('Successfully registered and subscribed!'))
             .catch(console.error);
 
         $(".spreadsheet-refresh").click(function(e){
             e.preventDefault();
+            DataTable.ajax.reload();
+        });
+        channel.bind('App\\Events\\SheetUpdate', function(data) {
+            // alert(JSON.stringify(data));
+            // console.log(data);
+            // console.log(DataTable);
             DataTable.ajax.reload();
         });
         let fields = [];
