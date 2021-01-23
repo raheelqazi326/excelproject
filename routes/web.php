@@ -21,6 +21,7 @@ Route::group(['middleware'=>'auth'], function () {
     /////////////////////////////////////// SHEET ROUTE //////////////////////////////////////////////
     Route::get('/sheet/list', 'SpreadsheetController@index')->name('sheet.list');
     Route::post('/upload-spreadsheet', 'SpreadsheetController@uploadSpreadsheet')->name('sheet.upload');
+    Route::post('/spreadsheet-uploaded', 'SpreadsheetController@sheetUploadNotification')->name('sheet.uploaded');
     Route::get('/sheet/datatable', 'SpreadsheetController@datatableSpreadsheet')->name('sheet.datatable');
     Route::post('sheet/update-status', 'SpreadsheetController@updateRequestStatus')->name('sheet.update.status');
     
@@ -31,6 +32,10 @@ Route::group(['middleware'=>'auth'], function () {
     Route::get('/user/show/{id}', 'UserController@show')->name('/user/show/{id}');
 
 });
-// Route::get('/', function () {
-//     return view('welcome');
+Route::get('/welcome', function () {
+    return view('welcome');
+});
+// Route::get('/call-pusher', function () {
+//     event(new App\Events\SheetUpdate('reload'));
+//     return "Event has been sent!";
 // });

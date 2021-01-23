@@ -87,7 +87,7 @@
                                                 <th>End</th>
                                                 <th>Ward</th>
                                                 <th>Request Grade</th>
-                                                <th>Cadidate</th>
+                                                <th>Candidate</th>
                                                 <th>National Insurance</th>
                                                 <th>Comment From Colette</th>
                                                 <th>Status</th>
@@ -102,7 +102,7 @@
                                                 <th>End</th>
                                                 <th>Ward</th>
                                                 <th>Request Grade</th>
-                                                <th>Cadidate</th>
+                                                <th>Candidate</th>
                                                 <th>National Insurance</th>
                                                 <th>Comment From Colette</th>
                                                 <th>Status</th>
