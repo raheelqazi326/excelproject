@@ -188,7 +188,7 @@
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script src="https://js.pusher.com/beams/1.0/push-notifications-cdn.js"></script>
     {{-- Custom Scripts --}}
-    @include('admin.sheet.datatablejs')
+    {{-- @include('admin.sheet.datatablejs') --}}
     @include('admin.sheet.exceljs')
     {{-- DataTable Scripts --}}
     <script>
