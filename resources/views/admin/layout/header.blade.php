@@ -21,7 +21,6 @@
                  <!-- start manage user dropdown -->
                  <li class="dropdown dropdown-user">
                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                        <img alt="" class="img-circle " src="../assets/img/dp.jpg" />
                         <span class="username username-hide-on-mobile">
                             {{ Auth::user()->first_name." ".Auth::user()->last_name }}
                         </span>
