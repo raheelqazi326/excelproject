@@ -49,12 +49,14 @@
                     <span class="title">Spread Sheet</span>
                 </a>
               </li>
+              @if(Auth::user()["role_id"] ==1)
                <li  class="nav-li">
                    <a href="{{route('user.list')}}"> 
                     <i class="fa fa-users"></i>
                        <span class="title">Users</span>
                    </a>
                </li>
+               @endif
                  <!-- start manage user dropdown -->
                  <li class="dropdown dropdown-user">
                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
