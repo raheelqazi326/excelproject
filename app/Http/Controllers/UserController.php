@@ -20,6 +20,12 @@ class UserController extends Controller
         return view('admin.user.index',compact('users'));
     }
 
+    public function indexajax()
+    {
+        $users = User::where('role_id','3')->get();
+        return $users;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -81,9 +87,19 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $updateuser = User::find($request->userid);
+        $updateuser->first_name =$request->first_name;
+        $updateuser->last_name =$request->last_name;
+        $updateuser->username  =$request->user_name;
+        $updateuser->email   =$request->email;
+        if ($request->password !==null) {
+            $updateuser->password   =Hash::make($request->password);
+        }
+        $updateuser->role_id ='3';
+        $updateuser->save();
+        return 1;
     }
 
     /**
@@ -92,8 +108,38 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        User::find($id)->delete();
+        return 1;
+    }
+
+    public function status(Request $request){
+        // return $request;
+        $updatestatus = User::find($request->userid);
+        $updatestatus->status=$request->status;
+        $updatestatus->save();
+        return 'updated';
+    }
+
+    public function emailavail(Request $request){
+        $check = User::where('email',$request->email)->first();
+        if ($check !=null) {
+            $check = User::where('username',$request->username)->first();
+
+            if ($check !=null) {    
+                return "emailuserexist";
+            }else{
+                return "emailexist";
+            }
+        }else{
+            $check = User::where('username',$request->username)->first();
+
+            if ($check !=null) {    
+                return "userexist";
+            }else{
+                return "notexist";
+            }
+        }
     }
 }

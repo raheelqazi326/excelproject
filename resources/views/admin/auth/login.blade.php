@@ -12,7 +12,7 @@
     <!-- google font -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all" rel="stylesheet" type="text/css" />
 	<!-- icons -->
-    <link href="fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('assets/fonts/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css"/>
 	<link rel="stylesheet" href="{{ asset('assets/plugins/iconic/css/material-design-iconic-font.min.css')}}">
     <!-- bootstrap -->
 	<link href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
@@ -41,12 +41,12 @@
 						Log in
 					</span>
 					<div class="wrap-input100 validate-input" data-validate = "Enter Email">
+						<label class="text-light"><i class="fa fa-user"></i> Email</label>
 						<input class="input100" type="text" name="email" placeholder="Useremail">
-						<span class="focus-input100" data-placeholder="&#xf207;"></span>
 					</div>
 					<div class="wrap-input100 validate-input" data-validate="Enter password">
+						<label class="text-light"><i class="fa fa-lock"></i> Password</label>
 						<input class="input100" type="password" name="password" placeholder="Password">
-						<span class="focus-input100" data-placeholder="&#xf191;"></span>
 					</div>
 
 					<div class="container-login100-form-btn">
@@ -54,11 +54,7 @@
 							Login
 						</button>
 					</div>
-					<div class="text-center p-t-30">
-						<a class="txt1" href="forgot_password.html">
-							Forgot Password?
-						</a>
-					</div>
+					
 				</form>
 			</div>
 		</div>
