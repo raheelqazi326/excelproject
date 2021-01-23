@@ -33,7 +33,7 @@ Route::group(['middleware'=>'auth'], function () {
     Route::get('/users/list', 'UserController@indexajax')->name('/users/list');
     Route::get('/user/delete/{id}', 'UserController@delete')->name('/user/delete/{id}');
     Route::post('/user/status', 'UserController@status')->name('/user/status');
-    Route::post('/email/avail/{id}', 'UserController@emailavail')->name('/email/avail/{id}');
+    Route::post('/email/avail', 'UserController@emailavail')->name('/email/avail');
 
 });
 // Route::get('/', function () {
