@@ -115,6 +115,18 @@ class SpreadsheetController extends Controller
                                     ]
                                 ]);
                             }
+                            $data = [
+                                "interests" => ["comment from colette"],
+                                "web" => [
+                                    "notification" => [
+                                        "icon" => "http://localhost/assets/img/logo-2.png",
+                                        "deep_link" => route('sheet.datatable'),
+                                        "title" => "Comment From Colette",
+                                        "body" => "Request ID #{$spreadsheet->request_id}: {$value}"
+                                    ]
+                                ]
+                            ];
+                            $this->sendPushNotification($data);
                         }
                         else{
                             if(($key == "candidate" || $key == "national_insurance") && ($spreadsheet->status_id == 1 || $spreadsheet->status_id == 2)){

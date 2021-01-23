@@ -21,7 +21,7 @@ Route::group(['middleware'=>'auth'], function () {
     /////////////////////////////////////// SHEET ROUTE //////////////////////////////////////////////
     Route::get('/sheet/list', 'SpreadsheetController@index')->name('sheet.list');
     Route::post('/upload-spreadsheet', 'SpreadsheetController@uploadSpreadsheet')->name('sheet.upload');
-    Route::post('/spreadsheet-uploaded', 'SpreadsheetController@sheetUploadNotification')->name('sheet.uploaded');
+    Route::post('/spreadsheet-uploaded/{total-requests}', 'SpreadsheetController@sheetUploadNotification')->name('sheet.uploaded');
     Route::get('/sheet/datatable', 'SpreadsheetController@datatableSpreadsheet')->name('sheet.datatable');
     Route::post('sheet/update-status', 'SpreadsheetController@updateRequestStatus')->name('sheet.update.status');
     
