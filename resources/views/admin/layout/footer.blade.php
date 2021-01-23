@@ -1,5 +1,5 @@
 <div class="page-footer">
-    <div class="page-footer-inner"> 2017 &copy; 
+    <div class="page-footer-inner"> 2021 &copy; Online Spread Sheet 
 
     </div>
     <div class="scroll-to-top">

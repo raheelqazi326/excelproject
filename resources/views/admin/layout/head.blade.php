@@ -5,7 +5,7 @@
 <meta name="description" content="Responsive Admin Template" />
 <meta name="author" content="SmartUniversity" />
 <meta name="csrf-token" content="{{ csrf_token() }}" />
-<title>Spread Online Sheet</title>
+<title>Online Spread Sheet</title>
 <!-- google font -->
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" type="text/css" />
 <!-- icons -->

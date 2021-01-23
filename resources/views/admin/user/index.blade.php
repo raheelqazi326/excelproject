@@ -13,7 +13,7 @@
                     <div class="col-md-12">
                         <div class="card card-topline-purple">
                             <div class="card-head">
-                                <header>STRIPED TABLE</header>
+                                <header>USERS TABLE</header>
                                 <div class="tools">
                                     <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
                                     <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
