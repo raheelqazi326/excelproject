@@ -83,6 +83,17 @@
     div.dataTables_wrapper div.dataTables_filter input {
         border: 1px solid #078307;
     }
+    div#spreadsheet-table_processing {
+        height: 40rem;
+    top: 10%;
+    width: 98%;
+    left: 8.5%;
+    /* z-index: -999999; */
+    /* background: gray; */
+    opacity: 0.44;
+        /*background: gray;*/
+        /*opacity: 0.3;*/
+    }
     .page-link {
     position: relative;
     display: block;
