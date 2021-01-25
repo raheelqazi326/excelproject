@@ -43,6 +43,14 @@
                 <li class="mt-1">
                     <a class="fa fa-repeat btn-color spreadsheet-refresh" href="javascript:;"></a>
                 </li>
+                @if (auth()->user()->role_id == 2)
+                <li style="margin-top:17px;margin-left:7px;">
+                    <a href="javascript:;" class="excel-import">
+                        <i class="excel-import fa fa-upload"></i>
+                    </a>
+                    <input type="file" id="excel_import" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" style="display:none">
+                </li>
+                @endif
                   <li class="nav-li">
                 <a href="{{route('sheet.list')}}"> 
                   <i class="fa fa-file-excel-o"></i>

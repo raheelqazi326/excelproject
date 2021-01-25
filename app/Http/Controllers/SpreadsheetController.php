@@ -15,6 +15,10 @@ class SpreadsheetController extends Controller
 
     public function uploadSpreadsheet(Request $request){
         $rows = $request->rows;
+        
+        
+        // return response()->json($rows, 500);
+            
         foreach($rows as $row){        
             $spreadsheet = Spreadsheet::where('request_id', $row['Request Id'])->first();
             if(!empty($spreadsheet)){
@@ -23,15 +27,30 @@ class SpreadsheetController extends Controller
                 }
                 $spreadsheet->delete();
             }
+            
             $spreadsheet = new Spreadsheet;
-            $spreadsheet->request_id = $row['Request Id'];
+            $spreadsheet->request_id = $row['Request Id']??$row['Request+Id']??"";
             $spreadsheet->date = date('Y-m-d', strtotime($row['Date']));
-            $spreadsheet->start = $row['Start'];
-            $spreadsheet->end = $row['End'];
+            $spreadsheet->start = date('H:i:s', strtotime($row['Start']));
+            $spreadsheet->end = date('H:i:s', strtotime($row['End']));
             $spreadsheet->ward = $row['Ward'];
-            $spreadsheet->request_grade = $row['Request Grade'];
+            $spreadsheet->request_grade = $row['Request Grade']??$row['Request+Grade']??"";
             $spreadsheet->status_id = 1;
             $spreadsheet->save();
+        
+        
+            // $spreadsheet = new Spreadsheet;
+            // $spreadsheet->request_id = $row[0];
+            // $spreadsheet->date = date('Y-m-d', strtotime($row[1]));
+            // $spreadsheet->start = $row[2];
+            // $spreadsheet->end = $row[3];
+            // $spreadsheet->ward = $row[4];
+            // $spreadsheet->request_grade = $row[5];
+            // $spreadsheet->status_id = 1;
+            // $spreadsheet->save();
+        
+        
+            
         }
         return response()->json(['status' => true, 'message' => 'successfully uploaded']);
     }

@@ -35,12 +35,21 @@
             e.preventDefault();
             DataTable.ajax.reload();
         });
-        channel.bind('App\\Events\\SheetUpdate', function(data) {
-            // alert(JSON.stringify(data));
-            // console.log(data);
-            // console.log(DataTable);
+        setInterval(() => {
             DataTable.ajax.reload();
-        });
+        }, 10000)
+        // channel.bind('App\\Events\\SheetUpdate', function(data) {
+        //     alert(JSON.stringify(data));
+        //     // console.log(data);
+        //     // console.log(DataTable);
+        //     DataTable.ajax.reload();
+        // });
+        // channel.bind('sheet-update', function(data) {
+        //     alert(JSON.stringify(data));
+        //     // console.log(data);
+        //     // console.log(DataTable);
+        //     DataTable.ajax.reload();
+        // });
         let fields = [];
         if(is_colette){
             fields = [{
@@ -94,6 +103,7 @@
         });
         let domTemplate = '<"row"<"col-3"l><"col-5 text-center"B><"col-4"f>><"table-responsive"rt><"row"<"col"i><"col"p>>';
         DataTable = $("#spreadsheet-table").DataTable({
+            "iDisplayLength": 25,
             dom: domTemplate,
             ajax: "{{ route('sheet.datatable') }}",
             // order: [[ 1, 'asc' ]],

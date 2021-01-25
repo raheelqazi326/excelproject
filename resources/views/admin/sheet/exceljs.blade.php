@@ -16,8 +16,9 @@
 
             workbook.SheetNames.forEach(function(sheetName) {
                 // Here is your object
+                
                 var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
-                $('#preloader').css('display','block');
+                // $('.preloader').css('display','block');
                 send_rows(XL_row_object, 0, client_id,name);
                 // var json_object = JSON.stringify(XL_row_object);
                 // console.log(json_object);
@@ -31,12 +32,14 @@
         reader.readAsBinaryString(file);
     });
     function send_rows1(rows, index, client_id,name){
+        $('.preloader').css('display','block');
         send_rows(rows, index, client_id,name);
     }
     function send_rows(rows, index, client_id,name){
+        // $('.preloader').css('display','block');
         console.log(client_id);
         let  send_rows = [];
-        let add = 199;
+        let add = 100;
         for(i = index; i <= index+add; i++){
             send_rows.push(rows[i]);
         }
@@ -55,6 +58,7 @@
                 console.log(err);
             },
             success: function(result){
+                $('.preloader').css('display','block');
                 // result = JSON.(result);
                 index += add;
                 console.log(index);
@@ -71,6 +75,8 @@
                         console.log(err);
                     },
                     success: function(result){
+                        
+                        $('.preloader').css('display','block');
                         window.location.reload();
                     }
                 });
