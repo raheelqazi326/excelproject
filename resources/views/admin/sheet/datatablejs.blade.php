@@ -106,7 +106,8 @@
         });
         let domTemplate = '<"row"<"col-3"l><"col-5 text-center"B><"col-4"f>><"table-responsive"rt><"row"<"col"i><"col"p>>';
         DataTable = $("#spreadsheet-table").DataTable({
-            "iDisplayLength": 25,
+            "lengthMenu": [[-1, 10, 25, 50, 100], ["All", 10, 25, 50, 100]],
+            // "iDisplayLength": -1,
             dom: domTemplate,
             ajax: "{{ route('sheet.datatable') }}",
             // order: [[ 1, 'asc' ]],
@@ -137,12 +138,6 @@
                 },
                 {
                     data: "national_insurance"
-                },
-                {
-                    data: "comment_from_colette"
-                },
-                {
-                    data: "status.name"
                 },
                 {
                     data: null,
@@ -194,6 +189,12 @@
                         }
                         return actionWrapper.html();
                     }
+                },
+                {
+                    data: "comment_from_colette"
+                },
+                {
+                    data: "status.name"
                 }
             ],
             select: false,
