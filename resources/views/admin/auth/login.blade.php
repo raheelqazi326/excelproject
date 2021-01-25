@@ -70,11 +70,11 @@
 						<img alt="" src="{{asset('assets/img/logo.png')}}">
 					</span>
 					<span class="login100-form-title p-b-34 p-t-27">
-						Log in
+						Login
 					</span>
 					<div class="wrap-input100 validate-input" data-validate = "Enter Email">
 						<label class="text-light"><i class="fa fa-user"></i> Email</label>
-						<input class="input100" type="text" name="email" placeholder="Useremail">
+						<input class="input100" type="text" name="email" placeholder="Email">
 					</div>
 					<div class="wrap-input100 validate-input" data-validate="Enter password">
 						<label class="text-light"><i class="fa fa-lock"></i> Password</label>

@@ -150,25 +150,25 @@
                     </div> --}}
                     <div class="col-md-12">
                         <div class="table-responsive1">
-                                    <table id="spreadsheet-table" class="table custom-table table-hover table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>Request ID</th>
-                                                <th>Date</th>
-                                                <th>Start</th>
-                                                <th>End</th>
-                                                <th>Ward</th>
-                                                <th>Request Grade</th>
-                                                <th>Candidate</th>
-                                                <th style="width: 146px !important;">National Insurance</th>
-                                                <th>Action</th>
-                                                <th style="width: 170px !important;">Comment From Colette</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody></tbody>
-                                    </table>
-                                </div>
+                            <table id="spreadsheet-table" class="table custom-table table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Request ID</th>
+                                        <th>Date</th>
+                                        <th>Start</th>
+                                        <th>End</th>
+                                        <th>Ward</th>
+                                        <th>Request Grade</th>
+                                        <th>Candidate</th>
+                                        <th style="width: 146px !important;">National Insurance</th>
+                                        <th>Action</th>
+                                        <th style="width: 170px !important;">Comment From Colette</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
