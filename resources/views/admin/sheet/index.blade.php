@@ -83,6 +83,17 @@
     div.dataTables_wrapper div.dataTables_filter input {
         border: 1px solid #078307;
     }
+    div#spreadsheet-table_processing {
+        height: 40rem;
+    top: 10%;
+    width: 98%;
+    left: 8.5%;
+    /* z-index: -999999; */
+    /* background: gray; */
+    opacity: 0.44;
+        /*background: gray;*/
+        /*opacity: 0.3;*/
+    }
     .page-link {
     position: relative;
     display: block;
@@ -110,6 +121,16 @@
     background-color: #3b6738 !important;
     border-color: #3b6738 !important;
     }
+    .table-responsive{
+        height: 37.6rem;
+    }
+    @media(max-width: 992px){
+    table#spreadsheet-table {
+        line-height: 17.1px;
+        width: 185% !important;
+    }
+
+    }
 </style>
 @section('content')
 <div class="page-content-wrapper">
@@ -128,43 +149,25 @@
                         </div>
                     </div> --}}
                     <div class="col-md-12">
-                        <div class="">
-                            <div class="">
-                                <div class="table-responsive1">
-                                    <table id="spreadsheet-table" class="table custom-table table-hover table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>Request ID</th>
-                                                <th>Date</th>
-                                                <th>Start</th>
-                                                <th>End</th>
-                                                <th>Ward</th>
-                                                <th>Request Grade</th>
-                                                <th>Candidate</th>
-                                                <th>National Insurance</th>
-                                                <th>Comment From Colette</th>
-                                                <th>Status</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Request ID</th>
-                                                <th>Date</th>
-                                                <th>Start</th>
-                                                <th>End</th>
-                                                <th>Ward</th>
-                                                <th>Request Grade</th>
-                                                <th>Candidate</th>
-                                                <th>National Insurance</th>
-                                                <th>Comment From Colette</th>
-                                                <th>Status</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                            </div>
+                        <div class="table-responsive1">
+                            <table id="spreadsheet-table" class="table custom-table table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Request ID</th>
+                                        <th>Date</th>
+                                        <th>Start</th>
+                                        <th>End</th>
+                                        <th>Ward</th>
+                                        <th>Request Grade</th>
+                                        <th>Candidate</th>
+                                        <th>National Insurance</th>
+                                        <th>Action</th>
+                                        <th style="width: 170px !important;">Comment From Colette</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

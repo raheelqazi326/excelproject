@@ -163,6 +163,11 @@ body::-webkit-scrollbar-thumb {
         body {
             overflow: hidden;
         }
+        .navbar-nav>li>a {
+        padding: 20px 10px 20px 15px;
+        line-height: 20px;
+        color: #0b850b;
+    }
     </style>
 </head>
 

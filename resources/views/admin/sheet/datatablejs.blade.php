@@ -1,5 +1,6 @@
 <script>
     $(document).ready(function(){
+        $('#spreadsheet-table').css("line-height","12.1px");
         let DataTable;
         let interests = ["sheet_upload", "approved", "rejected", "waiting_for_approve", "comment_from_colette"];
         var editor; // use a global for the submit and return data rendering in the examples
@@ -32,6 +33,7 @@
             .catch(console.error);
 
         $(".spreadsheet-refresh").click(function(e){
+            // window.location.reload();
             e.preventDefault();
             DataTable.ajax.reload();
         });
@@ -95,19 +97,45 @@
                 let i = $(this).index();
                 // console.log(is_colette);
                 if (!is_colette && (i == 6 || i == 7)){
-                    editor.inline( this );
+                    editor.inline( this, {
+                        onBlur: 'submit'
+                    });
                 }
                 else if (is_colette && (i == 8)){
-                    editor.inline( this );
+                    editor.inline( this, {
+                        onBlur: 'submit'
+                    });
                 }
             } catch (error) {
                 console.log(error);                    
             }
         });
+        $('#spreadsheet-table thead tr').clone(true).appendTo( '#spreadsheet-table thead' );
+        $('#spreadsheet-table thead tr:eq(1) th').each( function (i) {
+            var title = $(this).text();
+            $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+    
+            $( 'input', this ).on( 'keyup change', function () {
+                if ( DataTable.column(i).search() !== this.value ) {
+                    DataTable
+                        .column(i)
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+        } );
         let domTemplate = '<"row"<"col-3"l><"col-5 text-center"B><"col-4"f>><"table-responsive"rt><"row"<"col"i><"col"p>>';
         DataTable = $("#spreadsheet-table").DataTable({
-            "iDisplayLength": 25,
+            "lengthMenu": [[-1, 10, 25, 50, 100], ["All", 10, 25, 50, 100]],
+            // "iDisplayLength": -1,
             dom: domTemplate,
+            processing: true,
+            language: {
+                'loadingRecords': '&nbsp;',
+                'processing': '<div class="spinner"></div>'
+            }, 
+            orderCellsTop: true,
+            fixedHeader: true,         
             ajax: "{{ route('sheet.datatable') }}",
             // order: [[ 1, 'asc' ]],
             columns: [
@@ -139,12 +167,6 @@
                     data: "national_insurance"
                 },
                 {
-                    data: "comment_from_colette"
-                },
-                {
-                    data: "status.name"
-                },
-                {
                     data: null,
                     defaultContent: '',
                     orderable: false,
@@ -160,18 +182,18 @@
                                 "data-status": 3,
                                 "style": "cursor:pointer"
                             };
-                            if(data.status_id != 2){
+                            if(!(data.status_id == 2 || data.status_id == 4)){
                                 attr.disabled = "disabled";
-                                attr.class = "label label-success";
+                                attr.class = "label label-info mr-1 mb-1";
                                 attr.title = "";
                             }
                             $("<span></span>").attr(attr).append($('<i class="fa fa-check"></i>')).appendTo(actionWrapper);
                             attr.title = "Reject Request";
                             attr.class = "label label-danger change-request-status";
                             attr["data-status"] = 4;
-                            if(data.status_id != 2){
+                            if(!(data.status_id == 2 || data.status_id == 3)){
                                 attr.disabled = "disabled";
-                                attr.class = "label label-danger";
+                                attr.class = "label label-info mr-1 mb-1";
                                 attr.title = "";
                             }
                             $("<span></span>").attr(attr).append($('<i class="fa fa-times"></i>')).appendTo(actionWrapper);
@@ -180,20 +202,26 @@
                             let attr = {
                                 "data-toggle":"tooltip",
                                 "title":"Cancel Request",
-                                "class": "label label-info change-request-status",
+                                "class": "label label-danger change-request-status",
                                 "data-id": data.id,
                                 "data-status": 1,
                                 "style": "cursor:pointer"
                             }
-                            if(!(data.status_id == 3 || data.status_id == 4)){
+                            if(data.status_id == 1){
                                 attr.disabled = "disabled";
-                                attr.class = "label label-info";
+                                attr.class = "label label-info mr-1 mb-1";
                                 attr.title = "";
                             }
                             $("<span></span>").attr(attr).append($('<i class="fa fa-times"></i>')).appendTo(actionWrapper);
                         }
                         return actionWrapper.html();
                     }
+                },
+                {
+                    data: "comment_from_colette"
+                },
+                {
+                    data: "status.name"
                 }
             ],
             select: false,
