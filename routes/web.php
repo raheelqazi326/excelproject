@@ -36,8 +36,9 @@ Route::group(['middleware'=>'auth'], function () {
     Route::get('/user/delete/{id}', 'UserController@delete')->name('/user/delete/{id}');
     Route::post('/user/status', 'UserController@status')->name('/user/status');
     Route::post('/email/avail', 'UserController@emailavail')->name('/email/avail');
-    Route::get('/user/history', 'UserController@history')->name('user.history');
-    Route::get('/user/history/data', 'UserController@historydata')->name('/user/history/data');
+    Route::get('/sheet/history', 'HistoryController@history')->name('user.history');
+    Route::get('/user/history/data', 'HistoryController@historydata')->name('/user/history/data');
+    Route::get('/sheet/move', 'HistoryController@move')->name('sheet.move');
 
 });
 Route::get('/welcome', function () {

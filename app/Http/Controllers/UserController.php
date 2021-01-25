@@ -145,13 +145,5 @@ class UserController extends Controller
         }
     }
 
-    public function history(){
-        return view("admin.user.history");
-    }
-    public function historydata(){
-        $today = Carbon::now()->format('Y-m-d');
-        
-        $Spreadsheet = Spreadsheet::whereHas('status')->where('status_id',3)->whereDate('created_at', '=' , $today)->get();
-        return $Spreadsheet;
-    }
+    
 }

@@ -6,14 +6,18 @@
     <div class="page-content">
            
         <div class="row">
-           
+            
+              @if(Session::has('message'))
+                <div class="alert alert-success">
+                    <strong>Success!</strong> {{ Session::get('message') }}.
+                </div>
+                @endif
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card card-topline-green">
                             <div class="card-head">
                                 <header>HISTORY</header>
-                                
                             </div>
                             <div class="card-body ">
                             <div class="table-responsive">
@@ -30,7 +34,6 @@
                                             <th>National Insurance</th>
                                             <th>Comment From Colette</th>
                                             <th>Status</th>
-
                                         </tr>
                                     </thead>
                                     <tbody id="user-table">
@@ -397,10 +400,22 @@
                         div +='<td>'+value.end+'</td>';
                         div +='<td>'+value.ward+'</td>';
                         div +='<td>'+value.request_grade+'</td>';
-                        div +='<td>'+value.candidate+'</td>';
-                        div +='<td>'+value.national_insurance+'</td>';
-                        div +='<td>'+value.comment_from_colette+'</td>';
-                        div +='<td>Approved</td>';
+                        if (value.candidate !==null) {
+                            div +='<td>'+value.candidate+'</td>';
+                        }else{
+                            div +='<td></td>';
+                        }
+                        if (value.national_insurance !==null) {
+                            div +='<td>'+value.national_insurance+'</td>';
+                        }else{
+                            div +='<td></td>';
+                        }
+                        if (value.comment_from_colette !==null) {
+                            div +='<td>'+value.comment_from_colette+'</td>';
+                        }else{
+                            div +='<td></td>';
+                        }
+                        div +='<td>'+value.status.name+'</td>';
 
                         div +='</tr>';
 
