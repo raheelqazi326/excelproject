@@ -191,7 +191,7 @@
     @include('admin.sheet.datatablejs')
     @include('admin.sheet.exceljs')
     {{-- DataTable Scripts --}}
-    <script>
+    {{-- <script>
         $(document).ready(function(){
             let DataTable;
             var is_colette = {{ auth()->user()->role_id == 2?1:0 }};
@@ -454,5 +454,5 @@
                 }
             })
         }
-    </script>
+    </script> --}}
 @endpush

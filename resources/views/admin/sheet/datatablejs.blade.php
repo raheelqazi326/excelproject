@@ -36,9 +36,9 @@
             DataTable.ajax.reload();
         });
         channel.bind('App\\Events\\SheetUpdate', function(data) {
-            // alert(JSON.stringify(data));
-            // console.log(data);
-            // console.log(DataTable);
+            alert(JSON.stringify(data));
+            console.log(data);
+            console.log(DataTable);
             DataTable.ajax.reload();
         });
         let fields = [];
@@ -138,33 +138,46 @@
                     render: function ( data, type, row ) {
                         // Combine the first and last names into a single table field
                         let actionWrapper = $("<div/>");
-                        if(is_colette && data.status_id == 2){
-                            $("<span></span>").attr({
+                        if(is_colette){
+                            let attr = {
                                 "data-toggle":"tooltip",
                                 "title":"Approve Request",
                                 "class": "label label-success mr-1 mb-1 change-request-status",
                                 "data-id": data.id,
                                 "data-status": 3,
                                 "style": "cursor:pointer"
-                            }).append($('<i class="fa fa-check"></i>')).appendTo(actionWrapper);
-                            $("<span></span>").attr({
-                                "data-toggle":"tooltip",
-                                "title":"Reject Request",
-                                "class": "label label-danger change-request-status",
-                                "data-id": data.id,
-                                "data-status": 4,
-                                "style": "cursor:pointer"
-                            }).append($('<i class="fa fa-times"></i>')).appendTo(actionWrapper);
+                            };
+                            if(data.status_id != 2){
+                                attr.disabled = "disabled";
+                                attr.class = "label label-success";
+                                attr.title = "";
+                            }
+                            $("<span></span>").attr(attr).append($('<i class="fa fa-check"></i>')).appendTo(actionWrapper);
+                            attr.title = "Reject Request";
+                            attr.class = "label label-danger change-request-status";
+                            attr["data-status"] = 4;
+                            if(data.status_id != 2){
+                                attr.disabled = "disabled";
+                                attr.class = "label label-danger";
+                                attr.title = "";
+                            }
+                            $("<span></span>").attr(attr).append($('<i class="fa fa-times"></i>')).appendTo(actionWrapper);
                         }
-                        else if(!is_colette && (data.status_id == 3 || data.status_id == 4)){
-                            $("<span></span>").attr({
+                        else if(!is_colette){
+                            let attr = {
                                 "data-toggle":"tooltip",
                                 "title":"Cancel Request",
                                 "class": "label label-info change-request-status",
                                 "data-id": data.id,
                                 "data-status": 1,
                                 "style": "cursor:pointer"
-                            }).append($('<i class="fa fa-times"></i>')).appendTo(actionWrapper);
+                            }
+                            if(!(data.status_id == 3 || data.status_id == 4)){
+                                attr.disabled = "disabled";
+                                attr.class = "label label-info";
+                                attr.title = "";
+                            }
+                            $("<span></span>").attr(attr).append($('<i class="fa fa-times"></i>')).appendTo(actionWrapper);
                         }
                         return actionWrapper.html();
                     }

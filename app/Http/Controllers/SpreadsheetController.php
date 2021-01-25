@@ -164,9 +164,9 @@ class SpreadsheetController extends Controller
                         $spreadsheet->status_id = 1;
                     }
                     $spreadsheet->save();
-                    event(new SheetUpdate('reload'));
                 }
             }
+            event(new SheetUpdate('reload'));
             return DataTables::of(Spreadsheet::with('status')->whereHas('status')->find(array_keys($rows)))->toJson();
         } catch (\Throwable $th) {
             //throw $th;
