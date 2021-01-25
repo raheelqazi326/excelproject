@@ -6,35 +6,31 @@
     <div class="page-content">
            
         <div class="row">
-            <div class="col-md-12 text-right mt-2">
-                <button type="button" class="btn btn-success " data-toggle="modal" data-target="#exampleModal">
-                    Add User
-                </button> 
-            </div>
+           
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card card-topline-green">
                             <div class="card-head">
-                                <header>USERS TABLE</header>
-                                <div class="tools">
-                                    <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
-                                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
-                                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
-                                </div>
+                                <header>HISTORY</header>
+                                
                             </div>
                             <div class="card-body ">
                             <div class="table-responsive">
                                 <table class="table table-striped custom-table table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Id</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>User Name</th>
-                                            <th>Email</th>
+                                            <th>Request Id</th>
+                                            <th>Date</th>
+                                            <th>Start</th>
+                                            <th>End</th>
+                                            <th>Ward</th>
+                                            <th>Request Grade</th>
+                                            <th>Candidate</th>
+                                            <th>National Insurance</th>
+                                            <th>Comment From Colette</th>
                                             <th>Status</th>
-                                            <th>Action</th>
+
                                         </tr>
                                     </thead>
                                     <tbody id="user-table">
@@ -378,110 +374,6 @@
 </div>
 
 
-{{-- CREATE USER MODAL--}}
-
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <form id="userAdd">
-           
-            <div class="form-group">
-                <label for="recipient-name" class="col-form-label">First Name:</label>
-                <input type="text" class="form-control" id="first_name" name="first_name" required>
-            </div>
-
-              <div class="form-group">
-                <label for="recipient-name" class="col-form-label">Last Name:</label>
-                <input type="text" class="form-control" id="last_name" name="last_name" required>
-              </div>
-
-              <div class="form-group">
-                <label for="recipient-name" class="col-form-label"> Username:</label>
-                <input type="text" class="form-control" id="user_name" name="user_name" required>
-                <p class="text-danger" id="error-user_name"></p>
-
-              </div>
-
-              <div class="form-group">
-                <label for="recipient-name" class="col-form-label"> Eamil:</label>
-                <input type="text" class="form-control" id="email" name="email" required>
-                <p class="text-danger" id="error-email"></p>
-              </div>
-
-              <div class="form-group">
-                <label for="recipient-name" class="col-form-label"> Password:</label>
-                <input type="text" class="form-control" id="password" name="password" required>
-              </div>
-
-        </div>
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Save changes</button>
-        </form>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-  {{-- EDIT USER MODAL--}}
-
-<div class="modal fade" id="editUsermodal" tabindex="-1" role="dialog" aria-labelledby="editUsermodalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editUsermodalLabel">Edit User</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <form id="editAdd">
-           <input type="hidden" class="user_id" id="user_id" value="">
-            <div class="form-group">
-                <label for="recipient-name" class="col-form-label">First Name:</label>
-                <input type="text" class="form-control" id="firstname" name="firstname" value="" required>
-            </div>
-
-              <div class="form-group">
-                <label for="recipient-name" class="col-form-label">Last Name:</label>
-                <input type="text" class="form-control" id="lastname" name="lastname" required>
-              </div>
-
-              <div class="form-group">
-                <label for="recipient-name" class="col-form-label"> Username:</label>
-                <input type="text" class="form-control" value="" id="username" name="username" required>
-              </div>
-
-              <div class="form-group">
-                <label for="recipient-name" class="col-form-label"> Eamil:</label>
-                <input type="text" class="form-control" id="uemail" value="" name="uemail" required>
-              </div>
-
-              <div class="form-group">
-                <label for="recipient-name" class="col-form-label"> Password:</label>
-                <input type="text" class="form-control" id="upassword" value="" name="upassword">
-              </div>
-
-        </div>
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Save changes</button>
-        </form>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-        </div>
-      </div>
-    </div>
-  </div>
 @endsection
 @section('script')
 
@@ -490,26 +382,26 @@
 
         $.ajax({
                 type: 'GET',
-                url:'/users/list',
+                url:'/user/history/data',
                 
                 success:function(data){
                     let div;
                     $.each( data, function( key, value ) {
+                        console.log(value)
+
                         is_active = (value.status=='active');
                         div +='<tr>';
-                        div +='<td>'+value.id+'</td>';
-                        div +='<td>'+value.first_name+'</td>';
-                        div +='<td>'+value.last_name+'</td>';
-                        div +='<td>'+value.username+'</td>';
-                        div +='<td>'+value.email+'</td>';
-                        div +='<td><select class="form-control userstatus" >';
-                        div +='<option data-id="'+value.id+'" value="active" '+(is_active?"selected":"")+'>Active</option>';
-                        div +='<option data-id="'+value.id+'" value="inactive"'+(is_active?"":"selected")+'>Inactive</option>';
-                        div +='</select></td>';
-                        div += '<td>';
-                        div +='<button id="editUser" data-id="'+value.id+'" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>';
-                        div +='<button id="delteUser" data-id="'+value.id+'" class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>';
-                        div += '</td>';
+                        div +='<td>'+value.request_id+'</td>';
+                        div +='<td>'+value.date+'</td>';
+                        div +='<td>'+value.start+'</td>';
+                        div +='<td>'+value.end+'</td>';
+                        div +='<td>'+value.ward+'</td>';
+                        div +='<td>'+value.request_grade+'</td>';
+                        div +='<td>'+value.candidate+'</td>';
+                        div +='<td>'+value.national_insurance+'</td>';
+                        div +='<td>'+value.comment_from_colette+'</td>';
+                        div +='<td>Approved</td>';
+
                         div +='</tr>';
 
                         });
