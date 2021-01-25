@@ -160,7 +160,7 @@
                                                 <th>Ward</th>
                                                 <th>Request Grade</th>
                                                 <th>Candidate</th>
-                                                <th>National Insurance</th>
+                                                <th style="width: 146px !important;">National Insurance</th>
                                                 <th>Action</th>
                                                 <th style="width: 170px !important;">Comment From Colette</th>
                                                 <th>Status</th>

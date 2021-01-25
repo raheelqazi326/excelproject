@@ -19,6 +19,7 @@
                 
                 var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
                 // $('.preloader').css('display','block');
+                $('#spreadsheet-table_processing').css('display','block');
                 send_rows(XL_row_object, 0, client_id,name);
                 // var json_object = JSON.stringify(XL_row_object);
                 // console.log(json_object);
@@ -32,7 +33,7 @@
         reader.readAsBinaryString(file);
     });
     function send_rows1(rows, index, client_id,name){
-        $('.preloader').css('display','block');
+        $('#spreadsheet-table_processing').css('display','block');
         send_rows(rows, index, client_id,name);
     }
     function send_rows(rows, index, client_id,name){
@@ -58,7 +59,7 @@
                 console.log(err);
             },
             success: function(result){
-                $('.preloader').css('display','block');
+                $('#spreadsheet-table_processing').css('display','block');
                 // result = JSON.(result);
                 index += add;
                 console.log(index);
@@ -76,8 +77,9 @@
                     },
                     success: function(result){
                         
-                        $('.preloader').css('display','block');
-                        window.location.reload();
+                        $('#spreadsheet-table_processing').css('display','block');
+                        // window.location.reload();
+                        // $('.spreadsheet-refresh').trigger('click');
                     }
                 });
             }

@@ -189,7 +189,7 @@ class SpreadsheetController extends Controller
             return DataTables::of(Spreadsheet::with('status')->whereHas('status')->find(array_keys($rows)))->toJson();
         } catch (\Throwable $th) {
             //throw $th;
-            // dd($th->getMessage());
+            // dd($th);
             foreach($rows[$i] as $key => $value){
                 $errors[] = [
                     "name" => $key,
