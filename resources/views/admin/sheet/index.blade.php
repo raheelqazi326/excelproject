@@ -110,6 +110,16 @@
     background-color: #3b6738 !important;
     border-color: #3b6738 !important;
     }
+    .table-responsive{
+        height: 37.6rem;
+    }
+    @media(max-width: 992px){
+    table#spreadsheet-table {
+        line-height: 17.1px;
+        width: 185% !important;
+    }
+
+    }
 </style>
 @section('content')
 <div class="page-content-wrapper">
@@ -128,9 +138,7 @@
                         </div>
                     </div> --}}
                     <div class="col-md-12">
-                        <div class="">
-                            <div class="">
-                                <div class="table-responsive1">
+                        <div class="table-responsive1">
                                     <table id="spreadsheet-table" class="table custom-table table-hover table-bordered">
                                         <thead>
                                             <tr>
@@ -164,8 +172,6 @@
                                         </tfoot>
                                     </table>
                                 </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
