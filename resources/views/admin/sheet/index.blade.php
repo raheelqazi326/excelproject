@@ -150,26 +150,12 @@
                                                 <th>Request Grade</th>
                                                 <th>Candidate</th>
                                                 <th>National Insurance</th>
+                                                <th>Action</th>
                                                 <th>Comment From Colette</th>
                                                 <th>Status</th>
-                                                <th>Action</th>
                                             </tr>
                                         </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Request ID</th>
-                                                <th>Date</th>
-                                                <th>Start</th>
-                                                <th>End</th>
-                                                <th>Ward</th>
-                                                <th>Request Grade</th>
-                                                <th>Candidate</th>
-                                                <th>National Insurance</th>
-                                                <th>Comment From Colette</th>
-                                                <th>Status</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </tfoot>
+                                        <tbody></tbody>
                                     </table>
                                 </div>
                     </div>

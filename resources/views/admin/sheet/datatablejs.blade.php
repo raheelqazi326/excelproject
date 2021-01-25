@@ -106,7 +106,8 @@
         });
         let domTemplate = '<"row"<"col-3"l><"col-5 text-center"B><"col-4"f>><"table-responsive"rt><"row"<"col"i><"col"p>>';
         DataTable = $("#spreadsheet-table").DataTable({
-            "iDisplayLength": 25,
+            "lengthMenu": [[-1, 10, 25, 50, 100], ["All", 10, 25, 50, 100]],
+            // "iDisplayLength": -1,
             dom: domTemplate,
             ajax: "{{ route('sheet.datatable') }}",
             // order: [[ 1, 'asc' ]],
@@ -139,12 +140,6 @@
                     data: "national_insurance"
                 },
                 {
-                    data: "comment_from_colette"
-                },
-                {
-                    data: "status.name"
-                },
-                {
                     data: null,
                     defaultContent: '',
                     orderable: false,
@@ -160,18 +155,18 @@
                                 "data-status": 3,
                                 "style": "cursor:pointer"
                             };
-                            if(data.status_id != 2){
+                            if(!(data.status_id == 2 || data.status_id == 4)){
                                 attr.disabled = "disabled";
-                                attr.class = "label label-success";
+                                attr.class = "label label-info mr-1 mb-1";
                                 attr.title = "";
                             }
                             $("<span></span>").attr(attr).append($('<i class="fa fa-check"></i>')).appendTo(actionWrapper);
                             attr.title = "Reject Request";
                             attr.class = "label label-danger change-request-status";
                             attr["data-status"] = 4;
-                            if(data.status_id != 2){
+                            if(!(data.status_id == 2 || data.status_id == 3)){
                                 attr.disabled = "disabled";
-                                attr.class = "label label-danger";
+                                attr.class = "label label-info mr-1 mb-1";
                                 attr.title = "";
                             }
                             $("<span></span>").attr(attr).append($('<i class="fa fa-times"></i>')).appendTo(actionWrapper);
@@ -180,20 +175,26 @@
                             let attr = {
                                 "data-toggle":"tooltip",
                                 "title":"Cancel Request",
-                                "class": "label label-info change-request-status",
+                                "class": "label label-danger change-request-status",
                                 "data-id": data.id,
                                 "data-status": 1,
                                 "style": "cursor:pointer"
                             }
-                            if(!(data.status_id == 3 || data.status_id == 4)){
+                            if(data.status_id == 1){
                                 attr.disabled = "disabled";
-                                attr.class = "label label-info";
+                                attr.class = "label label-info mr-1 mb-1";
                                 attr.title = "";
                             }
                             $("<span></span>").attr(attr).append($('<i class="fa fa-times"></i>')).appendTo(actionWrapper);
                         }
                         return actionWrapper.html();
                     }
+                },
+                {
+                    data: "comment_from_colette"
+                },
+                {
+                    data: "status.name"
                 }
             ],
             select: false,
