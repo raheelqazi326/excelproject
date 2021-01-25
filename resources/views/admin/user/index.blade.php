@@ -4,14 +4,17 @@
 
 <div class="page-content-wrapper">
     <div class="page-content">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            Add User
-        </button>    
+           
         <div class="row">
+            <div class="col-md-12 text-right mt-2">
+                <button type="button" class="btn btn-success " data-toggle="modal" data-target="#exampleModal">
+                    Add User
+                </button> 
+            </div>
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card card-topline-purple">
+                        <div class="card card-topline-green">
                             <div class="card-head">
                                 <header>USERS TABLE</header>
                                 <div class="tools">

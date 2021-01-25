@@ -24,4 +24,4 @@
 <link href="{{ asset('assets/css/responsive.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets/css/theme/light/theme-color.css')}}" rel="stylesheet" type="text/css" />
 <!-- favicon -->
-<!-- <link rel="shortcut icon" href="http://radixtouch.in/templates/admin/smart/source/assets/img/favicon.ico" />  -->
+<link rel="shortcut icon" href="{{asset('assets/img/favicon.png')}}" />
