@@ -7,6 +7,8 @@ use App\Models\Status;
 use App\Models\Role;
 use App\Models\User;
 use Hash;
+use App\Models\Spreadsheet;
+use Carbon\Carbon;
 class UserController extends Controller
 {
     /**
@@ -141,5 +143,16 @@ class UserController extends Controller
                 return "notexist";
             }
         }
+    }
+
+    public function history(){
+        $today = Carbon::now()->format('y-md');
+        // return $today;
+        // $Spreadsheet = Spreadsheet::all();
+        // return $Spreadsheet;
+
+        $Spreadsheet = Spreadsheet::whereDate('created_at', '=' , $today)->get();
+        return $Spreadsheet;
+        return view("admin.user.history");
     }
 }

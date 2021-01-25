@@ -94,6 +94,7 @@
         });
         let domTemplate = '<"row"<"col-3"l><"col-5 text-center"B><"col-4"f>><"table-responsive"rt><"row"<"col"i><"col"p>>';
         DataTable = $("#spreadsheet-table").DataTable({
+            "iDisplayLength": 25,
             dom: domTemplate,
             ajax: "{{ route('sheet.datatable') }}",
             // order: [[ 1, 'asc' ]],
