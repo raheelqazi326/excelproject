@@ -103,7 +103,6 @@ class SpreadsheetController extends Controller
             else if(!$is_colette && ($request->status_id == 1)){
                 $spreadsheet = Spreadsheet::find($request->id);
                 // $spreadsheet->candidate = "";
-                // $spreadsheet->national_insurance = "";
                 $spreadsheet->status_id = $request->status_id;
                 $spreadsheet->save();
             }
