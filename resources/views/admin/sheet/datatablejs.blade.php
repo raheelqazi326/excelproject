@@ -32,6 +32,7 @@
             .catch(console.error);
 
         $(".spreadsheet-refresh").click(function(e){
+            // window.location.reload();
             e.preventDefault();
             DataTable.ajax.reload();
         });
@@ -109,6 +110,11 @@
             "lengthMenu": [[-1, 10, 25, 50, 100], ["All", 10, 25, 50, 100]],
             // "iDisplayLength": -1,
             dom: domTemplate,
+            'processing': true,
+            'language': {
+                'loadingRecords': '&nbsp;',
+                'processing': '<div class="spinner"></div>'
+            },          
             ajax: "{{ route('sheet.datatable') }}",
             // order: [[ 1, 'asc' ]],
             columns: [
