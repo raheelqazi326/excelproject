@@ -160,18 +160,18 @@
                                 "data-status": 3,
                                 "style": "cursor:pointer"
                             };
-                            if(data.status_id != 2){
+                            if(!(data.status_id == 2 || data.status_id == 4)){
                                 attr.disabled = "disabled";
-                                attr.class = "label label-success";
+                                attr.class = "label label-info mr-1 mb-1";
                                 attr.title = "";
                             }
                             $("<span></span>").attr(attr).append($('<i class="fa fa-check"></i>')).appendTo(actionWrapper);
                             attr.title = "Reject Request";
                             attr.class = "label label-danger change-request-status";
                             attr["data-status"] = 4;
-                            if(data.status_id != 2){
+                            if(!(data.status_id == 2 || data.status_id == 3)){
                                 attr.disabled = "disabled";
-                                attr.class = "label label-danger";
+                                attr.class = "label label-info mr-1 mb-1";
                                 attr.title = "";
                             }
                             $("<span></span>").attr(attr).append($('<i class="fa fa-times"></i>')).appendTo(actionWrapper);
@@ -180,14 +180,14 @@
                             let attr = {
                                 "data-toggle":"tooltip",
                                 "title":"Cancel Request",
-                                "class": "label label-info change-request-status",
+                                "class": "label label-danger change-request-status",
                                 "data-id": data.id,
                                 "data-status": 1,
                                 "style": "cursor:pointer"
                             }
-                            if(!(data.status_id == 3 || data.status_id == 4)){
+                            if(data.status_id == 1){
                                 attr.disabled = "disabled";
-                                attr.class = "label label-info";
+                                attr.class = "label label-info mr-1 mb-1";
                                 attr.title = "";
                             }
                             $("<span></span>").attr(attr).append($('<i class="fa fa-times"></i>')).appendTo(actionWrapper);

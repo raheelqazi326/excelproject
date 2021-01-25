@@ -102,8 +102,8 @@ class SpreadsheetController extends Controller
             }
             else if(!$is_colette && ($request->status_id == 1)){
                 $spreadsheet = Spreadsheet::find($request->id);
-                $spreadsheet->candidate = "";
-                $spreadsheet->national_insurance = "";
+                // $spreadsheet->candidate = "";
+                // $spreadsheet->national_insurance = "";
                 $spreadsheet->status_id = $request->status_id;
                 $spreadsheet->save();
             }
@@ -163,7 +163,7 @@ class SpreadsheetController extends Controller
                             }
                         }
                     }
-                    if($spreadsheet->status_id == 1 && !empty($spreadsheet->candidate) && !empty($spreadsheet->national_insurance)){
+                    if($spreadsheet->status_id == 1 && (!empty($spreadsheet->candidate) || !empty($spreadsheet->national_insurance))){
                         $spreadsheet->status_id = 2;
                         $data = [
                             "interests" => ["waiting_for_approve"],
@@ -179,7 +179,7 @@ class SpreadsheetController extends Controller
                         $this->sendPushNotification($data);
                         // echo $response;                        
                     }
-                    else if($spreadsheet->status_id == 2 && (empty($spreadsheet->candidate) || empty($spreadsheet->national_insurance))){
+                    else if($spreadsheet->status_id == 2 && (empty($spreadsheet->candidate) && empty($spreadsheet->national_insurance))){
                         $spreadsheet->status_id = 1;
                     }
                     $spreadsheet->save();
