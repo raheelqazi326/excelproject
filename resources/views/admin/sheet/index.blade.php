@@ -151,7 +151,7 @@
                                                 <th>Candidate</th>
                                                 <th>National Insurance</th>
                                                 <th>Action</th>
-                                                <th>Comment From Colette</th>
+                                                <th style="width: 170px !important;">Comment From Colette</th>
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
