@@ -124,6 +124,21 @@
     .table-responsive{
         height: 37.6rem;
     }
+    input.Request {
+        width: 114px;
+    }
+    input.Date1 {
+        width: 74px;
+    }
+    input.Start2 {
+        width: 58px;
+    }
+    input.End3 {
+        width: 58px;
+    }   
+    input.Ward4 {
+        width: 300px;
+    }
     @media(max-width: 992px){
     table#spreadsheet-table {
         line-height: 17.1px;
@@ -162,8 +177,8 @@
                                         <th>Candidate</th>
                                         <th style="width: 146px !important;">National Insurance</th>
                                         <th>Action</th>
-                                        <th style="width: 170px !important;">Comment From Colette</th>
                                         <th>Status</th>
+                                        <th style="width: 170px !important;">Comment From Colette</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>

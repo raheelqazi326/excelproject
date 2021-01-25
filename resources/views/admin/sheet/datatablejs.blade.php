@@ -101,7 +101,7 @@
                         onBlur: 'submit'
                     });
                 }
-                else if (is_colette && (i == 8)){
+                else if (is_colette && (i == 10)){
                     editor.inline( this, {
                         onBlur: 'submit'
                     });
@@ -113,7 +113,7 @@
         $('#spreadsheet-table thead tr').clone(true).appendTo( '#spreadsheet-table thead' );
         $('#spreadsheet-table thead tr:eq(1) th').each( function (i) {
             var title = $(this).text();
-            $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+            $(this).html( '<input type="text" class='+title + i +' placeholder="Search" />' );
     
             $( 'input', this ).on( 'keyup change', function () {
                 if ( DataTable.column(i).search() !== this.value ) {
@@ -218,11 +218,12 @@
                     }
                 },
                 {
-                    data: "comment_from_colette"
+                    data: "status.name"
                 },
                 {
-                    data: "status.name"
+                    data: "comment_from_colette"
                 }
+                
             ],
             select: false,
             buttons: [
