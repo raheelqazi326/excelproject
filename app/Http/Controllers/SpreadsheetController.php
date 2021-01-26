@@ -97,6 +97,7 @@ class SpreadsheetController extends Controller
         $i = (array_keys($rows))[0];
         $errors = [];
         $is_colette = $request->role_id == 2?1:0;
+        // dd($request->all());
         try {
             //code...
             foreach($rows as $key => $row){
@@ -130,15 +131,28 @@ class SpreadsheetController extends Controller
                             $this->sendPushNotification($data);
                         }
                         else{
-                            if(($key == "candidate" || $key == "national_insurance") && ($spreadsheet->status_id == 1 || $spreadsheet->status_id == 2)){
-                                $spreadsheet->$key = $value;
+                            if(empty($spreadsheet->editedby_id) || $spreadsheet->editedby_id == $request->user_id || $request->role_id == 1){
+                                if(($key == "candidate" || $key == "national_insurance") && ($spreadsheet->status_id == 1 || $spreadsheet->status_id == 2)){
+                                    $spreadsheet->$key = $value;
+                                    $spreadsheet->editedby_id = $request->user_id;
+                                    $spreadsheet->editedby_name = $request->name;
+                                }
+                                else{
+                                    return response()->json([
+                                        "data" => [],
+                                        "fieldErrors" => [[
+                                            "name" => $key,
+                                            "status" => !($key == "candidate" || $key == "national_insurance")?"you can not update this column":"You can not update when request is ".($spreadsheet->status_id == 3?"approved":"reject")
+                                        ]]
+                                    ]);
+                                }
                             }
                             else{
                                 return response()->json([
                                     "data" => [],
                                     "fieldErrors" => [[
                                         "name" => $key,
-                                        "status" => !($key == "candidate" || $key == "national_insurance")?"you can not update this column":"You can not update when request is ".($spreadsheet->status_id == 3?"approved":"reject")
+                                        "status" => "You cannot edit this row"
                                     ]]
                                 ]);
                             }

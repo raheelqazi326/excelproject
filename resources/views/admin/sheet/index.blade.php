@@ -179,6 +179,7 @@
                                         <th>Action</th>
                                         <th>Status</th>
                                         <th style="width: 170px !important;">Comment From Colette</th>
+                                        <th>Edited By</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>

@@ -25,6 +25,8 @@ class CreateSpreadsheetsTable extends Migration
             $table->string('national_insurance', 100)->nullable();
             $table->string('comment_from_colette', 255)->nullable();            
             $table->tinyInteger('status_id')->unsigned();
+            $table->integer('editedby_id')->unsigned()->nullable();
+            $table->string('editedby_name', 100)->nullable();
             $table->timestamps();
         });
     }

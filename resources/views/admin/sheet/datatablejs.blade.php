@@ -83,7 +83,9 @@
                 url:"{{ route('sheet.edit') }}",
                 type: "POST",
                 data:{
-                    'role_id':{{ auth()->user()->role_id }}
+                    'user_id': "{{ auth()->user()->id }}",
+                    'name': "{{ auth()->user()->first_name.' '.auth()->user()->last_name }}",
+                    'role_id':"{{ auth()->user()->role_id }}"
                 }
             },
             table: "#spreadsheet-table",
@@ -225,8 +227,11 @@
                 },
                 {
                     data: "comment_from_colette"
+                },
+                {
+                    data: "editedby_name",
+                    visible: {{ auth()->user()->role_id==1?"true":"false" }}
                 }
-                
             ],
             select: false,
             buttons: [
