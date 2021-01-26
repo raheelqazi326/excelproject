@@ -15,7 +15,15 @@ class HistoryController extends Controller
         return view("admin.file.history");
     }
     public function historyDelete(Request $request){
-        return $request->all();
+         $data = $request->all();
+        foreach ($data['data'] as $key => $value) {
+            // return $value;
+            Histories::find($value)->delete();
+        }
+
+
+         return 1;
+
     }
     public function historydata(){
         // $today = Carbon::now()->format('Y-m-d');

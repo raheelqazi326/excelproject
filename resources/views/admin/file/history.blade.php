@@ -66,6 +66,8 @@
     <script src="{{ asset('datatable/Main/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('datatable/Main/js/dataTables.select.min.js') }}"></script>
     <script src="{{ asset('datatable/Main/js/dataTables.editor.min.js') }}"></script>
+    <script src="{{ asset('datatable/Main/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('datatable/Main/js/jszip.min.js') }}"></script>
     <script>
         $(document).ready(function(){
             editor = new $.fn.dataTable.Editor({
@@ -141,10 +143,11 @@
                         data: "national_insurance"
                     },
                     {
-                        data: "status.name"
+                        data: "comment_from_colette"
+
                     },
                     {
-                        data: "comment_from_colette"
+                        data: "status.name"
                     }
                     
                 ],
@@ -155,24 +158,72 @@
                 buttons: [
                     'selectAll',
                     'selectNone',
-                    // {
-                    //     text: "Delete",
-                    //     action: function ( e, dt, node, config ) {
-                    //         console.log(DataTable.rows( { selected: true } ).data());
-                    //     },
-                    //     enabled:false
-                    // },
-                    { extend: "remove", editor: editor }
+
+                    {
+                        text: "Delete",
+                        action:  function ( e, dt, node, config ) {
+                            let selectedRows = DataTable.rows( { selected: true } ).data();
+                            
+                            // let ids_keys = Object.keys(selectedRows);
+                            const arrr = []
+                            const ids_keys = selectedRows.map(row=>{arrr.push(row.id)});
+                           console.log(arrr)
+                        //    const response =  fetch("/user/history/delete", {
+                        //         method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                        //         mode: 'cors', // no-cors, *cors, same-origin
+                        //         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                        //         body:JSON.stringify(arrr),
+                        //         headers: {
+                        //         'Content-Type': 'application/json',
+                        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        //     },
+                                
+                        //     });
+                        //     postData('/user/history/delete')
+                        //         .then(data => {
+                        //             console.log(data); // JSON data parsed by `data.json()` call
+                        //         });
+                        
+                         
+                        //    alert(ids_keys);
+                            $.ajax({           
+                                url:"{{ route('history.delete') }}",
+                                type:"POST",
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                    'content-type':"application/json"
+                                },
+                                data:JSON.stringify({ data: arrr }),
+                                success:function(result){
+                                    console.log('ids_keys',result);
+                                    if(result == 1){
+                                        location.reload();
+                                    }
+                                }
+                            });
+                        },
+                        enabled:false
+                    },
+                    // { extend: "remove", editor: editor },
                     /*
                     { extend: "create", editor: editor },
                     { extend: "edit",   editor: editor },
                     { extend: "remove", editor: editor }
                     */
+                    {
+                    extend: 'excel',
+                    text: "Export Spreadsheet",
+                    filename: 'Spreadsheet-{{ date("Y-m-d", time()) }}',
+                    exportOptions:
+                    {
+                        columns: [ 2, 3, 4, 5, 6, 7, 9, 10, 11 ]
+                    }
+                },
                 ]
             });
             DataTable.on( 'select deselect', function () {
                 var selectedRows = DataTable.rows( { selected: true } );
-                DataTable.button( 2 ).enable( selectedRows > 0 );
+                DataTable.button( 2 ).enable( selectedRows.length > 0 );
             } );
             
         });

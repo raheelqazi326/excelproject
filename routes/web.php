@@ -38,7 +38,7 @@ Route::group(['middleware'=>'auth'], function () {
     Route::post('/email/avail', 'UserController@emailavail')->name('/email/avail');
     Route::get('/sheet/history', 'HistoryController@history')->name('user.history');
     Route::get('/user/history/data', 'HistoryController@historydata')->name('history.data');
-    Route::get('/user/history/delete', 'HistoryController@historyDelete')->name('history.delete');
+    Route::post('/user/history/delete', 'HistoryController@historyDelete')->name('history.delete');
     Route::post('/sheet/move', 'HistoryController@move')->name('sheet.move');
     Route::post('/sheet/upload/save', 'HistoryController@SheetSave')->name('sheet.save');
     Route::get('/sheet/download/', 'HistoryController@downloadfile')->name('sheet.download');

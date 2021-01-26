@@ -21,7 +21,7 @@ class Users extends Seeder
                 "first_name" => "Super",
                 "last_name" => "Admin",
                 "username" => "superadmin",
-                "email" => "admin@hnh.pk",
+                "email" => "admin@onlinespreadsheet.co.uk",
                 "password" => '$2y$10$xRdw3jJALAmhN6dWBXBql.c5nx3.nNNre/I/6yhav3.N3tPTvOiBW', // 123456
                 "status" => "active"
             ],
@@ -30,7 +30,7 @@ class Users extends Seeder
                 "first_name" => "Colette",
                 "last_name" => "Hospital",
                 "username" => "colettehospital",
-                "email" => "colette@hnh.pk",
+                "email" => "colette@onlinespreadsheet.co.uk",
                 "password" => '$2y$10$xRdw3jJALAmhN6dWBXBql.c5nx3.nNNre/I/6yhav3.N3tPTvOiBW', // 123456
                 "status" => "active"
             ]

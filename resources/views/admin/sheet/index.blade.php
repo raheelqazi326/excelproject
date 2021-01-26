@@ -200,8 +200,10 @@
     <script src="{{ asset('datatable/Main/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('datatable/Main/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('datatable/Main/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('datatable/Main/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('datatable/Main/js/dataTables.select.min.js') }}"></script>
     <script src="{{ asset('datatable/Main/js/dataTables.editor.min.js') }}"></script>
+    <script src="{{ asset('datatable/Main/js/jszip.min.js') }}"></script>
     {{-- Pusher Scripts --}}
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script src="https://js.pusher.com/beams/1.0/push-notifications-cdn.js"></script>

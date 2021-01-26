@@ -28,6 +28,9 @@ body::-webkit-scrollbar {
     background: -moz-linear-gradient(top, #007bff, #5992d0);
     background: linear-gradient(top, #007bff, #5992d0);
 }
+.disappear, .disappear button {
+    left: -9999;
+}
 body {
   scrollbar-width: thin;
   scrollbar-color: var(--thumbBG) var(--scrollbarBG);
