@@ -14,7 +14,9 @@ class CreateExcelFilesTable extends Migration
     public function up()
     {
         Schema::create('excel_files', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->string('filename', 80);
+            $table->string('filepath', 255);
             $table->timestamps();
         });
     }

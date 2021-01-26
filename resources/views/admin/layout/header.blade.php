@@ -43,6 +43,11 @@
                 <li class="mt-1">
                     <a class="fa fa-repeat btn-color spreadsheet-refresh" href="javascript:;"></a>
                 </li>
+                <li style="margin-top:17px;margin-left:7px;">
+                    <a href="{{ route('sheet.download') }}">
+                        Uploads
+                    </a>
+                </li>
                 
                 @if (auth()->user()->role_id == 2)
                 <li style="margin-top:17px;margin-left:7px;">
