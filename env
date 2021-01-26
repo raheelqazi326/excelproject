@@ -14,6 +14,7 @@ DB_DATABASE=mohsinjs_online_spread_sheet
 DB_USERNAME=mohsinjs_online_spread_sheet
 DB_PASSWORD=mohsinjs_online_spread_sheet
 
+
 BROADCAST_DRIVER=pusher
 CACHE_DRIVER=file
 QUEUE_CONNECTION=sync

@@ -28,9 +28,9 @@
 		    padding: 26px 32px 19px 31px;
 		    background: #9152f8;
 		    background: -webkit-linear-gradient(top, #69e652, #54af4cc2);
-		    background: -o-linear-gradient(top, #007bff, #5992d0);
-		    background: -moz-linear-gradient(top, #007bff, #5992d0);
-		    background: linear-gradient(top, #007bff, #5992d0);
+		    background: -o-linear-gradient(top, #69e652, #54af4cc2);
+		    background: -moz-linear-gradient(top, #69e652, #54af4cc2);
+		    background: linear-gradient(top, #69e652, #54af4cc2);
 		}
 		.login100-form-logo {
 		    font-size: 60px;

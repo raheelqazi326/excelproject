@@ -13,6 +13,21 @@
 body::-webkit-scrollbar {
   width: 16px;
 }
+.modal-body {
+    background: #9152f8;
+    background: -webkit-linear-gradient(top, #69e652, #54af4cc2);
+    background: -o-linear-gradient(top, #007bff, #5992d0);
+    background: -moz-linear-gradient(top, #007bff, #5992d0);
+    background: linear-gradient(top, #007bff, #5992d0);
+}
+.modal .modal-header , .modal .modal-footer {
+    border-bottom: 1px solid #EFEFEF;
+    background: #9152f8;
+    background: -webkit-linear-gradient(top, #69e652, #54af4cc2);
+    background: -o-linear-gradient(top, #007bff, #5992d0);
+    background: -moz-linear-gradient(top, #007bff, #5992d0);
+    background: linear-gradient(top, #007bff, #5992d0);
+}
 body {
   scrollbar-width: thin;
   scrollbar-color: var(--thumbBG) var(--scrollbarBG);
