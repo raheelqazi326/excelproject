@@ -110,6 +110,9 @@
                 console.log(error);                    
             }
         });
+        $("#excelExport").on("click", function() {
+            $(".dt-buttons .buttons-excel").trigger("click");
+        });
         $('#spreadsheet-table thead tr').clone(true).appendTo( '#spreadsheet-table thead' );
         $('#spreadsheet-table thead tr:eq(1) th').each( function (i) {
             var title = $(this).text();
@@ -124,7 +127,7 @@
                 }
             } );
         } );
-        let domTemplate = '<"row"<"col-3"l><"col-5 text-center"B><"col-4"f>><"table-responsive"rt><"row"<"col"i><"col"p>>';
+        let domTemplate = '<"row"<"col-3"l><"col-5 text-center"<"disappear"B>><"col-4"f>><"table-responsive"rt><"row"<"col"i><"col"p>>';
         DataTable = $("#spreadsheet-table").DataTable({
             "lengthMenu": [[-1, 10, 25, 50, 100], ["All", 10, 25, 50, 100]],
             // "iDisplayLength": -1,
@@ -227,6 +230,19 @@
             ],
             select: false,
             buttons: [
+                // {
+                //     extend: 'copy',
+                //     text: "Copy Spreadsheet to Clipboard",
+                // },
+                {
+                    extend: 'excel',
+                    text: "Export Spreadsheet",
+                    filename: 'Spreadsheet-{{ date("Y-m-d", time()) }}',
+                    exportOptions:
+                    {
+                        columns: [ 1, 2, 3, 4, 5, 6, 7, 9, 10 ]
+                    }
+                },
                 /*
                 { extend: "create", editor: editor },
                 { extend: "edit",   editor: editor },

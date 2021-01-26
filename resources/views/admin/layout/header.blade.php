@@ -40,45 +40,57 @@
             <ul class="nav navbar-nav pull-right">
 
                 <li class="mt-1"><a href="javascript:;" class="fullscreen-btn"><i class="fa fa-arrows-alt"></i></a></li>
-                <li class="mt-1">
-                    <a class="fa fa-repeat btn-color spreadsheet-refresh" href="javascript:;"></a>
-                </li>
-                
-                @if (auth()->user()->role_id == 2)
-                <li style="margin-top:17px;margin-left:7px;">
-                    <a href="javascript:;" class="excel-import">
-                        <i class="excel-import fa fa-upload"></i>
-                    </a>
-                    <input type="file" id="excel_import" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" style="display:none">
-                </li>
+                @if (Route::currentRouteName() == "sheet.list")
+                    <li class="mt-1">
+                        <a class="fa fa-repeat btn-color spreadsheet-refresh" href="javascript:;"></a>
+                    </li>
+                    
+                    @if (auth()->user()->role_id == 2)
+                        <li style="margin-top:17px;margin-left:7px;">
+                            <a href="javascript:;" class="excel-import">
+                                <i class="excel-import fa fa-upload"></i>
+                            </a>
+                            <input type="file" id="excel_import" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" style="display:none">
+                        </li>
+                        <li style="margin-top:17px;margin-left:7px;">
+                            <a href="javascript:;" id="excelExport">
+                                <i class="fa fa-download"></i>
+                            </a>
+                        </li>    
+                    @endif
+                    @if (auth()->user()->role_id == 1)
+                        <li style="margin-top:17px;margin-left:0px;">
+                            <a href="{{ route('sheet.move') }}">
+                                <i class="fa fa-paper-plane"></i>
+                            </a>
+                        </li>
+                        <li style="margin-top:17px;margin-left:7px;">
+                            <a href="javascript:;" id="excelExport" class="p-0">
+                                <i class="fa fa-download"></i>
+                            </a>
+                        </li> 
+                    @endif
                 @endif
-                @if (auth()->user()->role_id == 1)
-                <li style="margin-top:17px;margin-left:7px;">
-                    <a href="{{ route('sheet.move') }}">
-                        <i class="fa fa-paper-plane"></i>
-                    </a>
-                </li>
+                @if(Auth::user()["role_id"] ==1)
+                    <li class="nav-li">
+                        <a href="{{route('sheet.list')}}"> 
+                        <i class="fa fa-file-excel-o"></i>
+                            <span class="title">Spread Sheet</span>
+                        </a>
+                    </li>
+                    <li  class="nav-li">
+                        <a href="{{route('user.list')}}"> 
+                            <i class="fa fa-users"></i>
+                            <span class="title">Users</span>
+                        </a>
+                    </li>
+                    <li  class="nav-li">
+                        <a href="{{route('user.history')}}"> 
+                        <i class="fa fa-users"></i>
+                            <span class="title">History</span>
+                        </a>
+                    </li>
                 @endif
-                  <li class="nav-li">
-                <a href="{{route('sheet.list')}}"> 
-                  <i class="fa fa-file-excel-o"></i>
-                    <span class="title">Spread Sheet</span>
-                </a>
-              </li>
-              @if(Auth::user()["role_id"] ==1)
-               <li  class="nav-li">
-                   <a href="{{route('user.list')}}"> 
-                    <i class="fa fa-users"></i>
-                       <span class="title">Users</span>
-                   </a>
-               </li>
-               <li  class="nav-li">
-                <a href="{{route('user.history')}}"> 
-                 <i class="fa fa-users"></i>
-                    <span class="title">History</span>
-                </a>
-            </li>
-               @endif
                  <!-- start manage user dropdown -->
                  <li class="dropdown dropdown-user">
                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
