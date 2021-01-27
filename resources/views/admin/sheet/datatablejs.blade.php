@@ -112,8 +112,13 @@
                 console.log(error);                    
             }
         });
+        // $("#excelExport").on("click", function() {
+        //     $(".dt-buttons .buttons-excel").not(".buttonNew").trigger("click");
+        // });
         $("#excelExport").on("click", function() {
-            $(".dt-buttons .buttons-excel").trigger("click");
+            let rows = DataTable.rows.data();
+            
+            $(".dt-buttons .buttons-excel.buttonNew").trigger("click");
         });
         $('#spreadsheet-table thead tr').clone(true).appendTo( '#spreadsheet-table thead' );
         $('#spreadsheet-table thead tr:eq(1) th').each( function (i) {
@@ -230,10 +235,10 @@
                 },
                 {
                     data: "editedby_name",
-                    visible: {{ auth()->user()->role_id==1?"true":"false" }}
+                    visible: {{ auth()->user()->role_id==2?"false":"true" }}
                 }
             ],
-            select: false,
+            select: true,
             buttons: [
                 // {
                 //     extend: 'copy',
@@ -245,9 +250,21 @@
                     filename: 'Spreadsheet-{{ date("Y-m-d", time()) }}',
                     exportOptions:
                     {
-                        columns: [ 1, 2, 3, 4, 5, 6, 7, 9, 10 ]
+                        modifier: {
+                            selected: null
+                        },
+                        columns: [ 1, 2, 3, 4, 5, 6, 7, 9, 10, 11 ]
                     }
                 },
+                {
+                    extend: 'excel',
+                    text: "Export Spreadsheet",
+                    className: "buttonNew",
+                    filename: 'Spreadsheet-{{ auth()->user()->first_name." ".auth()->user()->last_name }}-{{ date("Y-m-d", time()) }}',
+                    exportOptions: {
+                        columns: [ 1, 2, 3, 4, 5, 6, 7, 9, 10, 11 ]
+                    }
+                }
                 /*
                 { extend: "create", editor: editor },
                 { extend: "edit",   editor: editor },
