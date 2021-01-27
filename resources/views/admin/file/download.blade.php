@@ -17,23 +17,17 @@
                     <div class="col-md-12">
                         <div class="card card-topline-green">
                             <div class="card-head">
-                                <header>HISTORY</header>
+                                <header>Uploaded Spread Sheets</header>
                             </div>
                             <div class="card-body ">
                             <div class="table-responsive">
                                 <table class="table table-striped custom-table table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Request Id</th>
-                                            <th>Date</th>
-                                            <th>Start</th>
-                                            <th>End</th>
-                                            <th>Ward</th>
-                                            <th>Request Grade</th>
-                                            <th>Candidate</th>
-                                            <th>National Insurance</th>
-                                            <th>Comment From Colette</th>
-                                            <th>Status</th>
+                                            <th>Id</th>
+                                            <th>File Name</th>
+                                            <th>Date Time</th>
+                                            <th>Download</th>
                                         </tr>
                                     </thead>
                                     <tbody id="user-table">
@@ -385,40 +379,18 @@
 
         $.ajax({
                 type: 'GET',
-                url:'/user/history/data',
+                url:'/sheet/download/data',
                 
                 success:function(data){
                     let div;
                     $.each( data, function( key, value ) {
                         console.log(value)
-
-                        is_active = (value.status=='active');
                         div +='<tr>';
-                        div +='<td>'+value.request_id+'</td>';
-                        div +='<td>'+value.date+'</td>';
-                        div +='<td>'+value.start+'</td>';
-                        div +='<td>'+value.end+'</td>';
-                        div +='<td>'+value.ward+'</td>';
-                        div +='<td>'+value.request_grade+'</td>';
-                        if (value.candidate !==null) {
-                            div +='<td>'+value.candidate+'</td>';
-                        }else{
-                            div +='<td></td>';
-                        }
-                        if (value.national_insurance !==null) {
-                            div +='<td>'+value.national_insurance+'</td>';
-                        }else{
-                            div +='<td></td>';
-                        }
-                        if (value.comment_from_colette !==null) {
-                            div +='<td>'+value.comment_from_colette+'</td>';
-                        }else{
-                            div +='<td></td>';
-                        }
-                        div +='<td>'+value.status.name+'</td>';
-
+                        div +='<td>'+value.id+'</td>';
+                        div +='<td>'+value.filename+'</td>';
+                        div +='<td>'+value.created_at+'</td>';
+                        div +='<td><a href="{{ asset("/") }}'+value.filepath+'" target="_blank">click here to download file</a></td>';
                         div +='</tr>';
-
                         });
                     $('#user-table').html(div);
                 }

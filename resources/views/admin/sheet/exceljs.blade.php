@@ -69,6 +69,28 @@
                         return;
                     }
                 }
+                let data = new FormData();
+                data.append("file", $("input#excel_import")[0].files[0]);
+                $.ajax({
+                    headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "/sheet/upload/save/",
+                    method: "post",
+                    data:data,
+                    processData: false,
+                    contentType: false,
+                    error: function(err){
+                        console.log(err);
+                    },
+                    success: function(result){
+                        console.log(result);
+                        $('#spreadsheet-table_processing').css('display','block');
+                        // window.location.reload();
+                        // $('.spreadsheet-refresh').trigger('click');
+                    }
+                });
+
                 $.ajax({
                     url: "{{ url('/spreadsheet-uploaded/') }}/"+rows.length,
                     method: "get",

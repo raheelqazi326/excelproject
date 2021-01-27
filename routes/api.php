@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::post('/upload-spreadsheet', 'SpreadsheetController@uploadSpreadsheet')->name('sheet.upload');
+    // Route::post('/user/history/delete', 'HistoryController@historyDelete')->name('history.delete');
 
 Route::post('/sheet/edit', 'SpreadsheetController@editSpreadsheet')->name('sheet.edit');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
