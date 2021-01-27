@@ -116,9 +116,13 @@
         //     $(".dt-buttons .buttons-excel").not(".buttonNew").trigger("click");
         // });
         $("#excelExport").on("click", function() {
-            let rows = DataTable.rows.data();
-            
-            $(".dt-buttons .buttons-excel.buttonNew").trigger("click");
+            DataTable.rows({ search: "{{ auth()->user()->first_name.' '.auth()->user()->last_name }}" }).select();
+            console.log(DataTable.rows({selected: true}).data());
+            // let cols = DataTable.column(11).search("{{ auth()->user()->first_name.' '.auth()->user()->last_name }}");
+            // console.log(rows);
+            // console.log(cols);
+            // rows.draw();
+            // $(".dt-buttons .buttons-excel.buttonNew").trigger("click");
         });
         $('#spreadsheet-table thead tr').clone(true).appendTo( '#spreadsheet-table thead' );
         $('#spreadsheet-table thead tr:eq(1) th').each( function (i) {
@@ -185,8 +189,8 @@
                         let actionWrapper = $("<div/>");
                         if(is_colette){
                             let attr = {
-                                "data-toggle":"tooltip",
-                                "title":"Approve Request",
+                                "data-toggle": "tooltip",
+                                "title": "Approve Request",
                                 "class": "label label-success mr-1 mb-1 change-request-status",
                                 "data-id": data.id,
                                 "data-status": 3,
