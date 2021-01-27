@@ -36,7 +36,6 @@ Route::group(['middleware'=>'auth'], function () {
     Route::get('/user/delete/{id}', 'UserController@delete')->name('/user/delete/{id}');
     Route::post('/user/status', 'UserController@status')->name('/user/status');
     Route::post('/email/avail', 'UserController@emailavail')->name('/email/avail');
-<<<<<<< HEAD
     Route::get('/sheet/history', 'HistoryController@history')->name('user.history');
     Route::get('/user/history/data', 'HistoryController@historydata')->name('history.data');
     Route::post('/user/history/delete', 'HistoryController@historyDelete')->name('history.delete');
@@ -52,8 +51,6 @@ Route::group(['middleware'=>'auth'], function () {
         Artisan::call('route:clear');   
         return "786 all cache cleared.";
     });
-=======
->>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
 
 });
 Route::get('/welcome', function () {
