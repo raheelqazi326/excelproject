@@ -1,6 +1,9 @@
 <script>
     $(document).ready(function(){
+<<<<<<< HEAD
         $('#spreadsheet-table').css("line-height","12.1px");
+=======
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
         let DataTable;
         let interests = ["sheet_upload", "approved", "rejected", "waiting_for_approve", "comment_from_colette"];
         var editor; // use a global for the submit and return data rendering in the examples
@@ -33,7 +36,10 @@
             .catch(console.error);
 
         $(".spreadsheet-refresh").click(function(e){
+<<<<<<< HEAD
             // window.location.reload();
+=======
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
             e.preventDefault();
             DataTable.ajax.reload();
         });
@@ -83,8 +89,11 @@
                 url:"{{ route('sheet.edit') }}",
                 type: "POST",
                 data:{
+<<<<<<< HEAD
                     'user_id':"{{ auth()->user()->id }}",
                     'name':"{{ auth()->user()->first_name.' '.auth()->user()->last_name }}",
+=======
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
                     'role_id':{{ auth()->user()->role_id }}
                 }
             },
@@ -99,6 +108,7 @@
                 let i = $(this).index();
                 // console.log(is_colette);
                 if (!is_colette && (i == 6 || i == 7)){
+<<<<<<< HEAD
                     editor.inline( this, {
                         onBlur: 'submit'
                     });
@@ -107,11 +117,18 @@
                     editor.inline( this, {
                         onBlur: 'submit'
                     });
+=======
+                    editor.inline( this );
+                }
+                else if (is_colette && (i == 8)){
+                    editor.inline( this );
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
                 }
             } catch (error) {
                 console.log(error);                    
             }
         });
+<<<<<<< HEAD
         $("#excelExport").on("click", function() {
             $(".dt-buttons .buttons-excel").trigger("click");
         });
@@ -141,6 +158,12 @@
             }, 
             orderCellsTop: true,
             fixedHeader: true,         
+=======
+        let domTemplate = '<"row"<"col-3"l><"col-5 text-center"B><"col-4"f>><"table-responsive"rt><"row"<"col"i><"col"p>>';
+        DataTable = $("#spreadsheet-table").DataTable({
+            "iDisplayLength": 25,
+            dom: domTemplate,
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
             ajax: "{{ route('sheet.datatable') }}",
             // order: [[ 1, 'asc' ]],
             columns: [
@@ -172,6 +195,15 @@
                     data: "national_insurance"
                 },
                 {
+<<<<<<< HEAD
+=======
+                    data: "comment_from_colette"
+                },
+                {
+                    data: "status.name"
+                },
+                {
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
                     data: null,
                     defaultContent: '',
                     orderable: false,
@@ -187,18 +219,30 @@
                                 "data-status": 3,
                                 "style": "cursor:pointer"
                             };
+<<<<<<< HEAD
                             if(!(data.status_id == 2 || data.status_id == 4)){
                                 attr.disabled = "disabled";
                                 attr.class = "label label-info mr-1 mb-1";
+=======
+                            if(data.status_id != 2){
+                                attr.disabled = "disabled";
+                                attr.class = "label label-success";
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
                                 attr.title = "";
                             }
                             $("<span></span>").attr(attr).append($('<i class="fa fa-check"></i>')).appendTo(actionWrapper);
                             attr.title = "Reject Request";
                             attr.class = "label label-danger change-request-status";
                             attr["data-status"] = 4;
+<<<<<<< HEAD
                             if(!(data.status_id == 2 || data.status_id == 3)){
                                 attr.disabled = "disabled";
                                 attr.class = "label label-info mr-1 mb-1";
+=======
+                            if(data.status_id != 2){
+                                attr.disabled = "disabled";
+                                attr.class = "label label-danger";
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
                                 attr.title = "";
                             }
                             $("<span></span>").attr(attr).append($('<i class="fa fa-times"></i>')).appendTo(actionWrapper);
@@ -207,20 +251,31 @@
                             let attr = {
                                 "data-toggle":"tooltip",
                                 "title":"Cancel Request",
+<<<<<<< HEAD
                                 "class": "label label-danger change-request-status",
+=======
+                                "class": "label label-info change-request-status",
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
                                 "data-id": data.id,
                                 "data-status": 1,
                                 "style": "cursor:pointer"
                             }
+<<<<<<< HEAD
                             if(data.status_id == 1){
                                 attr.disabled = "disabled";
                                 attr.class = "label label-info mr-1 mb-1";
+=======
+                            if(!(data.status_id == 3 || data.status_id == 4)){
+                                attr.disabled = "disabled";
+                                attr.class = "label label-info";
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
                                 attr.title = "";
                             }
                             $("<span></span>").attr(attr).append($('<i class="fa fa-times"></i>')).appendTo(actionWrapper);
                         }
                         return actionWrapper.html();
                     }
+<<<<<<< HEAD
                 },
                 {
                     data: "status.name"
@@ -249,6 +304,12 @@
                         columns: [ 1, 2, 3, 4, 5, 6, 7, 9, 10, 11 ]
                     }
                 },
+=======
+                }
+            ],
+            select: false,
+            buttons: [
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
                 /*
                 { extend: "create", editor: editor },
                 { extend: "edit",   editor: editor },

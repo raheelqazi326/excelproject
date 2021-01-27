@@ -13,6 +13,7 @@
 body::-webkit-scrollbar {
   width: 16px;
 }
+<<<<<<< HEAD
 .modal-body {
     background: #9152f8;
     background: -webkit-linear-gradient(top, #69e652, #54af4cc2);
@@ -31,6 +32,8 @@ body::-webkit-scrollbar {
 .disappear, .disappear button {
     left: -9999;
 }
+=======
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
 body {
   scrollbar-width: thin;
   scrollbar-color: var(--thumbBG) var(--scrollbarBG);
@@ -181,11 +184,14 @@ body::-webkit-scrollbar-thumb {
         body {
             overflow: hidden;
         }
+<<<<<<< HEAD
         .navbar-nav>li>a {
         padding: 20px 10px 20px 15px;
         line-height: 20px;
         color: #0b850b;
     }
+=======
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
     </style>
 </head>
 

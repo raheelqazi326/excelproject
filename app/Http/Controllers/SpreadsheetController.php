@@ -15,7 +15,14 @@ class SpreadsheetController extends Controller
 
     public function uploadSpreadsheet(Request $request){
         $rows = $request->rows;
+<<<<<<< HEAD
         // return response()->json($rows, 500);
+=======
+        
+        
+        // return response()->json($rows, 500);
+            
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
         foreach($rows as $row){        
             $spreadsheet = Spreadsheet::where('request_id', $row['Request Id'])->first();
             if(!empty($spreadsheet)){
@@ -24,6 +31,10 @@ class SpreadsheetController extends Controller
                 }
                 $spreadsheet->delete();
             }
+<<<<<<< HEAD
+=======
+            
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
             $spreadsheet = new Spreadsheet;
             $spreadsheet->request_id = $row['Request Id']??$row['Request+Id']??"";
             $spreadsheet->date = date('Y-m-d', strtotime($row['Date']));
@@ -32,7 +43,25 @@ class SpreadsheetController extends Controller
             $spreadsheet->ward = $row['Ward'];
             $spreadsheet->request_grade = $row['Request Grade']??$row['Request+Grade']??"";
             $spreadsheet->status_id = 1;
+<<<<<<< HEAD
             $spreadsheet->save();            
+=======
+            $spreadsheet->save();
+        
+        
+            // $spreadsheet = new Spreadsheet;
+            // $spreadsheet->request_id = $row[0];
+            // $spreadsheet->date = date('Y-m-d', strtotime($row[1]));
+            // $spreadsheet->start = $row[2];
+            // $spreadsheet->end = $row[3];
+            // $spreadsheet->ward = $row[4];
+            // $spreadsheet->request_grade = $row[5];
+            // $spreadsheet->status_id = 1;
+            // $spreadsheet->save();
+        
+        
+            
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
         }
         return response()->json(['status' => true, 'message' => 'successfully uploaded']);
     }
@@ -131,6 +160,7 @@ class SpreadsheetController extends Controller
                             $this->sendPushNotification($data);
                         }
                         else{
+<<<<<<< HEAD
                             if(empty($spreadsheet->editedby_id) || $spreadsheet->editedby_id == $request->user_id || $request->role_id == 1){
                                 if(($key == "candidate" || $key == "national_insurance") && ($spreadsheet->status_id == 1 || $spreadsheet->status_id == 2)){
                                     $spreadsheet->$key = $value;
@@ -146,6 +176,10 @@ class SpreadsheetController extends Controller
                                         ]]
                                     ]);
                                 }
+=======
+                            if(($key == "candidate" || $key == "national_insurance") && ($spreadsheet->status_id == 1 || $spreadsheet->status_id == 2)){
+                                $spreadsheet->$key = $value;
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
                             }
                             else{
                                 return response()->json([

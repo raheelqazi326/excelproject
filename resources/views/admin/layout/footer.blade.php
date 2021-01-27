@@ -13,8 +13,15 @@
 
       <div class="modal-content">
         <div class="modal-header">
+<<<<<<< HEAD
           <h4 class="modal-title">Change Password</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
+=======
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Chagne Password</h4>
+         
+
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
         </div>
         <div class="modal-body">
             <p id="passdone" class="text-success"></p>

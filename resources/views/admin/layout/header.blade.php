@@ -39,6 +39,7 @@
         <div class="top-menu">
             <ul class="nav navbar-nav pull-right">
 
+<<<<<<< HEAD
                 <li class="mt-1"><a href="javascript:;" data-toggle="tooltip" data-placement="bottom" title="Click here for full screen view" class="fullscreen-btn"><i class="fa fa-arrows-alt"></i></a></li>
                 
                 @if (Route::currentRouteName() == "sheet.list")
@@ -97,6 +98,34 @@
                         </a>
                     </li>
                 @endif
+=======
+                <li class="mt-1"><a href="javascript:;" class="fullscreen-btn"><i class="fa fa-arrows-alt"></i></a></li>
+                <li class="mt-1">
+                    <a class="fa fa-repeat btn-color spreadsheet-refresh" href="javascript:;"></a>
+                </li>
+                @if (auth()->user()->role_id == 2)
+                <li style="margin-top:17px;margin-left:7px;">
+                    <a href="javascript:;" class="excel-import">
+                        <i class="excel-import fa fa-upload"></i>
+                    </a>
+                    <input type="file" id="excel_import" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" style="display:none">
+                </li>
+                @endif
+                  <li class="nav-li">
+                <a href="{{route('sheet.list')}}"> 
+                  <i class="fa fa-file-excel-o"></i>
+                    <span class="title">Spread Sheet</span>
+                </a>
+              </li>
+              @if(Auth::user()["role_id"] ==1)
+               <li  class="nav-li">
+                   <a href="{{route('user.list')}}"> 
+                    <i class="fa fa-users"></i>
+                       <span class="title">Users</span>
+                   </a>
+               </li>
+               @endif
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
                  <!-- start manage user dropdown -->
                  <li class="dropdown dropdown-user">
                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">

@@ -83,6 +83,7 @@
     div.dataTables_wrapper div.dataTables_filter input {
         border: 1px solid #078307;
     }
+<<<<<<< HEAD
     div#spreadsheet-table_processing {
         height: 40rem;
     top: 10%;
@@ -94,6 +95,8 @@
         /*background: gray;*/
         /*opacity: 0.3;*/
     }
+=======
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
     .page-link {
     position: relative;
     display: block;
@@ -121,6 +124,7 @@
     background-color: #3b6738 !important;
     border-color: #3b6738 !important;
     }
+<<<<<<< HEAD
     .table-responsive{
         height: 37.6rem;
     }
@@ -146,6 +150,8 @@
     }
 
     }
+=======
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
 </style>
 @section('content')
 <div class="page-content-wrapper">
@@ -164,6 +170,7 @@
                         </div>
                     </div> --}}
                     <div class="col-md-12">
+<<<<<<< HEAD
                         <div class="table-responsive1">
                             <table id="spreadsheet-table" class="table custom-table table-hover table-bordered">
                                 <thead>
@@ -184,6 +191,45 @@
                                 </thead>
                                 <tbody></tbody>
                             </table>
+=======
+                        <div class="">
+                            <div class="">
+                                <div class="table-responsive1">
+                                    <table id="spreadsheet-table" class="table custom-table table-hover table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Request ID</th>
+                                                <th>Date</th>
+                                                <th>Start</th>
+                                                <th>End</th>
+                                                <th>Ward</th>
+                                                <th>Request Grade</th>
+                                                <th>Candidate</th>
+                                                <th>National Insurance</th>
+                                                <th>Comment From Colette</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Request ID</th>
+                                                <th>Date</th>
+                                                <th>Start</th>
+                                                <th>End</th>
+                                                <th>Ward</th>
+                                                <th>Request Grade</th>
+                                                <th>Candidate</th>
+                                                <th>National Insurance</th>
+                                                <th>Comment From Colette</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
                         </div>
                     </div>
                 </div>
@@ -204,7 +250,10 @@
     <script src="{{ asset('datatable/Main/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('datatable/Main/js/dataTables.select.min.js') }}"></script>
     <script src="{{ asset('datatable/Main/js/dataTables.editor.min.js') }}"></script>
+<<<<<<< HEAD
     <script src="{{ asset('datatable/Main/js/jszip.min.js') }}"></script>
+=======
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
     {{-- Pusher Scripts --}}
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script src="https://js.pusher.com/beams/1.0/push-notifications-cdn.js"></script>

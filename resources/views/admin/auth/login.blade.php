@@ -28,9 +28,15 @@
 		    padding: 26px 32px 19px 31px;
 		    background: #9152f8;
 		    background: -webkit-linear-gradient(top, #69e652, #54af4cc2);
+<<<<<<< HEAD
 		    background: -o-linear-gradient(top, #69e652, #54af4cc2);
 		    background: -moz-linear-gradient(top, #69e652, #54af4cc2);
 		    background: linear-gradient(top, #69e652, #54af4cc2);
+=======
+		    background: -o-linear-gradient(top, #007bff, #5992d0);
+		    background: -moz-linear-gradient(top, #007bff, #5992d0);
+		    background: linear-gradient(top, #007bff, #5992d0);
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
 		}
 		.login100-form-logo {
 		    font-size: 60px;
@@ -74,7 +80,11 @@
 					</span>
 					<div class="wrap-input100 validate-input" data-validate = "Enter Email">
 						<label class="text-light"><i class="fa fa-user"></i> Email</label>
+<<<<<<< HEAD
 						<input class="input100" type="text" name="email" placeholder="Email">
+=======
+						<input class="input100" type="text" name="email" placeholder="Useremail">
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
 					</div>
 					<div class="wrap-input100 validate-input" data-validate="Enter password">
 						<label class="text-light"><i class="fa fa-lock"></i> Password</label>

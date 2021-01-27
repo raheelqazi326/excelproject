@@ -19,7 +19,10 @@
                 
                 var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
                 // $('.preloader').css('display','block');
+<<<<<<< HEAD
                 $('#spreadsheet-table_processing').css('display','block');
+=======
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
                 send_rows(XL_row_object, 0, client_id,name);
                 // var json_object = JSON.stringify(XL_row_object);
                 // console.log(json_object);
@@ -33,7 +36,11 @@
         reader.readAsBinaryString(file);
     });
     function send_rows1(rows, index, client_id,name){
+<<<<<<< HEAD
         $('#spreadsheet-table_processing').css('display','block');
+=======
+        $('.preloader').css('display','block');
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
         send_rows(rows, index, client_id,name);
     }
     function send_rows(rows, index, client_id,name){
@@ -59,7 +66,11 @@
                 console.log(err);
             },
             success: function(result){
+<<<<<<< HEAD
                 $('#spreadsheet-table_processing').css('display','block');
+=======
+                $('.preloader').css('display','block');
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
                 // result = JSON.(result);
                 index += add;
                 console.log(index);
@@ -69,8 +80,11 @@
                         return;
                     }
                 }
+<<<<<<< HEAD
                 let data = new FormData();
                 data.append("file", $("input#excel_import")[0].files[0]);
+=======
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
                 $.ajax({
                     url: "{{ url('/spreadsheet-uploaded/') }}/"+rows.length,
                     method: "get",
@@ -79,6 +93,7 @@
                     },
                     success: function(result){
                         
+<<<<<<< HEAD
                         $('#spreadsheet-table_processing').css('display','block');
                         // window.location.reload();
                         // $('.spreadsheet-refresh').trigger('click');
@@ -101,6 +116,10 @@
                         $('#spreadsheet-table_processing').css('display','block');
                         window.location.reload();
                         // $('.spreadsheet-refresh').trigger('click');
+=======
+                        $('.preloader').css('display','block');
+                        window.location.reload();
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
                     }
                 });
             }
