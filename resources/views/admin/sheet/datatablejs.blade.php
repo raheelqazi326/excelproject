@@ -4,6 +4,29 @@
         let DataTable;
         let interests = ["sheet_upload", "approved", "rejected", "waiting_for_approve", "comment_from_colette"];
         var editor; // use a global for the submit and return data rendering in the examples
+        var start = moment();
+        var end = moment();
+        
+        function cb(start, end) {
+            
+            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            DataTable.ajax.url("{{ route('sheet.datatable') }}?start="+start.format('YYYY-MM-DD')+"&end="+end.format('YYYY-MM-DD'));
+            DataTable.ajax.reload();
+        }
+        
+        $('#reportrange').daterangepicker({
+            startDate: start,
+            endDate: end,
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            }
+        }, cb);
+        
         var is_colette = {{ auth()->user()->role_id == 2?1:0 }};
         var is_user = {{ auth()->user()->role_id == 3?1:0 }};
         
@@ -113,16 +136,20 @@
             }
         });
         // $("#excelExport").on("click", function() {
-        //     $(".dt-buttons .buttons-excel").not(".buttonNew").trigger("click");
+        //     $(".dt-buttons .buttons-excel").trigger("click");
         // });
         $("#excelExport").on("click", function() {
-            DataTable.rows({ search: "{{ auth()->user()->first_name.' '.auth()->user()->last_name }}" }).select();
-            console.log(DataTable.rows({selected: true}).data());
-            // let cols = DataTable.column(11).search("{{ auth()->user()->first_name.' '.auth()->user()->last_name }}");
-            // console.log(rows);
-            // console.log(cols);
-            // rows.draw();
-            // $(".dt-buttons .buttons-excel.buttonNew").trigger("click");
+            @if(auth()->user()->role_id != 1)
+                let value = "{{ auth()->user()->first_name.' '.auth()->user()->last_name }}";
+
+                console.log(value);
+                let rows = DataTable.column(11).search("Kelly Stout").draw();
+                
+                $(".dt-buttons .buttons-excel.not-admin-btn").trigger("click");
+                DataTable.column(11).search("").draw()
+            @else
+                $(".dt-buttons .buttons-excel.admin-btn").trigger("click");
+            @endif
         });
         $('#spreadsheet-table thead tr').clone(true).appendTo( '#spreadsheet-table thead' );
         $('#spreadsheet-table thead tr:eq(1) th').each( function (i) {
@@ -150,7 +177,7 @@
             }, 
             orderCellsTop: true,
             fixedHeader: true,         
-            ajax: "{{ route('sheet.datatable') }}",
+            ajax: "{{ route('sheet.datatable') }}?start="+start.format('YYYY-MM-DD')+"&end="+end.format('YYYY-MM-DD'),
             // order: [[ 1, 'asc' ]],
             columns: [
                 {
@@ -239,10 +266,11 @@
                 },
                 {
                     data: "editedby_name",
+                    searchable: true,
                     visible: {{ auth()->user()->role_id==2?"false":"true" }}
                 }
             ],
-            select: true,
+            select: false,
             buttons: [
                 // {
                 //     extend: 'copy',
@@ -252,21 +280,20 @@
                     extend: 'excel',
                     text: "Export Spreadsheet",
                     filename: 'Spreadsheet-{{ date("Y-m-d", time()) }}',
+                    className: "admin-btn",
                     exportOptions:
                     {
-                        modifier: {
-                            selected: null
-                        },
-                        columns: [ 1, 2, 3, 4, 5, 6, 7, 9, 10, 11 ]
+                        columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11 ]
                     }
                 },
                 {
                     extend: 'excel',
                     text: "Export Spreadsheet",
-                    className: "buttonNew",
-                    filename: 'Spreadsheet-{{ auth()->user()->first_name." ".auth()->user()->last_name }}-{{ date("Y-m-d", time()) }}',
-                    exportOptions: {
-                        columns: [ 1, 2, 3, 4, 5, 6, 7, 9, 10, 11 ]
+                    filename: 'Spreadsheet-{{ (auth()->user()->role_id==3?(auth()->user()->first_name."-".auth()->user()->last_name."-"):"").date("Y-m-d", time()) }}',
+                    className: "not-admin-btn",
+                    exportOptions:
+                    {
+                        columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 9, 10 ]
                     }
                 }
                 /*
@@ -298,6 +325,9 @@
                 */
             ]
         });
+        cb(start, end);
+        // DataTable.rows({ search: "{{ auth()->user()->first_name.' '.auth()->user()->last_name }}" }).select();
+        // console.log(DataTable.rows({selected: true}).data());
         $("#spreadsheet-table").on('click', "span.change-request-status", function(){
             console.log($(this))
             let ele = $(this);

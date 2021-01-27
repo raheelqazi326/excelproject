@@ -37,9 +37,14 @@ class SpreadsheetController extends Controller
         return response()->json(['status' => true, 'message' => 'successfully uploaded']);
     }
 
-    public function datatableSpreadsheet(){
+    public function datatableSpreadsheet(Request $request){
         // dd($request->all());
-        return DataTables::of(Spreadsheet::with('status')->whereHas('status')->whereDate('created_at', date('Y-m-d', time())))->toJson();
+        return DataTables::of(Spreadsheet::with('status')
+            ->whereHas('status')
+            ->whereBetween('created_at', [
+                date('Y-m-d 00:00:00', strtotime($request->start)),
+                date('Y-m-d 23:59:59', strtotime($request->end))
+            ]))->toJson();
     }
 
     public function sheetUploadNotification($total_requests){

@@ -38,9 +38,15 @@
         <!-- start header menu -->
         <div class="top-menu">
             <ul class="nav navbar-nav pull-right">
-
-                <li class="mt-1"><a href="javascript:;" data-toggle="tooltip" data-placement="bottom" title="Click here for full screen view" class="fullscreen-btn"><i class="fa fa-arrows-alt"></i></a></li>
-                
+                <li class="mt-3">
+                    <div id="reportrange"  class="pull-left" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc;">
+                        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+                        <span></span> <b class="caret"></b>
+                    </div>
+                </li>
+                <li class="mt-1">
+                    <a href="javascript:;" data-toggle="tooltip" data-placement="bottom" title="Click here for full screen view" class="fullscreen-btn"><i class="fa fa-arrows-alt"></i></a></li>
+            
                 @if (Route::currentRouteName() == "sheet.list")
                     <li class="mt-1">
                         <a data-toggle="tooltip" data-placement="bottom" title="Refresh Sheet Data" class="fa fa-repeat btn-color spreadsheet-refresh" href="javascript:;"></a>
@@ -60,17 +66,17 @@
                         </li>    
                     @endif
                     @if (auth()->user()->role_id == 1)
-                        <li style="margin-top:17px;margin-left:0px;">
+                        <li style="margin-top: 18px;margin-left: 12px;">
                             <a data-toggle="tooltip" data-placement="bottom" title="Move sheet to history section" href="{{ route('sheet.move') }}">
                                 <i class="fa fa-paper-plane"></i>
                             </a>
                         </li>
-                        <li style="margin-top:17px;margin-left:7px;">
-                            <a data-toggle="tooltip" data-placement="bottom" title="Use this button to export sheet as excel" href="javascript:;" id="excelExport" class="p-0">
-                                <i class="fa fa-download"></i>
-                            </a>
-                        </li> 
                     @endif
+                    <li style="margin-top:17px;margin-left:{{ auth()->user()->role_id == 1?12:20 }}px;">
+                        <a data-toggle="tooltip" data-placement="bottom" title="Use this button to export sheet as excel" href="javascript:;" id="excelExport" class="p-0">
+                            <i class="fa fa-download"></i>
+                        </a>
+                    </li> 
                 @endif
                 @if(Auth::user()["role_id"] ==1)
                 <li class="nav-li">

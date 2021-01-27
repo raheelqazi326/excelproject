@@ -5,6 +5,11 @@
 <!-- bootstrap -->
 <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.min.js')}}" ></script>
 <script src="{{ asset('assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js')}}" ></script>
+
+<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<!-- Include Date Range Picker -->
+<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 <!-- Common js-->
 <script src="{{ asset('assets/js/app.js')}}" ></script>
 <script src="{{ asset('assets/js/layout.js')}}" ></script>
@@ -67,7 +72,4 @@ $(document).on("submit","#passwordform",function() {
     });
   
 });
-
-
-
 </script>
