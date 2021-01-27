@@ -38,7 +38,7 @@
     }
     function send_rows(rows, index, client_id,name){
         // $('.preloader').css('display','block');
-        console.log(client_id);
+        // console.log(client_id);
         let  send_rows = [];
         let add = 100;
         for(i = index; i <= index+add; i++){
@@ -59,6 +59,7 @@
                 console.log(err);
             },
             success: function(result){
+                $('.preloader').css('display','block');
                 $('#spreadsheet-table_processing').css('display','block');
                 // result = JSON.(result);
                 index += add;
@@ -72,10 +73,22 @@
                 let data = new FormData();
                 data.append("file", $("input#excel_import")[0].files[0]);
                 $.ajax({
+                    url: "{{ url('/spreadsheet-uploaded/') }}/"+rows.length,
+                    method: "get",
+                    error: function(err){
+                        console.log(err);
+                    },
+                    success: function(result){
+                        $('#spreadsheet-table_processing').css('display','block');
+                        // window.location.reload();
+                        // $('.spreadsheet-refresh').trigger('click');
+                    }
+                });
+                $.ajax({
                     headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    url: "/sheet/upload/save/",
+                    url: "{{ route('sheet.save') }}",
                     method: "post",
                     data:data,
                     processData: false,
@@ -84,24 +97,8 @@
                         console.log(err);
                     },
                     success: function(result){
-                        console.log(result);
-                        $('#spreadsheet-table_processing').css('display','block');
-                        // window.location.reload();
-                        // $('.spreadsheet-refresh').trigger('click');
-                    }
-                });
-
-                $.ajax({
-                    url: "{{ url('/spreadsheet-uploaded/') }}/"+rows.length,
-                    method: "get",
-                    error: function(err){
-                        console.log(err);
-                    },
-                    success: function(result){
-                        
-                        $('#spreadsheet-table_processing').css('display','block');
-                        // window.location.reload();
-                        // $('.spreadsheet-refresh').trigger('click');
+                        $('.preloader').css('display','block');
+                        window.location.reload();
                     }
                 });
             }

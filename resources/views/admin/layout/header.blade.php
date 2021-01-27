@@ -43,10 +43,9 @@
                         <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
                         <span></span> <b class="caret"></b>
                     </div>
-                </li>
-                <li class="mt-1">
-                    <a href="javascript:;" data-toggle="tooltip" data-placement="bottom" title="Click here for full screen view" class="fullscreen-btn"><i class="fa fa-arrows-alt"></i></a></li>
-            
+
+                <li class="mt-1"><a href="javascript:;" data-toggle="tooltip" data-placement="bottom" title="Click here for full screen view" class="fullscreen-btn"><i class="fa fa-arrows-alt"></i></a></li>
+                
                 @if (Route::currentRouteName() == "sheet.list")
                     <li class="mt-1">
                         <a data-toggle="tooltip" data-placement="bottom" title="Refresh Sheet Data" class="fa fa-repeat btn-color spreadsheet-refresh" href="javascript:;"></a>
@@ -59,31 +58,26 @@
                             </a>
                             <input type="file" id="excel_import" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" style="display:none">
                         </li>
-                        <li style="margin-top:17px;margin-left:7px;">
-                            <a data-toggle="tooltip" data-placement="bottom" title="Use this button to download sheet" href="javascript:;" id="excelExport">
-                                <i class="fa fa-download"></i>
-                            </a>
-                        </li>    
                     @endif
                     @if (auth()->user()->role_id == 1)
-                        <li style="margin-top: 18px;margin-left: 12px;">
+                        <li style="margin-top:17px;margin-left:0px;">
                             <a data-toggle="tooltip" data-placement="bottom" title="Move sheet to history section" href="{{ route('sheet.move') }}">
                                 <i class="fa fa-paper-plane"></i>
                             </a>
                         </li>
                     @endif
-                    <li style="margin-top:17px;margin-left:{{ auth()->user()->role_id == 1?12:20 }}px;">
+                    <li style="margin-top:17px;margin-left:{{ auth()->user()->role_id==1?7:12 }}px;">
                         <a data-toggle="tooltip" data-placement="bottom" title="Use this button to export sheet as excel" href="javascript:;" id="excelExport" class="p-0">
                             <i class="fa fa-download"></i>
                         </a>
                     </li> 
                 @endif
                 @if(Auth::user()["role_id"] ==1)
-                <li class="nav-li">
-                    <a href="{{route('sheet.list')}}"> 
-                        <i class="fa fa-file-excel-o"></i>
-                            <span class="title">Spread Sheet</span>
-                        </a>
+                    <li class="nav-li">
+                        <a href="{{route('sheet.list')}}"> 
+                            <i class="fa fa-file-excel-o"></i>
+                                <span class="title">Spread Sheet</span>
+                            </a>
                     </li>
                     <li style="margin-top:19px;margin-left:2px;">
                         <a data-toggle="tooltip" data-placement="bottom" title="Send current active sheet to download section" href="{{ route('sheet.download') }}">
@@ -103,8 +97,8 @@
                         </a>
                     </li>
                 @endif
-                 <!-- start manage user dropdown -->
-                 <li class="dropdown dropdown-user">
+                <!-- start manage user dropdown -->
+                <li class="dropdown dropdown-user">
                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                         <span class="username username-hide-on-mobile">
                             {{ Auth::user()->role_id == 1? Auth::user()->last_name:Auth::user()->first_name }}
@@ -122,7 +116,7 @@
                     </ul>
                 </li>
                 <!-- end manage user dropdown -->
-              </ul>
+            </ul>
         </div>
     </div>
 </div>

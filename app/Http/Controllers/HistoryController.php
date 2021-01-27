@@ -41,7 +41,7 @@ class HistoryController extends Controller
           $newRecord->save();
           $oldRecord->delete();
         });
-        return redirect()->route('file.history')->with('message', "all record has been moved there");
+        return redirect()->route('user.history')->with('message', "all record has been moved there");
      }
 
      public function SheetSave(Request $request){

@@ -1,5 +1,6 @@
 <script>
     $(document).ready(function(){
+
         $('#spreadsheet-table').css("line-height","12.1px");
         let DataTable;
         let interests = ["sheet_upload", "approved", "rejected", "waiting_for_approve", "comment_from_colette"];
@@ -56,28 +57,12 @@
             .catch(console.error);
 
         $(".spreadsheet-refresh").click(function(e){
-            // window.location.reload();
             e.preventDefault();
             DataTable.ajax.reload();
         });
         channel.bind('App\\Events\\SheetUpdate', function(data) {
-            // alert(JSON.stringify(data));
-            // console.log(data);
-            // console.log(DataTable);
             DataTable.ajax.reload();
         });
-        // channel.bind('App\\Events\\SheetUpdate', function(data) {
-        //     alert(JSON.stringify(data));
-        //     // console.log(data);
-        //     // console.log(DataTable);
-        //     DataTable.ajax.reload();
-        // });
-        // channel.bind('sheet-update', function(data) {
-        //     alert(JSON.stringify(data));
-        //     // console.log(data);
-        //     // console.log(DataTable);
-        //     DataTable.ajax.reload();
-        // });
         let fields = [];
         if(is_colette){
             fields = [{
@@ -122,6 +107,14 @@
                 let i = $(this).index();
                 // console.log(is_colette);
                 if (!is_colette && (i == 6 || i == 7)){
+                    editor.inline( this, {
+                        onBlur: 'submit'
+                    });
+                }
+                else if (is_colette && (i == 10)){
+                    editor.inline( this, {
+                        onBlur: 'submit'
+                    });
                     editor.inline( this, {
                         onBlur: 'submit'
                     });
@@ -267,7 +260,7 @@
                 {
                     data: "editedby_name",
                     searchable: true,
-                    visible: {{ auth()->user()->role_id==2?"false":"true" }}
+                    visible: {{ auth()->user()->role_id == 2? "false":"true" }}
                 }
             ],
             select: false,

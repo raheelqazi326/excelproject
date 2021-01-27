@@ -410,7 +410,11 @@
               </div>
 
               <div class="form-group">
+<<<<<<< HEAD
+                <label for="recipient-name" class="col-form-label"> Email:</label>
+=======
                 <label for="recipient-name" class="col-form-label"> Eamil:</label>
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
                 <input type="text" class="form-control" id="email" name="email" required>
                 <p class="text-danger" id="error-email"></p>
               </div>
@@ -463,7 +467,11 @@
               </div>
 
               <div class="form-group">
+<<<<<<< HEAD
+                <label for="recipient-name" class="col-form-label"> Email:</label>
+=======
                 <label for="recipient-name" class="col-form-label"> Eamil:</label>
+>>>>>>> b4c920d2663870fe6cf850e51a3b33cea0b6eb23
                 <input type="text" class="form-control" id="uemail" value="" name="uemail" required>
               </div>
 

@@ -39,10 +39,18 @@ Route::group(['middleware'=>'auth'], function () {
     Route::get('/sheet/history', 'HistoryController@history')->name('user.history');
     Route::get('/user/history/data', 'HistoryController@historydata')->name('history.data');
     Route::post('/user/history/delete', 'HistoryController@historyDelete')->name('history.delete');
-    Route::post('/sheet/move', 'HistoryController@move')->name('sheet.move');
+    Route::get('/sheet/move', 'HistoryController@move')->name('sheet.move');
     Route::post('/sheet/upload/save', 'HistoryController@SheetSave')->name('sheet.save');
     Route::get('/sheet/download/', 'HistoryController@downloadfile')->name('sheet.download');
     Route::get('/sheet/download/data', 'HistoryController@filedata')->name('sheet.data');
+    Route::get('/cache-clear',function(){
+        Artisan::call('key:generate');
+        Artisan::call('config:cache');
+        Artisan::call('cache:clear');
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');   
+        return "786 all cache cleared.";
+    });
 
 });
 Route::get('/welcome', function () {
