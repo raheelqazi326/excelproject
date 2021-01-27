@@ -5,7 +5,7 @@
 <meta name="description" content="Responsive Admin Template" />
 <meta name="author" content="SmartUniversity" />
 <meta name="csrf-token" content="{{ csrf_token() }}" />
-<title>Spread Online Sheet</title>
+<title>Online Spread Sheet</title>
 <!-- google font -->
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" type="text/css" />
 <!-- icons -->
@@ -24,4 +24,4 @@
 <link href="{{ asset('assets/css/responsive.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets/css/theme/light/theme-color.css')}}" rel="stylesheet" type="text/css" />
 <!-- favicon -->
-<!-- <link rel="shortcut icon" href="http://radixtouch.in/templates/admin/smart/source/assets/img/favicon.ico" />  -->
+<link rel="shortcut icon" href="{{asset('assets/img/favicon.png')}}" />

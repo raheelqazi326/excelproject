@@ -7,6 +7,8 @@ use App\Models\Status;
 use App\Models\Role;
 use App\Models\User;
 use Hash;
+use App\Models\Spreadsheet;
+use Carbon\Carbon;
 class UserController extends Controller
 {
     /**
@@ -115,20 +117,33 @@ class UserController extends Controller
     }
 
     public function status(Request $request){
+        // return $request;
         $updatestatus = User::find($request->userid);
         $updatestatus->status=$request->status;
         $updatestatus->save();
-        return 1;
+        return 'updated';
     }
 
-    public function emailavail($id){
-        return $id;
-        $check = User::where('email',$id)->first();
+    public function emailavail(Request $request){
+        $check = User::where('email',$request->email)->first();
+        if ($check !=null) {
+            $check = User::where('username',$request->username)->first();
 
-        if ($check == 1) {
-            return 1;
+            if ($check !=null) {    
+                return "emailuserexist";
+            }else{
+                return "emailexist";
+            }
         }else{
-            return 0;
+            $check = User::where('username',$request->username)->first();
+
+            if ($check !=null) {    
+                return "userexist";
+            }else{
+                return "notexist";
+            }
         }
     }
+
+    
 }

@@ -6,47 +6,79 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <meta name="description" content="Responsive Admin Template" />
-    <meta name="author" content="RedstarHospital" />
-    <title>Smart University | Bootstrap Responsive Admin Template</title>
+    <meta name="description" content="Excel , import, spread sheet , google spreadsheet" />
+    <meta name="author" content="Online Spread Sheet" />
+    <title>Online Spread Sheet | Login</title>
     <!-- google font -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all" rel="stylesheet" type="text/css" />
 	<!-- icons -->
-    <link href="fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('assets/fonts/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css"/>
 	<link rel="stylesheet" href="{{ asset('assets/plugins/iconic/css/material-design-iconic-font.min.css')}}">
     <!-- bootstrap -->
 	<link href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
     <!-- style -->
     <link rel="stylesheet" href="{{ asset('assets/css/pages/extra_pages.css')}}">
 	<!-- favicon -->
-    <link rel="shortcut icon" href="http://radixtouch.in/templates/admin/smart/source/assets/img/favicon.ico" /> 
+    <link rel="shortcut icon" href="{{asset('assets/img/favicon.png')}}" /> 
+    <style type="text/css">
+    	.wrap-login100 {
+		    width: 422px;
+		    border-radius: 10px;
+		    overflow: hidden;
+		    padding: 26px 32px 19px 31px;
+		    background: #9152f8;
+		    background: -webkit-linear-gradient(top, #69e652, #54af4cc2);
+		    background: -o-linear-gradient(top, #69e652, #54af4cc2);
+		    background: -moz-linear-gradient(top, #69e652, #54af4cc2);
+		    background: linear-gradient(top, #69e652, #54af4cc2);
+		}
+		.login100-form-logo {
+		    font-size: 60px;
+		    color: #333333;
+		    display: -webkit-box;
+		    display: -webkit-flex;
+		    display: -moz-box;
+		    display: -ms-flexbox;
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    width: 147px;
+		    height: 148px;
+		    border-radius: 16%;
+		    background-color: white;
+		    margin: 0 auto;
+		}
+		.login100-form-logo img {
+		    width: 139px;
+		    border-radius: 0%;
+		    box-shadow: 0px 5px 25px 0px rgba(0,0,0,0.2);
+		}
+    </style>
 </head>
 <body>
     <div class="limiter">
 		<div class="container-login100 page-background">
-			<div class="wrap-login100">
-                @if($errors->any())
-                <div class="alert alert-danger" role="alert">
-                    {{ implode('', $errors->all(':message')) }}
-                  </div>
-                @endif
-
-               
+			<div class="wrap-login100">   
+				@if($errors->any())
+				<div class="alert alert-danger" role="alert">
+					{{ implode('', $errors->all(':message')) }}
+				  </div>
+				@endif            
                 <form class="login100-form validate-form" action="{{route('auth.login')}}" method="post">
                     @csrf
 					<span class="login100-form-logo">
-						<img alt="" src="{{ asset('assets/img/logo-2.png')}}">
+						<img alt="" src="{{asset('assets/img/logo.png')}}">
 					</span>
 					<span class="login100-form-title p-b-34 p-t-27">
-						Log in
+						Login
 					</span>
 					<div class="wrap-input100 validate-input" data-validate = "Enter Email">
-						<input class="input100" type="text" name="email" placeholder="Useremail">
-						<span class="focus-input100" data-placeholder="&#xf207;"></span>
+						<label class="text-light"><i class="fa fa-user"></i> Email</label>
+						<input class="input100" type="text" name="email" placeholder="Email">
 					</div>
 					<div class="wrap-input100 validate-input" data-validate="Enter password">
+						<label class="text-light"><i class="fa fa-lock"></i> Password</label>
 						<input class="input100" type="password" name="password" placeholder="Password">
-						<span class="focus-input100" data-placeholder="&#xf191;"></span>
 					</div>
 
 					<div class="container-login100-form-btn">
@@ -54,11 +86,7 @@
 							Login
 						</button>
 					</div>
-					<div class="text-center p-t-30">
-						<a class="txt1" href="forgot_password.html">
-							Forgot Password?
-						</a>
-					</div>
+					
 				</form>
 			</div>
 		</div>

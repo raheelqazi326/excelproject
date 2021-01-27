@@ -12,3 +12,62 @@
 <!-- Material -->
 <script src="{{ asset('assets/plugins/material/material.min.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+ 
+$("#headid li").click(function() {
+    let check = $(this).attr('id'); 
+    if (check == "userpassword") {
+        $('#Changepass').modal('toggle');
+    }
+});
+
+$("#conpassword").keyup(function() {
+  const password = $('.password').val();
+  const conpassword = $('#conpassword').val();
+ 
+  if (password == conpassword) {
+        $("#passdone").text("Password Match")
+        $("#passerror").text("")
+    }
+    else{
+        $("#passdone").text("")
+        $("#passerror").text("Password dose not Match")
+    }
+});
+
+
+$(document).on("submit","#passwordform",function() {
+    event.preventDefault();
+
+    let password = $('.password').val();
+    let userid = $('#userid').val();
+
+    $.ajax({ 
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: 'POST',
+        url:'/auth/change/password',
+        data: {
+            userid:userid,
+            password:password,
+        },success:function(data){
+            console.log(data);
+            if (data == 1) {
+                $('#Changepass').modal('hide');
+                Swal.fire(
+                    'User Update Upadate!',
+                    'You clicked the button!',
+                    'success'
+                    )
+                    location.reload();
+            }
+        }
+
+    });
+  
+});
+
+
+
+</script>

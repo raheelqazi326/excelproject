@@ -4,10 +4,18 @@ namespace App\Http\Controllers;
 use Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Hash;
 class AuthController extends Controller
 {
     public function index(){
         return view('admin.auth.login');
+    }
+
+    public function password(Request $request){
+        $changepass = User::find($request->userid);
+        $changepass->password=Hash::make($request->password);
+        $changepass->save();
+        return 1;
     }
 
     public function login(Request $request){

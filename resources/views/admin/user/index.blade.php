@@ -4,16 +4,19 @@
 
 <div class="page-content-wrapper">
     <div class="page-content">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            Add User
-        </button>    
+           
         <div class="row">
+            <div class="col-md-12 text-right mt-2">
+                <button type="button" class="btn btn-success " data-toggle="modal" data-target="#exampleModal">
+                    Add User
+                </button> 
+            </div>
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card card-topline-purple">
+                        <div class="card card-topline-green">
                             <div class="card-head">
-                                <header>STRIPED TABLE</header>
+                                <header>USERS TABLE</header>
                                 <div class="tools">
                                     <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
                                     <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
@@ -391,27 +394,30 @@
            
             <div class="form-group">
                 <label for="recipient-name" class="col-form-label">First Name:</label>
-                <input type="text" class="form-control" id="first_name" name="first_name">
+                <input type="text" class="form-control" id="first_name" name="first_name" required>
             </div>
 
               <div class="form-group">
                 <label for="recipient-name" class="col-form-label">Last Name:</label>
-                <input type="text" class="form-control" id="last_name" name="last_name">
+                <input type="text" class="form-control" id="last_name" name="last_name" required>
               </div>
 
               <div class="form-group">
                 <label for="recipient-name" class="col-form-label"> Username:</label>
-                <input type="text" class="form-control" id="user_name" name="user_name">
+                <input type="text" class="form-control" id="user_name" name="user_name" required>
+                <p class="text-danger" id="error-user_name"></p>
+
               </div>
 
               <div class="form-group">
-                <label for="recipient-name" class="col-form-label"> Eamil:</label>
-                <input type="text" class="form-control" id="email" name="email">
+                <label for="recipient-name" class="col-form-label"> Email:</label>
+                <input type="text" class="form-control" id="email" name="email" required>
+                <p class="text-danger" id="error-email"></p>
               </div>
 
               <div class="form-group">
                 <label for="recipient-name" class="col-form-label"> Password:</label>
-                <input type="text" class="form-control" id="password" name="password">
+                <input type="text" class="form-control" id="password" name="password" required>
               </div>
 
         </div>
@@ -443,22 +449,22 @@
            <input type="hidden" class="user_id" id="user_id" value="">
             <div class="form-group">
                 <label for="recipient-name" class="col-form-label">First Name:</label>
-                <input type="text" class="form-control" id="firstname" name="firstname" value="">
+                <input type="text" class="form-control" id="firstname" name="firstname" value="" required>
             </div>
 
               <div class="form-group">
                 <label for="recipient-name" class="col-form-label">Last Name:</label>
-                <input type="text" class="form-control" id="lastname" name="lastname">
+                <input type="text" class="form-control" id="lastname" name="lastname" required>
               </div>
 
               <div class="form-group">
                 <label for="recipient-name" class="col-form-label"> Username:</label>
-                <input type="text" class="form-control" value="" id="username" name="username">
+                <input type="text" class="form-control" value="" id="username" name="username" required>
               </div>
 
               <div class="form-group">
-                <label for="recipient-name" class="col-form-label"> Eamil:</label>
-                <input type="text" class="form-control" id="uemail" value="" name="uemail">
+                <label for="recipient-name" class="col-form-label"> Email:</label>
+                <input type="text" class="form-control" id="uemail" value="" name="uemail" required>
               </div>
 
               <div class="form-group">
@@ -496,7 +502,7 @@
                         div +='<td>'+value.last_name+'</td>';
                         div +='<td>'+value.username+'</td>';
                         div +='<td>'+value.email+'</td>';
-                        div +='<td><select class="form-control" id="userstatus">';
+                        div +='<td><select class="form-control userstatus" >';
                         div +='<option data-id="'+value.id+'" value="active" '+(is_active?"selected":"")+'>Active</option>';
                         div +='<option data-id="'+value.id+'" value="inactive"'+(is_active?"":"selected")+'>Inactive</option>';
                         div +='</select></td>';
@@ -515,13 +521,89 @@
         $('#userAdd').on('submit',function(){
             event.preventDefault();
                let email = $('#email').val();
+                let username = $('#user_name').val();
                $.ajax({
-                     url:'/email/avail/'+email,
-                    type: 'get',
+                      headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url:'/email/avail',
+                    type: 'post',
+                    data: {
+                    email:email,
+                    username:username
+                    },
                     success:function(data){
-                        console.log(data)
+                        console.log(data);
+                        if(data == "emailexist"){
+                            $('#error-email').text('This email already register please enter another email')
+                            $('#error-user_name').text('')
+                        }
+                        if(data == "emailuserexist"){
+                            $('#error-user_name').text('This email already register please enter another email')
+                            $('#error-email').text('This email already register please enter another email')
+                        }
+                        if(data == "userexist"){
+                            $('#error-email').text('');                                        
+                            $('#error-user_name').text('This email already register please enter another email')
+                        }
+
+                        
+                        if(data == "notexist"){
+                            let data = $('#userAdd').serialize();
+                            $.ajax({
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                },
+                                url:'/user/store',
+                                data: data,
+                                type: 'POST',
+                                success:function(data){
+                                    if(data ==1){
+                                        Swal.fire(
+                                            'User Added!',
+                                            'You clicked the button!',
+                                            'success'
+                                        )
+                                        $('#exampleModal').modal('hide');
+                                        $('#error-email').text('');
+                                        $('#error-user_name').text('')                                        
+                                        $("#userAdd").get(0).reset()
+
+                                            $.ajax({
+                                            type: 'GET',
+                                            url:'/users/list',
+                                            
+                                            success:function(data){
+                                                let div;
+                                                $.each( data, function( key, value ) {
+                                                    is_active = (value.status=='active');
+                                                    div +='<tr>';
+                                                    div +='<td>'+value.id+'</td>';
+                                                    div +='<td>'+value.first_name+'</td>';
+                                                    div +='<td>'+value.last_name+'</td>';
+                                                    div +='<td>'+value.username+'</td>';
+                                                    div +='<td>'+value.email+'</td>';
+                                                    div +='<td><select class="form-control userstatus" >';
+                                                    div +='<option data-id="'+value.id+'" value="active" '+(is_active?"selected":"")+'>Active</option>';
+                                                    div +='<option data-id="'+value.id+'" value="inactive"'+(is_active?"":"selected")+'>Inactive</option>';
+                                                    div +='</select></td>';
+                                                    div += '<td>';
+                                                    div +='<button id="editUser" data-id="'+value.id+'" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>';
+                                                    div +='<button id="delteUser" data-id="'+value.id+'" class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>';
+                                                    div += '</td>';
+                                                    div +='</tr>';
+                                                    });
+                                                $('#user-table').html(div);
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+                        }
                     }
                })
+
+
         });
 
         $(document).on('click','#editUser',function(){
@@ -580,26 +662,31 @@
                                 url:'/users/list',
                                 
                                 success:function(data){
-                                    let div;
+                                    let tableBody = $('#user-table');
+                                    tableBody.html();
                                     $.each( data, function( key, value ) {
                                         is_active = (value.status=='active');
-                                        div +='<tr>';
-                                        div +='<td>'+value.id+'</td>';
-                                        div +='<td>'+value.first_name+'</td>';
-                                        div +='<td>'+value.last_name+'</td>';
-                                        div +='<td>'+value.username+'</td>';
-                                        div +='<td>'+value.email+'</td>';
-                                        div +='<td><select class="form-control" id="userstatus">';
-                                        div +='<option data-id="'+value.id+'" value="active" '+(is_active?"selected":"")+'>Active</option>';
-                                        div +='<option data-id="'+value.id+'" value="inactive"'+(is_active?"":"selected")+'>Inactive</option>';
-                                        div +='</select></td>';
-                                        div += '<td>';
-                                        div +='<button id="editUser" data-id="'+value.id+'" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>';
-                                        div +='<button id="delteUser" data-id="'+value.id+'" class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>';
-                                        div += '</td>';
-                                        div +='</tr>';
-                                        });
-                                    $('#user-table').html(div);
+                                        let tr = $("<tr/>");
+                                        let td = $("<td/>");
+                                        td.clone().text(value.id).appendTo(tr);
+                                        td.clone().text(value.first_name).appendTo(tr);
+                                        td.clone().text(value.last_name).appendTo(tr);
+                                        td.clone().text(value.username).appendTo(tr);
+                                        td.clone().text(value.email).appendTo(tr);
+                                        td.clone().html(
+                                            $("<select></select>").attr("class", "form-control new-status-select").html(
+                                                '<option data-id="'+value.id+'" value="active" '+(is_active?"selected":"")+'>Active</option>\
+                                                <option data-id="'+value.id+'" value="inactive"'+(is_active?"":"selected")+'>Inactive</option>'
+                                            )
+                                        ).appendTo(tr);
+                                        td.clone().html(
+                                            '<button id="editUser" data-id="'+value.id+'" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>\
+                                            <button id="delteUser" data-id="'+value.id+'" class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>'
+                                        ).appendTo(tr);
+                                        tr.appendTo(tableBody);
+                                    });
+                                    $(".new-status-select").addClass("userstatus").removeClass("new-status-select");
+                                    // $('#user-table').html(div);
                                 }
                             });
                         }
@@ -638,7 +725,7 @@
                                             div +='<td>'+value.last_name+'</td>';
                                             div +='<td>'+value.username+'</td>';
                                             div +='<td>'+value.email+'</td>';
-                                            div +='<td><select class="form-control" id="userstatus">';
+                                            div +='<td><select class="form-control userstatus" >';
                                             div +='<option data-id="'+value.id+'" value="active" '+(is_active?"selected":"")+'>Active</option>';
                                             div +='<option data-id="'+value.id+'" value="inactive"'+(is_active?"":"selected")+'>Inactive</option>';
                                             div +='</select></td>';
@@ -666,10 +753,12 @@
         });
 
 
-        $(document).on('change','#userstatus',function(){
+        $(document).on('change','.userstatus',function(){
+            console.log('change');
             var status = $(this).find(":selected").val();
             var userid = $(this).find(":selected").data("id");
-            
+            console.log(status);
+            console.log(userid)
             $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -681,7 +770,7 @@
                         status:status
                     },
                     success:function(data){
-                        if(data ==1){
+                        if(data =='updated'){
                             Swal.fire(
                                 'Status Change!',
                                 'Your status has been change.',
@@ -701,9 +790,9 @@
                                         div +='<td>'+value.last_name+'</td>';
                                         div +='<td>'+value.username+'</td>';
                                         div +='<td>'+value.email+'</td>';
-                                        div +='<td><select class="form-control" id="userstatus">';
-                                        div +='<option value="active" '+(is_active?"selected":"")+'>Active</option>';
-                                        div +='<option value="inactive"'+(is_active?"":"selected")+'>Inactive</option>';
+                                        div +='<td><select class="form-control userstatus" >';
+                                        div +='<option data-id="'+value.id+'" value="active" '+(is_active?"selected":"")+'>Active</option>';
+                                        div +='<option data-id="'+value.id+'"    value="inactive"'+(is_active?"":"selected")+'>Inactive</option>';
                                         div +='</select></td>';
                                         div += '<td>';
                                         div +='<button id="editUser" data-id="'+value.id+'" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>';
@@ -719,10 +808,12 @@
                 });
 
         });
-
        
 
     });
+
+
+    
 </script>
 
 
