@@ -17,7 +17,6 @@ class Roles extends Seeder
         //
         $roles = [
             1 => "admin",
-            2 => "colette",
             3 => "user"
         ];
         Role::truncate();

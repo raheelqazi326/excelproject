@@ -13,35 +13,10 @@ class SpreadsheetController extends Controller
         return view('admin.sheet.index');
     }
 
-    public function uploadSpreadsheet(Request $request){
-        $rows = $request->rows;
-        // return response()->json($rows, 500);
-        foreach($rows as $row){        
-            $spreadsheet = Spreadsheet::where('request_id', $row['Request Id'])->first();
-            if(!empty($spreadsheet)){
-                if($spreadsheet->status_id == 3){
-                    continue;
-                }
-                $spreadsheet->delete();
-            }
-            $spreadsheet = new Spreadsheet;
-            $spreadsheet->request_id = $row['Request Id']??$row['Request+Id']??"";
-            $spreadsheet->date = date('Y-m-d', strtotime($row['Date']));
-            $spreadsheet->start = date('H:i:s', strtotime($row['Start']));
-            $spreadsheet->end = date('H:i:s', strtotime($row['End']));
-            $spreadsheet->ward = $row['Ward'];
-            $spreadsheet->request_grade = $row['Request Grade']??$row['Request+Grade']??"";
-            $spreadsheet->status_id = 1;
-            $spreadsheet->save();            
-        }
-        return response()->json(['status' => true, 'message' => 'successfully uploaded']);
-    }
-
     public function datatableSpreadsheet(Request $request){
         // dd($request->all());
-        return DataTables::of(Spreadsheet::with('status')
-            ->whereHas('status')
-            ->whereBetween('created_at', [
+        return DataTables::of(Spreadsheet::where('type', $request->type)
+            ->whereBetween('date', [
                 date('Y-m-d 00:00:00', strtotime($request->start)),
                 date('Y-m-d 23:59:59', strtotime($request->end))
             ]))->toJson();
@@ -101,94 +76,26 @@ class SpreadsheetController extends Controller
         $rows = $request->data;
         $i = (array_keys($rows))[0];
         $errors = [];
-        $is_colette = $request->role_id == 2?1:0;
         // dd($request->all());
         try {
             //code...
             foreach($rows as $key => $row){
                 $spreadsheet = Spreadsheet::find($key);
+                if($key == 0){
+                    $spreadsheet = new Spreadsheet();
+                    $spreadsheet->type = $request->type;
+                }
                 if(!empty($spreadsheet)){
                     foreach ($row as $key => $value) {
-                        if($is_colette){
-                            if($key == "comment_from_colette"){
-                                $spreadsheet->$key = $value;
-                            }
-                            else{
-                                return response()->json([
-                                    "data" => [],
-                                    "fieldErrors" => [
-                                        "name" => $key,
-                                        "status" => "you can not update this column"
-                                    ]
-                                ]);
-                            }
-                            $data = [
-                                "interests" => ["comment_from_colette"],
-                                "web" => [
-                                    "notification" => [
-                                        "icon" => asset('notification-icon.png'),
-                                        "deep_link" => route('sheet.datatable'),
-                                        "title" => "Comment From Colette",
-                                        "body" => "Request ID #{$spreadsheet->request_id}: {$value}"
-                                    ]
-                                ]
-                            ];
-                            $this->sendPushNotification($data);
-                        }
-                        else{
-                            if(empty($spreadsheet->editedby_id) || $spreadsheet->editedby_id == $request->user_id || $request->role_id == 1){
-                                if(($key == "candidate" || $key == "national_insurance") && ($spreadsheet->status_id == 1 || $spreadsheet->status_id == 2)){
-                                    $spreadsheet->$key = $value;
-                                    $spreadsheet->editedby_id = $request->user_id;
-                                    $spreadsheet->editedby_name = $request->name;
-                                }
-                                else{
-                                    return response()->json([
-                                        "data" => [],
-                                        "fieldErrors" => [[
-                                            "name" => $key,
-                                            "status" => !($key == "candidate" || $key == "national_insurance")?"you can not update this column":"You can not update when request is ".($spreadsheet->status_id == 3?"approved":"reject")
-                                        ]]
-                                    ]);
-                                }
-                            }
-                            else{
-                                return response()->json([
-                                    "data" => [],
-                                    "fieldErrors" => [[
-                                        "name" => $key,
-                                        "status" => "You cannot edit this row"
-                                    ]]
-                                ]);
-                            }
-                        }
-                    }
-                    if($spreadsheet->status_id == 1 && (!empty($spreadsheet->candidate) || !empty($spreadsheet->national_insurance))){
-                        $spreadsheet->status_id = 2;
-                        $data = [
-                            "interests" => ["waiting_for_approve"],
-                            "web" => [
-                                "notification" => [
-                                    "icon" => asset('notification-icon.png'),
-                                    "deep_link" => route('sheet.datatable'),
-                                    "title" => "Candidate Added",
-                                    "body" => "Request ID #{$spreadsheet->request_id} Waiting for approve"
-                                ]
-                            ]
-                        ];
-                        $this->sendPushNotification($data);
-                        // echo $response;                        
-                    }
-                    else if($spreadsheet->status_id == 2 && (empty($spreadsheet->candidate) && empty($spreadsheet->national_insurance))){
-                        $spreadsheet->status_id = 1;
+                        $spreadsheet->$key = $value;
                     }
                     $spreadsheet->save();
                 }
             }
-            event(new SheetUpdate('reload'));
-            return DataTables::of(Spreadsheet::with('status')->whereHas('status')->find(array_keys($rows)))->toJson();
+            // event(new SheetUpdate('reload'));
+            return DataTables::of(Spreadsheet::find(array_keys($rows)))->toJson();
         } catch (\Throwable $th) {
-            //throw $th;
+            throw $th;
             // dd($th);
             foreach($rows[$i] as $key => $value){
                 $errors[] = [

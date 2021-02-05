@@ -18,7 +18,7 @@ class CreateSpreadsheetsTable extends Migration
             $table->enum('type', ['in', 'out'])->default('in');
             $table->date('date')->nullable();
             $table->double('amount', 15, 8)->nullable();
-            $table->text('description')->nullable()->default('text');
+            $table->text('description')->nullable();
             $table->string('category', 255)->nullable();            
             $table->timestamps();
         });

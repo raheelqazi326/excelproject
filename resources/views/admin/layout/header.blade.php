@@ -30,11 +30,11 @@
             </li> -->
             <table class="mt-4">
                 <tr>
-                    <th class="py-1 px-2">Total: <span>100</span></th>
+                    {{-- <th class="py-1 px-2">Total: <span>100</span></th>
                     <th class="py-1 px-2">Pending: <span>100</span></th>
                     <th class="py-1 px-2">Waiting: <span>100</span></th>
-                    <th class="py-1 px-2">Approved: <span>100</span></th>
-                    <th class="py-1 px-2">Rejected: <span>100</span></th>
+                    <th class="py-1 px-2">Approved: <span>100</span></th> --}}
+                    <th class="py-1 px-2">Balance: <span>100</span></th>
                 </tr>
             </table>
         </ul>
@@ -47,62 +47,37 @@
         <!-- start header menu -->
         <div class="top-menu">
             <ul class="nav navbar-nav pull-right">
-                <li class="mt-3">
-                    <div id="reportrange"  class="pull-left" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc;">
-                        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
-                        <span></span> <b class="caret"></b>
-                    </div>
-
-                <li class="mt-1"><a href="javascript:;" data-toggle="tooltip" data-placement="bottom" title="Click here for full screen view" class="fullscreen-btn"><i class="fa fa-arrows-alt"></i></a></li>
-                
                 @if (Route::currentRouteName() == "sheet.list")
+                    <li class="mt-3">
+                        <div id="reportrange"  class="pull-left" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc;">
+                            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+                            <span></span> <b class="caret"></b>
+                        </div>
+                    </li>
+                    <li class="mt-1">
+                        <a href="javascript:;" data-toggle="tooltip" data-placement="bottom" title="Click here for full screen view" class="fullscreen-btn"><i class="fa fa-arrows-alt"></i></a>
+                    </li>
                     <li class="mt-1">
                         <a data-toggle="tooltip" data-placement="bottom" title="Refresh Sheet Data" class="fa fa-repeat btn-color spreadsheet-refresh" href="javascript:;"></a>
                     </li>
-                    
-                    @if (auth()->user()->role_id == 2)
-                        <li style="margin-top:17px;margin-left:7px;">
-                            <a data-toggle="tooltip" data-placement="bottom" title="Use this button to import excel sheet" href="javascript:;" class="excel-import">
-                                <i class="excel-import fa fa-upload"></i>
-                            </a>
-                            <input type="file" id="excel_import" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" style="display:none">
-                        </li>
-                    @endif
-                    @if (auth()->user()->role_id == 1)
-                        <li style="margin-top:17px;margin-left:0px;">
-                            <a data-toggle="tooltip" data-placement="bottom" title="Move sheet to history section" href="{{ route('sheet.move') }}">
-                                <i class="fa fa-paper-plane"></i>
-                            </a>
-                        </li>
-                    @endif
-                    <li style="margin-top:17px;margin-left:{{ auth()->user()->role_id==1?7:12 }}px;">
+                    <li style="margin-top:17px;margin-left:17px;">
                         <a data-toggle="tooltip" data-placement="bottom" title="Use this button to export sheet as excel" href="javascript:;" id="excelExport" class="p-0">
                             <i class="fa fa-download"></i>
                         </a>
                     </li> 
                 @endif
-                @if(Auth::user()["role_id"] ==1)
+                @if(Auth::user()["role_id"]!=1)
                     <li class="nav-li">
                         <a href="{{route('sheet.list')}}"> 
                             <i class="fa fa-file-excel-o"></i>
-                                <span class="title">Spread Sheet</span>
-                            </a>
-                    </li>
-                    <li style="margin-top:19px;margin-left:2px;">
-                        <a data-toggle="tooltip" data-placement="bottom" title="Send current active sheet to download section" href="{{ route('sheet.download') }}">
-                            Uploads
+                            <span class="title">Spread Sheet</span>
                         </a>
                     </li>
+                @else
                     <li  class="nav-li">
                         <a href="{{route('user.list')}}"> 
                             <i class="fa fa-users"></i>
                             <span class="title">Users</span>
-                        </a>
-                    </li>
-                    <li  class="nav-li">
-                        <a href="{{route('user.history')}}"> 
-                        <i class="fa fa-users"></i>
-                            <span class="title">History</span>
                         </a>
                     </li>
                 @endif
@@ -110,7 +85,7 @@
                 <li class="dropdown dropdown-user">
                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                         <span class="username username-hide-on-mobile">
-                            {{ Auth::user()->role_id == 1? Auth::user()->last_name:Auth::user()->first_name }}
+                            {{ Auth::user()->first_name." ".Auth::user()->last_name }}
                         </span>
                         <i class="fa fa-angle-down"></i>
                     </a>

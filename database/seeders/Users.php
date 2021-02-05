@@ -15,37 +15,15 @@ class Users extends Seeder
     public function run()
     {
         //
-        $users = [
-            [
-                "role_id" => 1, // admin
-                "first_name" => "Super",
-                "last_name" => "Admin",
-                "username" => "superadmin",
-                "email" => "admin@onlinespreadsheet.co.uk",
-                "password" => '$2y$10$xRdw3jJALAmhN6dWBXBql.c5nx3.nNNre/I/6yhav3.N3tPTvOiBW', // 123456
-                "status" => "active"
-            ],
-            [
-                "role_id" => 2, // colette
-                "first_name" => "Colette",
-                "last_name" => "Hospital",
-                "username" => "colettehospital",
-                "email" => "colette@onlinespreadsheet.co.uk",
-                "password" => '$2y$10$xRdw3jJALAmhN6dWBXBql.c5nx3.nNNre/I/6yhav3.N3tPTvOiBW', // 123456
-                "status" => "active"
-            ]
-        ];
         User::truncate();
-        foreach($users as $user){
-            $userModel = new User();
-            $userModel->first_name = $user['first_name'];
-            $userModel->last_name = $user['last_name'];
-            $userModel->email = $user['email'];
-            $userModel->username = $user['username'];
-            $userModel->password = $user['password'];
-            $userModel->status = $user['status'];
-            $userModel->role_id = $user['role_id'];
-            $userModel->save();
-        }
+        $userModel = new User();
+        $userModel->role_id = 1;
+        $userModel->first_name = "Samar";
+        $userModel->last_name = "Turabi";
+        $userModel->email = "samar@hnh.pk";
+        $userModel->username = "samarturabi";
+        $userModel->password = '$2y$10$xRdw3jJALAmhN6dWBXBql.c5nx3.nNNre/I/6yhav3.N3tPTvOiBW';
+        $userModel->status = "active";
+        $userModel->save();
     }
 }

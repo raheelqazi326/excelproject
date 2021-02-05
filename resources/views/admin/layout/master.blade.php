@@ -7,61 +7,62 @@
 	@stack('styles')
     <style type="text/css">
         html {
-  --scrollbarBG: #cff3cf47;
-  --thumbBG: #a8d4a8;
-}
-div.DTE button.btn, div.DTE div.DTE_Form_Buttons button{
-    background-image: none !important;
-}
-body::-webkit-scrollbar {
-  width: 16px;
-}
-.modal-body {
-    background: #9152f8;
-    background: -webkit-linear-gradient(top, #69e652, #54af4cc2);
-    background: -o-linear-gradient(top, #007bff, #5992d0);
-    background: -moz-linear-gradient(top, #007bff, #5992d0);
-    background: linear-gradient(top, #007bff, #5992d0);
-}
-.modal .modal-header , .modal .modal-footer {
-    border-bottom: 1px solid #EFEFEF;
-    background: #9152f8;
-    background: -webkit-linear-gradient(top, #69e652, #54af4cc2);
-    background: -o-linear-gradient(top, #007bff, #5992d0);
-    background: -moz-linear-gradient(top, #007bff, #5992d0);
-    background: linear-gradient(top, #007bff, #5992d0);
-}
-.disappear, .disappear button {
-    left: -9999;
-}
-body {
-  scrollbar-width: thin;
-  scrollbar-color: var(--thumbBG) var(--scrollbarBG);
-}
-body::-webkit-scrollbar-track {
-  background: var(--scrollbarBG);
-}
-body::-webkit-scrollbar-thumb {
-  background-color: var(--thumbBG) ;
-  border-radius: 6px;
-  border: 3px solid var(--scrollbarBG);
-}
-/*Table Scrollbar*/
-.table-responsive::-webkit-scrollbar {
-  width: 11px;
-}
-.table-responsive {
-  scrollbar-width: thin;
-  scrollbar-color: var(--thumbBG) var(--scrollbarBG);
-}
-.table-responsive::-webkit-scrollbar-track {
-  background: var(--scrollbarBG);
-}
-.table-responsive::-webkit-scrollbar-thumb {
-  background-color: var(--thumbBG) ;
-  border-radius: 6px;
-  border: 3px solid var(--scrollbarBG);
-}
+            --scrollbarBG: #cff3cf47;
+            --thumbBG: #a8d4a8;
+        }
+        div.DTE button.btn, div.DTE div.DTE_Form_Buttons button{
+            background-image: none !important;
+        }
+        body::-webkit-scrollbar {
+            width: 16px;
+        }
+        .modal-body {
+            background: #9152f8;
+            background: -webkit-linear-gradient(top, #69e652, #54af4cc2);
+            background: -o-linear-gradient(top, #007bff, #5992d0);
+            background: -moz-linear-gradient(top, #007bff, #5992d0);
+            background: linear-gradient(top, #007bff, #5992d0);
+        }
+        .modal .modal-header , .modal .modal-footer {
+            border-bottom: 1px solid #EFEFEF;
+            background: #9152f8;
+            background: -webkit-linear-gradient(top, #69e652, #54af4cc2);
+            background: -o-linear-gradient(top, #007bff, #5992d0);
+            background: -moz-linear-gradient(top, #007bff, #5992d0);
+            background: linear-gradient(top, #007bff, #5992d0);
+        }
+        /* .disappear, */
+        .disappear .admin-btn {
+            left: -9999;
+        }
+        body {
+            scrollbar-width: thin;
+            scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+        }
+        body::-webkit-scrollbar-track {
+            background: var(--scrollbarBG);
+        }
+        body::-webkit-scrollbar-thumb {
+            background-color: var(--thumbBG) ;
+            border-radius: 6px;
+            border: 3px solid var(--scrollbarBG);
+        }
+        /*Table Scrollbar*/
+        .table-responsive::-webkit-scrollbar {
+            width: 11px;
+        }
+        .table-responsive {
+            scrollbar-width: thin;
+            scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+        }
+        .table-responsive::-webkit-scrollbar-track {
+            background: var(--scrollbarBG);
+        }
+        .table-responsive::-webkit-scrollbar-thumb {
+            background-color: var(--thumbBG) ;
+            border-radius: 6px;
+            border: 3px solid var(--scrollbarBG);
+        }
         body{
             font-size: 13px !important;
         }

@@ -14,7 +14,8 @@
         /*max-width: 1047px;
         min-width: 192px;*/
     }
-    table#spreadsheet-table {
+    table#spreadsheet-table,
+    table#spreadsheet-table-out {
         font-size: 13px;
         line-height: 7.1px;
         width: 120% !important;
@@ -85,24 +86,24 @@
     }
     div#spreadsheet-table_processing {
         height: 40rem;
-    top: 10%;
-    width: 98%;
-    left: 8.5%;
-    /* z-index: -999999; */
-    /* background: gray; */
-    opacity: 0.44;
+        top: 10%;
+        width: 98%;
+        left: 8.5%;
+        /* z-index: -999999; */
+        /* background: gray; */
+        opacity: 0.44;
         /*background: gray;*/
         /*opacity: 0.3;*/
     }
     .page-link {
-    position: relative;
-    display: block;
-    padding: .5rem .75rem;
-    margin-left: -1px;
-    line-height: 1.25;
-    color: #3b6738 !important;
-    background-color: #fff;
-    border: 1px solid #dee2e6 ;
+        position: relative;
+        display: block;
+        padding: .5rem .75rem;
+        margin-left: -1px;
+        line-height: 1.25;
+        color: #3b6738 !important;
+        background-color: #fff;
+        border: 1px solid #dee2e6 ;
     }
     .page-item.active .page-link {
         z-index: 1;
@@ -116,10 +117,10 @@
         color: #0b850b;
     }
     .page-item.active .page-link {
-    z-index: 1;
-    color: #fff;
-    background-color: #3b6738 !important;
-    border-color: #3b6738 !important;
+        z-index: 1;
+        color: #fff;
+        background-color: #3b6738 !important;
+        border-color: #3b6738 !important;
     }
     .table-responsive{
         height: 37.6rem;
@@ -127,24 +128,14 @@
     input.Request {
         width: 114px;
     }
-    input.Date1 {
-        width: 74px;
-    }
-    input.Start2 {
-        width: 58px;
-    }
-    input.End3 {
-        width: 58px;
-    }   
-    input.Ward4 {
-        width: 300px;
+    input.Date1, input.Amount2, input.Category3 {
+        width: 100%;
     }
     @media(max-width: 992px){
-    table#spreadsheet-table {
-        line-height: 17.1px;
-        width: 185% !important;
-    }
-
+        table#spreadsheet-table {
+            line-height: 17.1px;
+            width: 185% !important;
+        }
     }
 </style>
 @section('content')
@@ -163,23 +154,32 @@
                             @endif
                         </div>
                     </div> --}}
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="table-responsive1">
                             <table id="spreadsheet-table" class="table custom-table table-hover table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Request ID</th>
+                                        <th>Type</th>
+                                        <th style="width:10%">Date</th>
+                                        <th style="width:10%">Amount</th>
+                                        <th style="width:10%">Category</th>
+                                        <th style="width:10%">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="table-responsive1">
+                            <table id="spreadsheet-table-out" class="table custom-table table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Type</th>
                                         <th>Date</th>
-                                        <th>Start</th>
-                                        <th>End</th>
-                                        <th>Ward</th>
-                                        <th>Request Grade</th>
-                                        <th>Candidate</th>
-                                        <th style="width: 146px !important;">National Insurance</th>
-                                        <th>Action</th>
-                                        <th>Status</th>
-                                        <th style="width: 170px !important;">Comment From Colette</th>
-                                        <th>Edited By</th>
+                                        <th>Amount</th>
+                                        <th>Category</th>
+                                        <th>Description</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -194,9 +194,6 @@
 <!-- end page content -->
 @endsection
 @push('scripts')
-    {{-- Excel Import Scripts --}}
-    <script src="{{ asset('assets/js/pages/excel-import/jszip.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/excel-import/xlsx.js') }}"></script>
     {{-- DataTable Scripts --}}
     <script src="{{ asset('datatable/Main/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('datatable/Main/js/dataTables.bootstrap4.min.js') }}"></script>
@@ -206,11 +203,10 @@
     <script src="{{ asset('datatable/Main/js/dataTables.editor.min.js') }}"></script>
     <script src="{{ asset('datatable/Main/js/jszip.min.js') }}"></script>
     {{-- Pusher Scripts --}}
-    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-    <script src="https://js.pusher.com/beams/1.0/push-notifications-cdn.js"></script>
+    {{-- <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script src="https://js.pusher.com/beams/1.0/push-notifications-cdn.js"></script> --}}
     {{-- Custom Scripts --}}
-    @include('admin.sheet.datatablejs')
-    @include('admin.sheet.exceljs')
+    @include('admin.sheet.datatablejs-in')
+    @include('admin.sheet.datatablejs-out')
     {{-- DataTable Scripts --}}
-    
 @endpush
