@@ -108,20 +108,18 @@
                 // console.log(is_colette);
                 if (!is_colette && (i == 6 || i == 7)){
                     editor.inline( this, {
-                        onBlur: 'submit'
+                        onBlur: 'submit',
+                        buttons: {
+                            label: 'x', className: "btn-danger", fn: function () { this.close(); }
+                        } 
                     });
                 }
                 else if (is_colette && (i == 10)){
                     editor.inline( this, {
-                        onBlur: 'submit'
-                    });
-                    editor.inline( this, {
-                        onBlur: 'submit'
-                    });
-                }
-                else if (is_colette && (i == 10)){
-                    editor.inline( this, {
-                        onBlur: 'submit'
+                        onBlur: 'submit',
+                        buttons: {
+                            label: 'x', className: "btn-danger", fn: function () { this.close(); }
+                        } 
                     });
                 }
             } catch (error) {
@@ -170,7 +168,7 @@
             }, 
             orderCellsTop: true,
             fixedHeader: true,         
-            ajax: "{{ route('sheet.datatable') }}?start="+start.format('YYYY-MM-DD')+"&end="+end.format('YYYY-MM-DD'),
+            ajax: "{{ route('sheet.datatable') }}?start="+start.format('YYYY-MM-DD')+"&end="+end.format('YYYY-MM-DD'),                
             // order: [[ 1, 'asc' ]],
             columns: [
                 {
@@ -318,6 +316,28 @@
                 */
             ]
         });
+        DataTable.on('xhr.dt', function ( e, settings, json, xhr ) {
+            // Do some staff here...
+            // $('#status').html( json.status );
+            // console.log(settings);
+            // console.log("json:", json);
+            if(json === null){
+                // console.log("json object is null");
+                console.log("Total: ", 0);
+                console.log("pending: ", 0);
+                console.log("waiting for approval: ", 0);
+                console.log("approved: ", 0);
+                console.log("rejected: ", 0);
+            }
+            else{
+                // console.log("json object is not null");
+                console.log("Total: ", json.data.length);
+                console.log("pending: ", json.data.reduce((a, o) => (o.status_id == 1 && a.push(o.value), a), []).length);
+                console.log("waiting for approval: ", json.data.reduce((a, o) => (o.status_id == 2 && a.push(o.value), a), []).length);
+                console.log("approved: ", json.data.reduce((a, o) => (o.status_id == 3 && a.push(o.value), a), []).length);
+                console.log("rejected: ", json.data.reduce((a, o) => (o.status_id == 4 && a.push(o.value), a), []).length);
+            }
+        } )
         cb(start, end);
         // DataTable.rows({ search: "{{ auth()->user()->first_name.' '.auth()->user()->last_name }}" }).select();
         // console.log(DataTable.rows({selected: true}).data());

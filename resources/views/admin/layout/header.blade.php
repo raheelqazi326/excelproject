@@ -28,6 +28,15 @@
                     <span class="title">Log Out</span></span>
                 </a>
             </li> -->
+            <table class="mt-4">
+                <tr>
+                    <th class="py-1 px-2">Total: <span>100</span></th>
+                    <th class="py-1 px-2">Pending: <span>100</span></th>
+                    <th class="py-1 px-2">Waiting: <span>100</span></th>
+                    <th class="py-1 px-2">Approved: <span>100</span></th>
+                    <th class="py-1 px-2">Rejected: <span>100</span></th>
+                </tr>
+            </table>
         </ul>
 
         <!-- start mobile menu -->

@@ -86,11 +86,11 @@
                 });
                 $.ajax({
                     headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     url: "{{ route('sheet.save') }}",
                     method: "post",
-                    data:data,
+                    data: data,
                     processData: false,
                     contentType: false,
                     error: function(err){

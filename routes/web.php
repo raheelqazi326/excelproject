@@ -16,6 +16,16 @@ Route::get('/', 'AuthController@index')->name('login');
 Route::post('/auth/login', 'AuthController@login')->name('auth.login');
 Route::get('/auth/logout', 'AuthController@logout')->name('auth.logout');
 
+// Resource Route
+Route::resource('users', 'UserController');
+
+// normal route
+Route::get('users', 'UserController@index')->name('users.index');
+Route::post('users', 'UserController@store')->name('users.store');
+Route::get('users/{id}', 'UserController@edit')->name('users.edit');
+Route::put('users/{id}', 'UserController@update')->name('users.update');
+Route::delete('users/{id}', 'UserController@destroy')->name('users.destroy');
+
 Route::group(['middleware'=>'auth'], function () {
     Route::post('/auth/change/password', 'AuthController@password')->name('auth.password');
 

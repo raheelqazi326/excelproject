@@ -167,25 +167,23 @@
                             // let ids_keys = Object.keys(selectedRows);
                             const arrr = []
                             const ids_keys = selectedRows.map(row=>{arrr.push(row.id)});
-                           console.log(arrr)
-                        //    const response =  fetch("/user/history/delete", {
-                        //         method: 'POST', // *GET, POST, PUT, DELETE, etc.
-                        //         mode: 'cors', // no-cors, *cors, same-origin
-                        //         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-                        //         body:JSON.stringify(arrr),
-                        //         headers: {
-                        //         'Content-Type': 'application/json',
-                        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        //     },
+                            console.log(arrr)
+                            // const response =  fetch("/user/history/delete", {
+                            //     method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                            //     mode: 'cors', // no-cors, *cors, same-origin
+                            //     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                            //     body:JSON.stringify(arrr),
+                            //     headers: {
+                            //         'Content-Type': 'application/json',
+                            //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            //     },
                                 
-                        //     });
-                        //     postData('/user/history/delete')
-                        //         .then(data => {
-                        //             console.log(data); // JSON data parsed by `data.json()` call
-                        //         });
-                        
-                         
-                        //    alert(ids_keys);
+                            // });
+                            // postData('/user/history/delete')
+                            //     .then(data => {
+                            //         console.log(data); // JSON data parsed by `data.json()` call
+                            //     });
+                            // alert(ids_keys);
                             $.ajax({           
                                 url:"{{ route('history.delete') }}",
                                 type:"POST",
@@ -224,11 +222,7 @@
             DataTable.on( 'select deselect', function () {
                 var selectedRows = DataTable.rows( { selected: true } );
                 DataTable.button( 2 ).enable( selectedRows.length > 0 );
-            } );
-            
-        });
-
-
-        
+            });            
+        });        
     </script>
 @endsection

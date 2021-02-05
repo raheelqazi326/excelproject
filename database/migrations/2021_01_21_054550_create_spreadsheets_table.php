@@ -15,18 +15,11 @@ class CreateSpreadsheetsTable extends Migration
     {
         Schema::create('spreadsheets', function (Blueprint $table) {
             $table->id();
-            $table->string('request_id', 40)->index();
-            $table->date('date');
-            $table->time('start');
-            $table->time('end');
-            $table->string('ward', 255);
-            $table->string('request_grade', 255);
-            $table->string('candidate', 100)->nullable();
-            $table->string('national_insurance', 100)->nullable();
-            $table->string('comment_from_colette', 255)->nullable();            
-            $table->tinyInteger('status_id')->unsigned();
-            $table->integer('editedby_id')->unsigned()->nullable();
-            $table->string('editedby_name', 100)->nullable();
+            $table->enum('type', ['in', 'out'])->default('in');
+            $table->date('date')->nullable();
+            $table->double('amount', 15, 8)->nullable();
+            $table->text('description')->nullable()->default('text');
+            $table->string('category', 255)->nullable();            
             $table->timestamps();
         });
     }
