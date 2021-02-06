@@ -33,7 +33,8 @@
         }
         /* .disappear, */
         .disappear .admin-btn {
-            left: -9999;
+            /* left: -9999; */
+            display:none;
         }
         body {
             scrollbar-width: thin;

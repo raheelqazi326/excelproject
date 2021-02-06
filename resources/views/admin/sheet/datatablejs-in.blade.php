@@ -5,14 +5,20 @@
         let DataTable;
         let interests = ["sheet_upload", "approved", "rejected", "waiting_for_approve", "comment_from_colette"];
         var editor; // use a global for the submit and return data rendering in the examples
-        var start = moment();
+        var start = moment().subtract(6, 'days');
         var end = moment();
         
         function cb(start, end) {
             $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-            DataTable.ajax.url("{{ route('sheet.datatable') }}?type=in&start="+start.format('YYYY-MM-DD')+"&end="+end.format('YYYY-MM-DD'));
+            DataTable.ajax.url("{{ route('sheet.datatable') }}?type=in&category="+$("#category-select").val()+"&start="+start.format('YYYY-MM-DD')+"&end="+end.format('YYYY-MM-DD'));
             DataTable.ajax.reload();
         }
+
+        $(document).on('change', '#category-select', function(){
+            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            DataTable.ajax.url("{{ route('sheet.datatable') }}?type=in&category="+$("#category-select").val()+"&start="+start.format('YYYY-MM-DD')+"&end="+end.format('YYYY-MM-DD'));
+            DataTable.ajax.reload();
+        });
         
         $('#reportrange').daterangepicker({
             startDate: start,
@@ -77,7 +83,7 @@
                     onBlur: 'submit',
                     buttons: {
                         label: 'x', className: "btn-danger", fn: function () { this.close(); }
-                    } 
+                    }
                 });
             } catch (error) {
                 console.log(error);                    
@@ -115,7 +121,7 @@
             }, 
             orderCellsTop: true,
             fixedHeader: true,         
-            ajax: "{{ route('sheet.datatable') }}?type=in&start="+start.format('YYYY-MM-DD')+"&end="+end.format('YYYY-MM-DD'),                
+            ajax: "{{ route('sheet.datatable') }}?type=in&category="+$("#category-select").val()+"&start="+start.format('YYYY-MM-DD')+"&end="+end.format('YYYY-MM-DD'),                
             // order: [[ 1, 'asc' ]],
             columns: [
                 {
@@ -130,10 +136,10 @@
                     data: "amount"
                 },
                 {
-                    data: "description"
+                    data: "category"
                 },
                 {
-                    data: "category"
+                    data: "description"
                 }
                 // {
                 //     data: "request_grade"
@@ -246,28 +252,27 @@
             // $('#status').html( json.status );
             // console.log(settings);
             // console.log("json:", json);
+            let inAmountEle = $(".balance #in-amount");
             if(json === null){
                 // console.log("json object is null");
-                console.log("Total: ", 0);
-                console.log("pending: ", 0);
-                console.log("waiting for approval: ", 0);
-                console.log("approved: ", 0);
-                console.log("rejected: ", 0);
+                inAmountEle.val(0);
             }
             else{
+                inAmountEle.val(json.data.reduce((a, o) => (o.amount+a), 0));
+                inAmountEle.trigger('change');
                 // console.log("json object is not null");
-                console.log("Total: ", json.data.length);
-                console.log("pending: ", json.data.reduce((a, o) => (o.status_id == 1 && a.push(o.value), a), []).length);
-                console.log("waiting for approval: ", json.data.reduce((a, o) => (o.status_id == 2 && a.push(o.value), a), []).length);
-                console.log("approved: ", json.data.reduce((a, o) => (o.status_id == 3 && a.push(o.value), a), []).length);
-                console.log("rejected: ", json.data.reduce((a, o) => (o.status_id == 4 && a.push(o.value), a), []).length);
+                // console.log("Total: ", json.data.length);
+                // console.log("pending: ", json.data.reduce((a, o) => (o.status_id == 1 && a.push(o.value), a), []).length);
+                // console.log("waiting for approval: ", json.data.reduce((a, o) => (o.status_id == 2 && a.push(o.value), a), []).length);
+                // console.log("approved: ", json.data.reduce((a, o) => (o.status_id == 3 && a.push(o.value), a), []).length);
+                // console.log("rejected: ", json.data.reduce((a, o) => (o.status_id == 4 && a.push(o.value), a), []).length);
             }
         } )
         cb(start, end);
         // DataTable.rows({ search: "{{ auth()->user()->first_name.' '.auth()->user()->last_name }}" }).select();
         // console.log(DataTable.rows({selected: true}).data());
         $("#spreadsheet-table").on('click', "span.change-request-status", function(){
-            console.log($(this))
+            // console.log($(this))
             let ele = $(this);
             $.ajax({
                 url: "{{ route('sheet.update.status') }}",

@@ -28,15 +28,19 @@
                     <span class="title">Log Out</span></span>
                 </a>
             </li> -->
-            <table class="mt-4">
-                <tr>
-                    {{-- <th class="py-1 px-2">Total: <span>100</span></th>
-                    <th class="py-1 px-2">Pending: <span>100</span></th>
-                    <th class="py-1 px-2">Waiting: <span>100</span></th>
-                    <th class="py-1 px-2">Approved: <span>100</span></th> --}}
-                    <th class="py-1 px-2">Balance: <span>100</span></th>
-                </tr>
-            </table>
+            @if (Route::currentRouteName() == "sheet.list")
+                <table class="mt-4 balance">
+                    <tr>
+                        {{-- <th class="py-1 px-2">Total: <span>100</span></th>
+                        <th class="py-1 px-2">Pending: <span>100</span></th>
+                        <th class="py-1 px-2">Waiting: <span>100</span></th>
+                        <th class="py-1 px-2">Approved: <span>100</span></th> --}}
+                        <input type="hidden" id="in-amount" value="0">
+                        <input type="hidden" id="out-amount" value="0">
+                        <th class="py-1 px-2">Balance: <span>0</span></th>
+                    </tr>
+                </table>
+            @endif
         </ul>
 
         <!-- start mobile menu -->
@@ -54,6 +58,7 @@
                             <span></span> <b class="caret"></b>
                         </div>
                     </li>
+                    @livewire('select-category')
                     <li class="mt-1">
                         <a href="javascript:;" data-toggle="tooltip" data-placement="bottom" title="Click here for full screen view" class="fullscreen-btn"><i class="fa fa-arrows-alt"></i></a>
                     </li>
@@ -95,7 +100,8 @@
                         </li>
                         <li>
                             <a href="{{route('auth.logout')}}">
-                                <i class="icon-logout"></i> Log Out </a>
+                                <i class="icon-logout"></i> Log Out
+                            </a>
                         </li>
                     </ul>
                 </li>

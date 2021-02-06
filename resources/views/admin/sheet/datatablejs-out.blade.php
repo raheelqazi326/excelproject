@@ -5,12 +5,12 @@
         let DataTable;
         let interests = ["sheet_upload", "approved", "rejected", "waiting_for_approve", "comment_from_colette"];
         var editor; // use a global for the submit and return data rendering in the examples
-        var start = moment();
+        var start = moment().subtract(6, 'days');
         var end = moment();
         
         function cb(start, end) {
             $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-            DataTable.ajax.url("{{ route('sheet.datatable') }}?type=out&start="+start.format('YYYY-MM-DD')+"&end="+end.format('YYYY-MM-DD'));
+            DataTable.ajax.url("{{ route('sheet.datatable') }}?type=out&category="+$("#category-select").val()+"&start="+start.format('YYYY-MM-DD')+"&end="+end.format('YYYY-MM-DD'));
             DataTable.ajax.reload();
         }
         
@@ -26,6 +26,13 @@
                 'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
             }
         }, cb);
+
+        $(document).on('change', '#category-select', function(){
+            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            DataTable.ajax.url("{{ route('sheet.datatable') }}?type=out&category="+$("#category-select").val()+"&start="+start.format('YYYY-MM-DD')+"&end="+end.format('YYYY-MM-DD'));
+            DataTable.ajax.reload();
+        });
+
         
         // Enable pusher logging - don't include this in production
         $(".spreadsheet-refresh").click(function(e){
@@ -40,10 +47,12 @@
                     'user_id': "{{ auth()->user()->id }}",
                     'name': "{{ auth()->user()->first_name.' '.auth()->user()->last_name }}",
                     'role_id':"{{ auth()->user()->role_id }}",
-                    "type": "in"
+                    "type": "out"
                 },
                 success: function(result){
+                    // Livewire.emit('ajax-reload');
                     DataTable.ajax.reload();
+                    
                 }
             },
             table: "#spreadsheet-table-out",
@@ -115,7 +124,7 @@
             }, 
             orderCellsTop: true,
             fixedHeader: true,         
-            ajax: "{{ route('sheet.datatable') }}?type=out&start="+start.format('YYYY-MM-DD')+"&end="+end.format('YYYY-MM-DD'),                
+            ajax: "{{ route('sheet.datatable') }}?type=out&category="+$("#category-select").val()+"&start="+start.format('YYYY-MM-DD')+"&end="+end.format('YYYY-MM-DD'),                
             // order: [[ 1, 'asc' ]],
             columns: [
                 {
@@ -130,10 +139,10 @@
                     data: "amount"
                 },
                 {
-                    data: "description"
+                    data: "category"
                 },
                 {
-                    data: "category"
+                    data: "description"
                 }
                 // {
                 //     data: "request_grade"
@@ -246,21 +255,20 @@
             // $('#status').html( json.status );
             // console.log(settings);
             // console.log("json:", json);
+            let outAmountEle = $(".balance #out-amount");
             if(json === null){
                 // console.log("json object is null");
-                console.log("Total: ", 0);
-                console.log("pending: ", 0);
-                console.log("waiting for approval: ", 0);
-                console.log("approved: ", 0);
-                console.log("rejected: ", 0);
+                outAmountEle.val(0);
             }
             else{
+                outAmountEle.val(json.data.reduce((a, o) => (o.amount+a), 0));
+                outAmountEle.trigger('change')
                 // console.log("json object is not null");
-                console.log("Total: ", json.data.length);
-                console.log("pending: ", json.data.reduce((a, o) => (o.status_id == 1 && a.push(o.value), a), []).length);
-                console.log("waiting for approval: ", json.data.reduce((a, o) => (o.status_id == 2 && a.push(o.value), a), []).length);
-                console.log("approved: ", json.data.reduce((a, o) => (o.status_id == 3 && a.push(o.value), a), []).length);
-                console.log("rejected: ", json.data.reduce((a, o) => (o.status_id == 4 && a.push(o.value), a), []).length);
+                // console.log("Total: ", json.data.length);
+                // console.log("pending: ", json.data.reduce((a, o) => (o.status_id == 1 && a.push(o.value), a), []).length);
+                // console.log("waiting for approval: ", json.data.reduce((a, o) => (o.status_id == 2 && a.push(o.value), a), []).length);
+                // console.log("approved: ", json.data.reduce((a, o) => (o.status_id == 3 && a.push(o.value), a), []).length);
+                // console.log("rejected: ", json.data.reduce((a, o) => (o.status_id == 4 && a.push(o.value), a), []).length);
             }
         } )
         cb(start, end);

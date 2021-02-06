@@ -16,6 +16,8 @@ class SpreadsheetController extends Controller
     public function datatableSpreadsheet(Request $request){
         // dd($request->all());
         return DataTables::of(Spreadsheet::where('type', $request->type)
+            ->where('user_id', auth()->user()->id)
+            ->where('category', 'LIKE', "%{$request->category}%")
             ->whereBetween('date', [
                 date('Y-m-d 00:00:00', strtotime($request->start)),
                 date('Y-m-d 23:59:59', strtotime($request->end))
@@ -83,6 +85,7 @@ class SpreadsheetController extends Controller
                 $spreadsheet = Spreadsheet::find($key);
                 if($key == 0){
                     $spreadsheet = new Spreadsheet();
+                    $spreadsheet->user_id = $request->user_id;
                     $spreadsheet->type = $request->type;
                 }
                 if(!empty($spreadsheet)){
