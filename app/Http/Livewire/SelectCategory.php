@@ -3,7 +3,7 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use App\Models\SpreadSheet;
+use App\Models\Spreadsheet;
 
 class SelectCategory extends Component
 {
