@@ -23,11 +23,11 @@
               <input type="hidden" id="userid" value="{{ Auth::user()->id }}">
               <div class="form-group">
                   <label for="recipient-name" class="col-form-label">Password:</label>
-                  <input type="text" class="form-control password" id="password" name="password" required>
+                  <input type="password" class="form-control password" id="password" name="password" required>
               </div>
               <div class="form-group">
                   <label for="recipient-name" class="col-form-label">Confirm Password:</label>
-                  <input type="text" class="form-control" id="conpassword" name="conpassword" required>
+                  <input type="password" class="form-control" id="conpassword" name="conpassword" required>
               </div>
           </div>
           <div class="modal-footer">

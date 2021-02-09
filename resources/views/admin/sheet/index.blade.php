@@ -210,7 +210,6 @@
     <script src="https://js.pusher.com/beams/1.0/push-notifications-cdn.js"></script> --}}
     {{-- Custom Scripts --}}
     @include('admin.sheet.datatablejs-in')
-    @include('admin.sheet.datatablejs-out')
     <script>
         function getBalanceAmount(){
             let inAmount = $(".balance #in-amount").val();

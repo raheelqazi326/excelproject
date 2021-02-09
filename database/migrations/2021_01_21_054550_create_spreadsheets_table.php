@@ -15,6 +15,7 @@ class CreateSpreadsheetsTable extends Migration
     {
         Schema::create('spreadsheets', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id')->unsigned();
             $table->enum('type', ['in', 'out'])->default('in');
             $table->date('date')->nullable();
             $table->double('amount', 15, 8)->nullable();

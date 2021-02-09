@@ -3,7 +3,7 @@
 
         $('#spreadsheet-table').css("line-height","12.1px");
         let DataTable;
-        let interests = ["sheet_upload", "approved", "rejected", "waiting_for_approve", "comment_from_colette"];
+        // let interests = ["sheet_upload", "approved", "rejected", "waiting_for_approve", "comment_from_colette"];
         var editor; // use a global for the submit and return data rendering in the examples
         var start = moment().subtract(6, 'days');
         var end = moment();
@@ -291,5 +291,7 @@
                 }
             });
         });
+        
+        @include('admin.sheet.datatablejs-out')
     });
 </script>

@@ -1,17 +1,18 @@
-<script>
-    $(document).ready(function(){
+
 
         $('#spreadsheet-table-out').css("line-height","12.1px");
-        let DataTable;
+        let DataTable1;
         let interests = ["sheet_upload", "approved", "rejected", "waiting_for_approve", "comment_from_colette"];
-        var editor; // use a global for the submit and return data rendering in the examples
+        var editor1; // use a global for the submit and return data rendering in the examples
         var start = moment().subtract(6, 'days');
         var end = moment();
         
-        function cb(start, end) {
+        function cb1(start, end) {
             $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-            DataTable.ajax.url("{{ route('sheet.datatable') }}?type=out&category="+$("#category-select").val()+"&start="+start.format('YYYY-MM-DD')+"&end="+end.format('YYYY-MM-DD'));
+            DataTable.ajax.url("{{ route('sheet.datatable') }}?type=in&category="+$("#category-select").val()+"&start="+start.format('YYYY-MM-DD')+"&end="+end.format('YYYY-MM-DD'));
             DataTable.ajax.reload();
+            DataTable1.ajax.url("{{ route('sheet.datatable') }}?type=out&category="+$("#category-select").val()+"&start="+start.format('YYYY-MM-DD')+"&end="+end.format('YYYY-MM-DD'));
+            DataTable1.ajax.reload();
         }
         
         $('#reportrange').daterangepicker({
@@ -25,21 +26,21 @@
                 'This Month': [moment().startOf('month'), moment().endOf('month')],
                 'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
             }
-        }, cb);
+        }, cb1);
 
         $(document).on('change', '#category-select', function(){
             $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-            DataTable.ajax.url("{{ route('sheet.datatable') }}?type=out&category="+$("#category-select").val()+"&start="+start.format('YYYY-MM-DD')+"&end="+end.format('YYYY-MM-DD'));
-            DataTable.ajax.reload();
+            DataTable1.ajax.url("{{ route('sheet.datatable') }}?type=out&category="+$("#category-select").val()+"&start="+start.format('YYYY-MM-DD')+"&end="+end.format('YYYY-MM-DD'));
+            DataTable1.ajax.reload();
         });
 
         
         // Enable pusher logging - don't include this in production
         $(".spreadsheet-refresh").click(function(e){
             e.preventDefault();
-            DataTable.ajax.reload();
+            DataTable1.ajax.reload();
         });
-        editor = new $.fn.dataTable.Editor({
+        editor1 = new $.fn.dataTable.Editor({
             ajax: {
                 url:"{{ route('sheet.edit') }}",
                 type: "POST",
@@ -51,7 +52,7 @@
                 },
                 success: function(result){
                     // Livewire.emit('ajax-reload');
-                    DataTable.ajax.reload();
+                    DataTable1.ajax.reload();
                     
                 }
             },
@@ -82,7 +83,7 @@
         $("#spreadsheet-table-out").on( 'click', 'tbody td', function (e){
             try {
                 let i = $(this).index();
-                editor.inline( this, {
+                editor1.inline( this, {
                     onBlur: 'submit',
                     buttons: {
                         label: 'x', className: "btn-danger", fn: function () { this.close(); }
@@ -104,16 +105,16 @@
             $(this).html( '<input type="text" class='+title + i +' placeholder="Search" />' );
     
             $( 'input', this ).on( 'keyup change', function () {
-                if ( DataTable.column(i).search() !== this.value ) {
-                    DataTable
+                if ( DataTable1.column(i).search() !== this.value ) {
+                    DataTable1
                         .column(i)
                         .search( this.value )
                         .draw();
                 }
             } );
         } );
-        let domTemplate = '<"row"<"col-3"l><"col-8 text-center"<"disappear"B>>><"table-responsive"rt><"row"<"col"i><"col"p>>';
-        DataTable = $("#spreadsheet-table-out").DataTable({
+        {{-- domTemplate = '<"row"<"col-3"l><"col-8 text-center"<"disappear"B>>><"table-responsive"rt><"row"<"col"i><"col"p>>'; --}}
+        DataTable1 = $("#spreadsheet-table-out").DataTable({
             "lengthMenu": [[-1, 10, 25, 50, 100], ["All", 10, 25, 50, 100]],
             // "iDisplayLength": -1,
             dom: domTemplate,
@@ -211,7 +212,7 @@
                 //     extend: 'copy',
                 //     text: "Copy Spreadsheet to Clipboard",
                 // },
-                { extend: "create", editor: editor },
+                { extend: "create", editor: editor1 },
                 {
                     extend: 'excel',
                     text: "Export Spreadsheet",
@@ -250,7 +251,7 @@
                 */
             ]
         });
-        DataTable.on('xhr.dt', function ( e, settings, json, xhr ) {
+        DataTable1.on('xhr.dt', function ( e, settings, json, xhr ) {
             // Do some staff here...
             // $('#status').html( json.status );
             // console.log(settings);
@@ -287,12 +288,10 @@
                 },
                 success: function(result){
                     console.log(result);
-                    DataTable.ajax.reload();
+                    DataTable1.ajax.reload();
                 },
                 error: function(result){
                     // console.log(error);
                 }
             });
         });
-    });
-</script>
