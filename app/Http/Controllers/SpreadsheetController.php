@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Spreadsheet;
 use App\Events\SheetUpdate;
+use App\Imports\Spreadsheet AS SpreadsheetIn;
+use App\Imports\SpreadsheetOut;
+use Maatwebsite\Excel\Facades\Excel;
 use DataTables;
 
 class SpreadsheetController extends Controller
@@ -38,6 +41,13 @@ class SpreadsheetController extends Controller
         ];
         $this->sendPushNotification($data);
         event(new SheetUpdate('reload'));
+    }
+
+    public function uploadSpreadsheet(Request $request){
+        // dd($request->file('excelUpload'));
+        Excel::import(new SpreadSheetIn, request()->file('excelUpload'));
+        Excel::import(new SpreadSheetOut, request()->file('excelUpload'));
+        return redirect()->back();
     }
     
     public function updateRequestStatus(Request $request){

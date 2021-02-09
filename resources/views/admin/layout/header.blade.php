@@ -65,26 +65,22 @@
                     <li class="mt-1">
                         <a data-toggle="tooltip" data-placement="bottom" title="Refresh Sheet Data" class="fa fa-repeat btn-color spreadsheet-refresh" href="javascript:;"></a>
                     </li>
-                    <li style="margin-top:17px;margin-left:17px;">
+                    <li style="margin-top:0px;margin-left:17px;">
+                        <a href="javascript:void(0)" >
+                            <form action="{{ route('sheet.upload') }}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <label data-toggle="tooltip" data-placement="bottom" title="Use this button to export sheet as excel" class="p-0" for="excelUpload">
+                                    <i class="fa fa-upload"></i>
+                                </label>
+                                <input type="file" name="excelUpload" id="excelUpload" style="display:none">
+                            </form>
+                        </a>
+                    </li> 
+                    <li style="margin-top:21px;margin-left:17px;">
                         <a data-toggle="tooltip" data-placement="bottom" title="Use this button to export sheet as excel" href="javascript:;" id="excelExport" class="p-0">
                             <i class="fa fa-download"></i>
                         </a>
                     </li> 
-                @endif
-                @if(Auth::user()["role_id"]!=1)
-                    <li class="nav-li">
-                        <a href="{{route('sheet.list')}}"> 
-                            <i class="fa fa-file-excel-o"></i>
-                            <span class="title">Spread Sheet</span>
-                        </a>
-                    </li>
-                @else
-                    <li  class="nav-li">
-                        <a href="{{route('user.list')}}"> 
-                            <i class="fa fa-users"></i>
-                            <span class="title">Users</span>
-                        </a>
-                    </li>
                 @endif
                 <!-- start manage user dropdown -->
                 <li class="dropdown dropdown-user">

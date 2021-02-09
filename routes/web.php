@@ -33,7 +33,7 @@ Route::group(['middleware'=>'auth'], function () {
     Route::group(['middleware'=>'user'], function () {
         /////////////////////////////////////// SHEET ROUTE //////////////////////////////////////////////
         Route::get('/sheet/list', 'SpreadsheetController@index')->name('sheet.list');
-        // Route::post('/upload-spreadsheet', 'SpreadsheetController@uploadSpreadsheet')->name('sheet.upload');
+        Route::post('/upload-spreadsheet', 'SpreadsheetController@uploadSpreadsheet')->name('sheet.upload');
         Route::get('/spreadsheet-uploaded/{total_requests}', 'SpreadsheetController@sheetUploadNotification')->name('sheet.uploaded');
         Route::get('/sheet/datatable', 'SpreadsheetController@datatableSpreadsheet')->name('sheet.datatable');
         Route::post('sheet/update-status', 'SpreadsheetController@updateRequestStatus')->name('sheet.update.status');
@@ -61,10 +61,10 @@ Route::group(['middleware'=>'auth'], function () {
         Route::get('/user/create', 'UserController@create')->name('user.create');
         Route::get('/user/show/{id}', 'UserController@show')->name('/user/show/{id}');
         Route::post('/user/update', 'UserController@update')->name('user.update');
-        Route::get('/users/list', 'UserController@indexajax')->name('/users/list');
+        Route::get('/users/list', 'UserController@indexajax')->name('users.list');
         Route::get('/user/delete/{id}', 'UserController@delete')->name('/user/delete/{id}');
         Route::post('/user/status', 'UserController@status')->name('/user/status');
-        Route::post('/email/avail', 'UserController@emailavail')->name('/email/avail');
+        Route::post('/email/avail', 'UserController@emailavail')->name('email.avail');
         Route::get('/user/history/data', 'HistoryController@historydata')->name('history.data');
         Route::post('/user/history/delete', 'HistoryController@historyDelete')->name('history.delete');
     });
