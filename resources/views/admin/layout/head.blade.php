@@ -25,3 +25,8 @@
 <link href="{{ asset('assets/css/theme/light/theme-color.css')}}" rel="stylesheet" type="text/css" />
 <!-- favicon -->
 <link rel="shortcut icon" href="{{asset('assets/img/favicon.png')}}" />
+<style>
+    .page-content-wrapper .page-content {
+        min-height: 90rem;
+    }
+</style>
