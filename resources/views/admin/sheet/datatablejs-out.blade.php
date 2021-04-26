@@ -4,10 +4,12 @@
         let DataTable1;
         let interests = ["sheet_upload", "approved", "rejected", "waiting_for_approve", "comment_from_colette"];
         var editor1; // use a global for the submit and return data rendering in the examples
-        var start = moment().subtract(6, 'days');
-        var end = moment();
+        var start = moment('{{ $dates['start'] }}');
+        var end = moment('{{ $dates['end'] }}');
         
-        function cb1(start, end) {
+        function cb1(start1, end1) {
+            start = start1;
+            end = end1;
             $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
             DataTable.ajax.url("{{ route('sheet.datatable') }}?type=in&category="+$("#category-select").val()+"&start="+start.format('YYYY-MM-DD')+"&end="+end.format('YYYY-MM-DD'));
             DataTable.ajax.reload();

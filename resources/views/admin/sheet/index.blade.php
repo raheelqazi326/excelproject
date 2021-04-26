@@ -215,7 +215,8 @@
             let inAmount = $(".balance #in-amount").val();
             let outAmount = $(".balance #out-amount").val();
             // console.log(inAmount, outAmount);
-            $(".balance th span").text((inAmount>outAmount?"+":"")+(inAmount-outAmount))
+            let balance = inAmount-outAmount;
+            $(".balance th span").text((balance > 0?"+":"")+balance);
         }
         $(document).ready(function(){
             $("#excelUpload").change(function(){

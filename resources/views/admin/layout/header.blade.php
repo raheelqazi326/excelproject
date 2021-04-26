@@ -69,7 +69,7 @@
                         <a href="javascript:void(0)" >
                             <form action="{{ route('sheet.upload') }}" method="post" enctype="multipart/form-data">
                                 @csrf
-                                <label data-toggle="tooltip" data-placement="bottom" title="Use this button to export sheet as excel" class="p-0" for="excelUpload">
+                                <label data-toggle="tooltip" data-placement="bottom" title="Use this button to import data" class="p-0" for="excelUpload">
                                     <i class="fa fa-upload"></i>
                                 </label>
                                 <input type="file" name="excelUpload" id="excelUpload" style="display:none">

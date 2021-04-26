@@ -8,7 +8,9 @@
         var start = moment().subtract(6, 'days');
         var end = moment();
         
-        function cb(start, end) {
+        function cb(start1, end1) {
+            start = start1;
+            end = end1;
             $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
             DataTable.ajax.url("{{ route('sheet.datatable') }}?type=in&category="+$("#category-select").val()+"&start="+start.format('YYYY-MM-DD')+"&end="+end.format('YYYY-MM-DD'));
             DataTable.ajax.reload();
@@ -258,6 +260,7 @@
                 inAmountEle.val(0);
             }
             else{
+                console.log(json.data.reduce((a, o) => (o.amount+a), 0));
                 inAmountEle.val(json.data.reduce((a, o) => (o.amount+a), 0));
                 inAmountEle.trigger('change');
                 // console.log("json object is not null");

@@ -13,14 +13,20 @@ use DataTables;
 class SpreadsheetController extends Controller
 {
     public function index(){   
-        return view('admin.sheet.index');
+        $dates = [
+            'start' => Spreadsheet::min('date'),
+            'end' => Spreadsheet::max('date')
+        ];
+        return view('admin.sheet.index', compact('dates'));
     }
 
     public function datatableSpreadsheet(Request $request){
         // dd($request->all());
         return DataTables::of(Spreadsheet::where('type', $request->type)
             ->where('user_id', auth()->user()->id)
-            ->where('category', 'LIKE', "%{$request->category}%")
+            ->when(isset($request->category), function($q) use($request){
+                $q->where('category', 'LIKE', "%{$request->category}%");
+            })
             ->whereBetween('date', [
                 date('Y-m-d 00:00:00', strtotime($request->start)),
                 date('Y-m-d 23:59:59', strtotime($request->end))
