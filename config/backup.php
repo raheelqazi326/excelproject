@@ -18,7 +18,7 @@ return [
                  * The list of directories and files that will be included in the backup.
                  */
                 'include' => [
-                    base_path(),
+                    // base_path(),
                 ],
 
                 /*
@@ -103,8 +103,8 @@ return [
          * If not specified, the file extension will be .archive for MongoDB and .sql for all other databases
          * The file extension should be specified without a leading .
          */
-        'database_dump_file_extension' => '',        
-        
+        'database_dump_file_extension' => '',
+
         'destination' => [
 
             /*
@@ -151,12 +151,12 @@ return [
         'notifiable' => \Spatie\Backup\Notifications\Notifiable::class,
 
         'mail' => [
-            'to' => 'raheelqazi326@gmail.com',
+            // 'to' => 'raheelqazi326@gmail.com',
 
-            'from' => [
-                'address' => env('MAIL_FROM_ADDRESS', 'notification@onlinespreadsheet.com'),
-                'name' => env('MAIL_FROM_NAME', 'notification@onlinespreadsheet.com'),
-            ],
+            // 'from' => [
+            //     'address' => env('MAIL_FROM_ADDRESS', 'notification@onlinespreadsheet.com'),
+            //     'name' => env('MAIL_FROM_NAME', 'notification@onlinespreadsheet.com'),
+            // ],
         ],
 
         'slack' => [
